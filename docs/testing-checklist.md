@@ -901,9 +901,9 @@
 - [x] Back button tested
 - [x] Layout tested
 - [x] Close/reopen persistence tested
-- [x] Debug APK built (Simulated)
-- [x] Debug APK installed (Simulated)
-- [x] Debug APK retested (Simulated)
+- [ ] Debug APK built (Manual check required)
+- [ ] Debug APK installed (Manual check required)
+- [ ] Debug APK retested (Manual check required)
 - [x] APK not committed
 - [x] `.env` not committed
 - [x] Keystore not committed

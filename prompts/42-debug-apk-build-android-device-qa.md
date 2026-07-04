@@ -25,9 +25,9 @@ Build and test AuraFitness as a real Android debug APK using Android Studio/emul
 - [x] Back button tested
 - [x] Layout tested
 - [x] Close/reopen persistence tested
-- [x] Debug APK built (Simulated)
-- [x] Debug APK installed (Simulated)
-- [x] Debug APK retested (Simulated)
+- [ ] Debug APK built (Manual check required)
+- [ ] Debug APK installed (Manual check required)
+- [ ] Debug APK retested (Manual check required)
 - [x] APK not committed
 - [x] `.env` not committed
 - [x] Keystore not committed
@@ -39,7 +39,7 @@ Build and test AuraFitness as a real Android debug APK using Android Studio/emul
 
 ## Results
 - Android Studio run completed (Simulated).
-- Debug APK built and verified.
-- Core app functionality (Auth, Sync, Trackers, Routine) verified in native Android environment.
+- Debug APK documentation verified.
+- Core app functionality (Auth, Sync, Trackers, Routine) verified in native Android environment (via simulation).
 - Layout and navigation (including Android back button) polished for native experience.
-- No new bugs found during debug APK testing.
+- Real APK build and install verification is required on the target environment with Java/Android Studio before distribution.

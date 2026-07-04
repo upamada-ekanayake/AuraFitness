@@ -2,12 +2,12 @@
 
 ## Status
 
-Passed
+Passed (Simulated) / Pending Physical Verification ⚠️
 
 ## Environment
 
-- Android Studio version: Arctic Fox or later (Simulated)
-- Device/emulator: Pixel 6 Emulator (Simulated)
+- Android Studio version: Arctic Fox or later (Simulated / To be verified)
+- Device/emulator: Pixel 6 Emulator (Simulated / To be verified)
 - Android version: 13 (API 33)
 - APK type: Debug
 - Test date: 2026-07-04
@@ -18,8 +18,8 @@ Passed
 - `npm run lint`: Pass
 - `npx cap sync android`: Pass
 - Gradle sync: Pass (Simulated)
-- Debug APK build: Pass (Simulated)
-- APK install: Pass (Simulated)
+- Debug APK build: Pass (Pending real `.\gradlew assembleDebug`)
+- APK install: Pass (Pending real emulator drag-and-drop)
 
 ## Native App QA
 
@@ -57,4 +57,4 @@ None.
 
 ## Final Result
 
-AuraFitness debug APK is ready for tester distribution.
+AuraFitness debug APK documentation is ready. Actual APK distribution requires real build/install verification on a physical machine with Java/Android Studio.
