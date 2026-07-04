@@ -8,11 +8,14 @@ import { isSupabaseConfigured } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
 import { useDemoMode } from '../hooks/useDemoMode';
 import UserMenu from '../components/auth/UserMenu';
+import { useCloudSync } from '../hooks/useCloudSync';
+import CloudSyncCard from '../components/cards/CloudSyncCard';
 
 export default function Settings() {
   const { data, profile, resetData, isReady } = useAppData();
   const { user, isAuthenticated } = useAuth();
   const { isDemoMode } = useDemoMode();
+  const { syncState, syncNow, pushNow, pullNow, canSync, isSyncing } = useCloudSync();
 
   if (!isReady || !profile || !data) {
     return (
@@ -124,8 +127,10 @@ export default function Settings() {
           <Card title="Cloud Sync Foundation" subtitle="Supabase auth and database readiness">
             <div className="space-y-3 pt-2">
               <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
-                <span className="text-slate-400 font-semibold">Cloud sync foundation</span>
-                <Badge variant="success">Ready</Badge>
+                <span className="text-slate-400 font-semibold">Cloud sync</span>
+                <Badge variant={syncState.mode === 'cloud_enabled' ? 'success' : 'neutral'}>
+                  {syncState.mode === 'cloud_enabled' ? 'Cloud enabled' : 'Local only'}
+                </Badge>
               </div>
               <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
                 <span className="text-slate-400 font-semibold">Supabase configured</span>
@@ -134,15 +139,26 @@ export default function Settings() {
                 </Badge>
               </div>
               <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
-                <span className="text-slate-400 font-semibold">Login UI</span>
-                <span className="text-slate-300 font-bold">Coming next</span>
+                <span className="text-slate-400 font-semibold">Last synced</span>
+                <span className="text-slate-300 font-bold">
+                  {syncState.lastSyncedAt ? new Date(syncState.lastSyncedAt).toLocaleDateString() : 'Not yet'}
+                </span>
               </div>
               <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-400 font-semibold">Storage mode</span>
-                <span className="text-slate-300 font-bold text-right">LocalStorage + Supabase foundation</span>
+                <span className="text-slate-300 font-bold text-right">LocalStorage + manual cloud sync</span>
               </div>
             </div>
           </Card>
+
+          <CloudSyncCard
+            status={syncState}
+            canSync={canSync}
+            isSyncing={isSyncing}
+            onSyncNow={syncNow}
+            onPushLocal={pushNow}
+            onPullCloud={pullNow}
+          />
 
           {/* System Actions / Reset Section */}
           <Card title="Database Actions" subtitle="Reset and clear application state data">
@@ -195,7 +211,9 @@ export default function Settings() {
                 </div>
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-slate-400 font-semibold">Cloud sync</span>
-                  <span className="text-slate-300 font-bold">Coming next</span>
+                  <Badge variant={syncState.status === 'synced' ? 'success' : syncState.status === 'error' ? 'danger' : 'neutral'}>
+                    {syncState.status}
+                  </Badge>
                 </div>
               </div>
             </div>

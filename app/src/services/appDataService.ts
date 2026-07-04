@@ -8,8 +8,17 @@ import type {
   BodyWeightLog,
   FastingLog,
 } from '../types/app';
-import { AURA_STORAGE_KEY, readStorage, writeStorage } from './storage';
+import { AURA_STORAGE_KEY, readStorage, removeStorage, writeStorage } from './storage';
 import { createSeedAuraFitnessData } from './seedData';
+
+export const AURA_LAST_SYNC_KEY = 'aurafitness:last-cloud-sync:v1';
+export const AURA_DATA_UPDATED_EVENT = 'aurafitness:data-updated';
+
+function notifyDataUpdated(): void {
+  if (typeof window === 'undefined') return;
+
+  window.dispatchEvent(new Event(AURA_DATA_UPDATED_EVENT));
+}
 
 /**
  * Returns today's local date formatted as YYYY-MM-DD.
@@ -38,12 +47,16 @@ export function getAuraFitnessData(): AuraFitnessData {
 /**
  * Persists the data object into local storage, updating the updatedAt timestamp.
  */
-export function saveAuraFitnessData(data: AuraFitnessData): AuraFitnessData {
+export function saveAuraFitnessData(
+  data: AuraFitnessData,
+  options: { preserveUpdatedAt?: boolean } = {}
+): AuraFitnessData {
   const updatedData: AuraFitnessData = {
     ...data,
-    updatedAt: new Date().toISOString(),
+    updatedAt: options.preserveUpdatedAt ? data.updatedAt : new Date().toISOString(),
   };
   writeStorage(AURA_STORAGE_KEY, updatedData);
+  notifyDataUpdated();
   return updatedData;
 }
 
@@ -53,7 +66,20 @@ export function saveAuraFitnessData(data: AuraFitnessData): AuraFitnessData {
 export function resetAuraFitnessData(): AuraFitnessData {
   const freshSeed = createSeedAuraFitnessData();
   writeStorage(AURA_STORAGE_KEY, freshSeed);
+  notifyDataUpdated();
   return freshSeed;
+}
+
+export function getLastCloudSyncAt(): string | null {
+  return readStorage<string>(AURA_LAST_SYNC_KEY);
+}
+
+export function setLastCloudSyncAt(value: string): void {
+  writeStorage(AURA_LAST_SYNC_KEY, value);
+}
+
+export function clearLastCloudSyncAt(): void {
+  removeStorage(AURA_LAST_SYNC_KEY);
 }
 
 /**

@@ -27,6 +27,7 @@ import {
 import { calculateAllStreaks, calculateHabitScore } from '../utils/streaks';
 import type { WaterLog, CalorieLog, BodyWeightLog, FastingLog, FastingStatus } from '../types/app';
 import { Dumbbell, Heart } from 'lucide-react';
+import { useCloudSync } from '../hooks/useCloudSync';
 
 export default function Dashboard() {
   const {
@@ -40,6 +41,7 @@ export default function Dashboard() {
   } = useAppData();
 
   const { topSuggestions } = useAISuggestions();
+  const { syncState } = useCloudSync();
 
   if (!isReady || !data || !profile) {
     return (
@@ -50,6 +52,22 @@ export default function Dashboard() {
   }
 
   const today = getTodayIsoDate();
+  const syncBadgeVariant =
+    syncState.status === 'synced'
+      ? 'success'
+      : syncState.status === 'error'
+      ? 'danger'
+      : syncState.mode === 'demo_mode'
+      ? 'warning'
+      : 'neutral';
+  const syncBadgeText =
+    syncState.status === 'synced'
+      ? 'Cloud synced'
+      : syncState.status === 'error'
+      ? 'Sync error'
+      : syncState.mode === 'demo_mode'
+      ? 'Demo mode'
+      : 'Local only';
 
   const streaks = calculateAllStreaks(data);
   const habitScore = calculateHabitScore(streaks);
@@ -159,6 +177,9 @@ export default function Dashboard() {
         subtitle="Here is your daily fitness overview and biometric trackers."
         actions={
           <div className="flex gap-2">
+            <Badge variant={syncBadgeVariant} className="text-xs px-3 py-1 font-bold">
+              {syncBadgeText}
+            </Badge>
             <Badge variant="success" className="animate-glow text-xs px-3 py-1 font-bold">
               Gym Streak Active
             </Badge>

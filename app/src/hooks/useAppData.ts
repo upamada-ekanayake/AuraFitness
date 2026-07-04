@@ -10,6 +10,7 @@ import type {
   FastingLog,
 } from '../types/app';
 import {
+  AURA_DATA_UPDATED_EVENT,
   getAuraFitnessData,
   saveAuraFitnessData,
   resetAuraFitnessData,
@@ -36,6 +37,14 @@ export function useAppData() {
   // On mount, pull latest local storage state
   useEffect(() => {
     refreshData();
+  }, [refreshData]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    window.addEventListener(AURA_DATA_UPDATED_EVENT, refreshData);
+
+    return () => window.removeEventListener(AURA_DATA_UPDATED_EVENT, refreshData);
   }, [refreshData]);
 
   // Saves data structure and updates local state

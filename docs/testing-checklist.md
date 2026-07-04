@@ -396,6 +396,29 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 3 / Prompt 35: LocalStorage to Supabase Cloud Sync
+
+- [x] Sync types created
+- [x] Sync service created
+- [x] Conflict strategy implemented
+- [x] Last sync metadata helpers added
+- [x] useCloudSync hook created
+- [x] CloudSyncCard created
+- [x] Settings sync controls added
+- [x] Dashboard sync status added
+- [ ] Sync now works
+- [ ] Upload local works
+- [ ] Download cloud works
+- [ ] Supabase row created for authenticated user
+- [ ] LocalStorage restores from cloud
+- [x] Demo mode remains local-only
+- [x] Missing env handled safely
+- [x] No secrets committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
 ## Phase 1 / Prompt 22: Global UI/UX Design System
 
 - [x] Button component created
@@ -661,7 +684,6 @@
 - [x] `npm run build` passes
 - [x] Prompt history updated
 - [x] Prompt file saved
-
 
 
 

@@ -61,3 +61,20 @@ Use these values in Supabase Authentication URL settings:
 - Site URL: `https://aura-fitness-kappa.vercel.app`
 - Redirect URL: `https://aura-fitness-kappa.vercel.app/**`
 - Redirect URL: `http://localhost:5173/**`
+
+## Cloud Sync Behavior
+
+AuraFitness uses an MVP JSONB sync model.
+
+- LocalStorage remains the local cache.
+- Authenticated users can sync their full `AuraFitnessData` object to Supabase.
+- One row exists per user in `public.user_app_data`.
+- Manual sync controls are available in Settings.
+- Demo mode is always local-only.
+
+## Conflict Resolution
+
+- If no cloud row exists, local data uploads to cloud.
+- If cloud `updatedAt` is newer, cloud data downloads to local.
+- If local `updatedAt` is newer, local data uploads to cloud.
+- If timestamps are equal or invalid, local data is preferred.
