@@ -419,6 +419,40 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 3 / Prompt 36: Final Cloud QA and Vercel Env Check
+
+- [x] Git status checked
+- [x] Build passed before QA
+- [x] Lint passed before QA
+- [x] `.env` not tracked
+- [x] Vercel env behavior verified in production UI
+- [ ] Vercel env vars verified in dashboard
+- [ ] Supabase Site URL verified in dashboard
+- [ ] Supabase Redirect URLs verified in dashboard
+- [ ] Supabase table exists verified in dashboard
+- [ ] RLS enabled verified in dashboard
+- [ ] RLS policies verified in dashboard
+- [x] Local signed-out redirect tested
+- [ ] Local sign up with confirmed account tested
+- [ ] Local sign in with confirmed account tested
+- [ ] Local sign out with confirmed account tested
+- [x] Production sign up reached email confirmation
+- [ ] Production sign in with confirmed account tested
+- [x] Protected routes tested
+- [ ] Sync now tested with confirmed account
+- [ ] Upload local tested with confirmed account
+- [ ] Download cloud tested with confirmed account
+- [ ] Supabase row created
+- [ ] Supabase row updated
+- [ ] LocalStorage restored from cloud
+- [x] Demo mode tested
+- [x] Cloud controls disabled in demo
+- [x] Cloud QA report created
+- [x] Build passed after QA
+- [x] Lint passed after QA
+- [x] Prompt history updated
+- [x] Prompt file saved
+
 ## Phase 1 / Prompt 22: Global UI/UX Design System
 
 - [x] Button component created
@@ -684,7 +718,6 @@
 - [x] `npm run build` passes
 - [x] Prompt history updated
 - [x] Prompt file saved
-
 
 
 

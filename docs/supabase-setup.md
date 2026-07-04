@@ -78,3 +78,27 @@ AuraFitness uses an MVP JSONB sync model.
 - If cloud `updatedAt` is newer, cloud data downloads to local.
 - If local `updatedAt` is newer, local data uploads to cloud.
 - If timestamps are equal or invalid, local data is preferred.
+
+## Production QA Notes
+
+Vercel environment variables required:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+`VITE_SUPABASE_PUBLISHABLE_KEY` is also supported by the current frontend as a fallback-compatible publishable key name.
+
+Supabase Auth URL configuration:
+
+- Site URL: `https://aura-fitness-kappa.vercel.app`
+- Redirect URL: `https://aura-fitness-kappa.vercel.app/**`
+- Redirect URL: `http://localhost:5173/**`
+
+Cloud sync table:
+
+- `public.user_app_data`
+
+Frontend key rule:
+
+- Use anon/public key only.
+- Never expose service role key.
