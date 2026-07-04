@@ -21,9 +21,11 @@ function protectedPage(page: ReactNode) {
 }
 
 import { useAndroidBackButton } from './hooks/useAndroidBackButton';
+import { useNativeSystemBars } from './hooks/useNativeSystemBars';
 
 function BackButtonHandler() {
   useAndroidBackButton();
+  useNativeSystemBars();
   return null;
 }
 

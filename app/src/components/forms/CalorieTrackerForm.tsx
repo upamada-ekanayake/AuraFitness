@@ -11,14 +11,19 @@ export default function CalorieTrackerForm({
   onSet,
 }: CalorieTrackerFormProps) {
   const [inputValue, setInputValue] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = parseInt(inputValue);
-    if (!isNaN(parsed) && parsed >= 0) {
-      onSet(parsed);
-      setInputValue('');
+    if (Number.isNaN(parsed) || parsed <= 0 || parsed > 10000) {
+      setError('Please enter a valid calorie amount.');
+      return;
     }
+
+    setError(null);
+    onSet(parsed);
+    setInputValue('');
   };
 
   return (
@@ -43,13 +48,17 @@ export default function CalorieTrackerForm({
           min="0"
           placeholder="Set total kcal..."
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setError(null);
+          }}
           className="bg-slate-950 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 w-full"
         />
         <Button type="submit" variant="primary" size="sm" className="shrink-0 text-xs py-1.5 px-3">
           Set kcal
         </Button>
       </form>
+      {error && <p className="text-[11px] font-semibold text-rose-300">{error}</p>}
     </div>
   );
 }

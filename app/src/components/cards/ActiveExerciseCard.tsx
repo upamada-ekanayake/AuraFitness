@@ -63,7 +63,7 @@ export default function ActiveExerciseCard({
           <div>
             <h3 className="text-xl font-bold text-slate-100 tracking-tight">{exercise.name}</h3>
             <span className="text-xs text-slate-500 font-semibold mt-1 block">
-              Target Split Presets: {exercise.plannedSets} sets × {isRepsMode ? `${exercise.plannedReps} reps` : `${exercise.plannedDurationSeconds}s`}
+              Target Split Presets: {exercise.plannedSets} sets x {isRepsMode ? `${exercise.plannedReps} reps` : `${exercise.plannedDurationSeconds}s`}
             </span>
           </div>
           <div className="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">

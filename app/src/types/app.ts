@@ -87,7 +87,7 @@ export interface UserProfile {
   name: string;
   bodyWeightKg: number;
   heightCm?: number;
-  goal: "fat_loss" | "muscle_gain" | "maintenance";
+  goal: "fat_loss" | "muscle_gain" | "maintenance" | "strength";
   weeklyWorkoutGoal: number;
   waterGoalLiters: number;
   calorieGoal: number;

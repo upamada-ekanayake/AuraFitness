@@ -37,7 +37,7 @@ export default function RoutineDayCard({
     
     if (nextRestState && day.exercises.length > 0) {
       const confirmClear = window.confirm(
-        `Marking ${day.dayName} as a Rest Day will automatically clear all ${day.exercises.length} planned exercises. Proceed?`
+        `Make ${day.dayName} a recovery day? This clears ${day.exercises.length} planned exercises for that day.`
       );
       if (!confirmClear) return;
     }
@@ -131,8 +131,12 @@ export default function RoutineDayCard({
             </div>
 
             {day.exercises.length === 0 ? (
-              <div className="text-center py-6 border border-dashed border-slate-800/80 rounded-xl bg-slate-950/20 text-xs text-slate-500 font-semibold">
-                No exercises planned
+              <div className="text-center py-6 border border-dashed border-slate-800/80 rounded-xl bg-slate-950/20">
+                <p className="text-sm font-bold text-slate-300">No exercises yet</p>
+                <p className="text-xs text-slate-500 font-semibold mt-1 mb-4">Build this training day one movement at a time.</p>
+                <Button variant="secondary" size="sm" onClick={() => onAddExerciseClick(day.id)} className="mx-auto flex items-center gap-1.5">
+                  <Plus className="w-4 h-4" /> Add first exercise
+                </Button>
               </div>
             ) : (
               <div className="space-y-2">
@@ -146,7 +150,7 @@ export default function RoutineDayCard({
                         {ex.name}
                       </span>
                       <span className="text-[10px] text-slate-500 font-semibold mt-0.5 block truncate">
-                        {ex.sets} sets × {ex.mode === 'reps' ? `${ex.reps} reps` : `${ex.durationSeconds}s`}
+                        {ex.sets} sets x {ex.mode === 'reps' ? `${ex.reps} reps` : `${ex.durationSeconds}s`}
                         {ex.weightKg ? ` @ ${ex.weightKg} kg` : ''}
                       </span>
                     </div>
@@ -155,14 +159,16 @@ export default function RoutineDayCard({
                       <button
                         onClick={() => onEditExerciseClick(day.id, ex)}
                         className="text-slate-500 hover:text-slate-200 p-1 cursor-pointer"
-                        title="Edit Exercise"
+                        title={`Edit ${ex.name}`}
+                        aria-label={`Edit ${ex.name}`}
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => onDeleteExercise(day.id, ex.id)}
                         className="text-rose-500 hover:text-rose-300 p-1 cursor-pointer"
-                        title="Delete Exercise"
+                        title={`Delete ${ex.name}`}
+                        aria-label={`Delete ${ex.name}`}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>

@@ -21,7 +21,7 @@ function getDefaultState(isDemoMode: boolean, isAuthenticated: boolean): CloudSy
       mode: 'demo_mode',
       lastSyncedAt: getLastCloudSyncAt(),
       error: null,
-      message: 'Demo mode is local-only.',
+      message: 'Demo mode saves data on this device only.',
     };
   }
 
@@ -31,7 +31,7 @@ function getDefaultState(isDemoMode: boolean, isAuthenticated: boolean): CloudSy
       mode: 'local_only',
       lastSyncedAt: getLastCloudSyncAt(),
       error: null,
-      message: 'Sign in to enable cloud sync.',
+      message: 'Sign in to use cloud sync.',
     };
   }
 
@@ -106,7 +106,7 @@ export function useCloudSync() {
       status: 'syncing',
       mode: 'cloud_enabled',
       error: null,
-      message: 'Syncing local and cloud data...',
+      message: 'Comparing this device with your cloud copy...',
     }));
 
     try {
@@ -128,7 +128,7 @@ export function useCloudSync() {
       status: 'syncing',
       mode: 'cloud_enabled',
       error: null,
-      message: 'Uploading local data to Supabase...',
+      message: 'Uploading this device data to cloud...',
     }));
 
     try {
@@ -150,7 +150,7 @@ export function useCloudSync() {
       status: 'syncing',
       mode: 'cloud_enabled',
       error: null,
-      message: 'Downloading cloud data...',
+      message: 'Downloading cloud data to this device...',
     }));
 
     try {

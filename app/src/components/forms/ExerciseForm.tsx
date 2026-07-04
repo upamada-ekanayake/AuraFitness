@@ -47,6 +47,9 @@ export default function ExerciseForm({ initialValues, onSubmit, onCancel }: Exer
     if (!targetMuscle.trim()) return setError('Target muscle is required.');
     if (!equipment.trim()) return setError('Equipment is required.');
     if (sets < 1) return setError('Sets must be at least 1.');
+    if (mode === 'reps' && reps < 1) return setError('Reps must be at least 1.');
+    if (mode === 'time' && durationSeconds < 1) return setError('Time must be at least 1 second.');
+    if (typeof weightKg === 'number' && weightKg < 0) return setError('Weight cannot be negative.');
     if (restSeconds < 0) return setError('Rest time cannot be negative.');
 
     const exerciseData: Omit<RoutineExercise, 'id'> = {
@@ -180,7 +183,13 @@ export default function ExerciseForm({ initialValues, onSubmit, onCancel }: Exer
             min="0"
             placeholder="0"
             value={weightKg}
-            onChange={(e) => setWeightKg(e.target.value === '' ? '' : parseFloat(e.target.value) || 0)}
+            onChange={(e) => {
+              if (e.target.value === '') {
+                setWeightKg('');
+                return;
+              }
+              setWeightKg(parseFloat(e.target.value));
+            }}
             className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-100 text-center"
           />
         </div>

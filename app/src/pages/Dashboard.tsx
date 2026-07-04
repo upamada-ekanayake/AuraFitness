@@ -1,4 +1,3 @@
-import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
@@ -16,6 +15,7 @@ import FastingTrackerForm from '../components/forms/FastingTrackerForm';
 import { useAppData } from '../hooks/useAppData';
 import { useAISuggestions } from '../hooks/useAISuggestions';
 import { getTodayIsoDate } from '../services/appDataService';
+import { getTodayDayName } from '../utils/date';
 import {
   getTodayWaterLog,
   getTodayCalorieLog,
@@ -27,10 +27,13 @@ import {
 } from '../utils/tracker';
 import { calculateAllStreaks, calculateHabitScore } from '../utils/streaks';
 import type { WaterLog, CalorieLog, BodyWeightLog, FastingLog, FastingStatus } from '../types/app';
-import { Dumbbell, Heart } from 'lucide-react';
+import { ArrowRight, Droplets, Dumbbell, Flame, Heart, Sparkles } from 'lucide-react';
 import { useCloudSync } from '../hooks/useCloudSync';
 import { useInstallPrompt } from '../hooks/useInstallPrompt';
-import { isNativeAndroidApp } from '../utils/platform';
+import { getRuntimePlatform, isNativeAndroidApp } from '../utils/platform';
+import { Link } from 'react-router-dom';
+
+type BadgeVariant = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 
 export default function Dashboard() {
   const {
@@ -57,7 +60,11 @@ export default function Dashboard() {
   }
 
   const today = getTodayIsoDate();
-  const syncBadgeVariant =
+  const todayName = getTodayDayName();
+  const todayRoutine = data.weeklyRoutine.find((day) => day.dayName === todayName);
+  const isWorkoutDay = Boolean(todayRoutine && !todayRoutine.isRestDay && todayRoutine.exercises.length > 0);
+  const platform = getRuntimePlatform();
+  const syncBadgeVariant: BadgeVariant =
     syncState.status === 'synced'
       ? 'success'
       : syncState.status === 'error'
@@ -73,6 +80,11 @@ export default function Dashboard() {
       : syncState.mode === 'demo_mode'
       ? 'Demo mode'
       : 'Local only';
+  const modeBadges: { text: string; variant: BadgeVariant }[] = [
+    { text: syncBadgeText, variant: syncBadgeVariant },
+    ...(isNative ? [{ text: 'Native Android', variant: 'info' as const }] : []),
+    ...(platform === 'pwa' ? [{ text: 'Installed PWA', variant: 'info' as const }] : []),
+  ];
 
   const streaks = calculateAllStreaks(data);
   const habitScore = calculateHabitScore(streaks);
@@ -114,6 +126,14 @@ export default function Dashboard() {
 
   // Compute completed workouts this week
   const completedWorkoutsCount = data.workoutLogs.filter((w) => w.status === 'completed').length;
+  const nextBestAction = isWorkoutDay
+    ? { title: 'Start today strong', helper: `${todayRoutine?.focus} is ready.`, cta: 'Start Workout', to: '/session', icon: Dumbbell }
+    : waterProgress < 70
+    ? { title: 'Hydration is the next win', helper: `Drink ${Math.max(waterGoalMl - waterVolumeMl, 0)} ml more today.`, cta: 'Log Water', to: '/', icon: Droplets }
+    : syncState.mode === 'cloud_enabled' && syncState.status !== 'synced'
+    ? { title: 'Keep your cloud copy fresh', helper: 'Open Settings to sync this device.', cta: 'Sync Data', to: '/settings', icon: Sparkles }
+    : { title: 'Tune your plan', helper: 'Review your weekly split and keep it current.', cta: 'Go Planner', to: '/routine', icon: Flame };
+  const NextActionIcon = nextBestAction.icon;
 
   // Dispatch Handlers
   const handleWaterAdd = (liters: number) => {
@@ -176,21 +196,40 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8">
-      {/* Greeting Header */}
-      <PageHeader
-        title={`Welcome back, ${profile.name}`}
-        subtitle="Here is your daily fitness overview and biometric trackers."
-        actions={
-          <div className="flex gap-2">
-            <Badge variant={syncBadgeVariant} className="text-xs px-3 py-1 font-bold">
-              {syncBadgeText}
-            </Badge>
-            <Badge variant="success" className="animate-glow text-xs px-3 py-1 font-bold">
-              Gym Streak Active
-            </Badge>
+      <section className="rounded-3xl border border-slate-800/70 bg-slate-900/45 p-5 sm:p-7 shadow-2xl shadow-black/20">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {modeBadges.map((badge) => (
+                <Badge key={badge.text} variant={badge.variant} className="text-xs px-3 py-1 font-bold">
+                  {badge.text}
+                </Badge>
+              ))}
+              <Badge variant={isWorkoutDay ? 'success' : 'neutral'} className="text-xs px-3 py-1 font-bold">
+                {isWorkoutDay ? 'Workout day' : 'Recovery day'}
+              </Badge>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight">
+              Welcome back, {profile.name}
+            </h1>
+            <p className="mt-2 text-sm text-slate-400 font-medium max-w-2xl">
+              {isWorkoutDay
+                ? `${todayName} is set for ${todayRoutine?.focus}.`
+                : `${todayName} is lighter today. Keep recovery, hydration, and nutrition steady.`}
+            </p>
           </div>
-        }
-      />
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <span className="block text-[10px] font-bold uppercase text-slate-500">Water</span>
+              <span className="text-lg font-black text-slate-100">{waterProgress}%</span>
+            </div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
+              <span className="block text-[10px] font-bold uppercase text-slate-500">Fasting</span>
+              <span className="text-lg font-black text-slate-100">{fastingProgress}%</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {canInstall && !isInstalled && !isNative && (
         <Card className="border-indigo-500/20 bg-indigo-500/5">
@@ -207,6 +246,56 @@ export default function Dashboard() {
           </div>
         </Card>
       )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="border-indigo-500/20 bg-indigo-500/5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <Badge variant={isWorkoutDay ? 'success' : 'neutral'} className="mb-3">
+                Today Plan
+              </Badge>
+              <h2 className="text-xl font-black text-slate-100 tracking-tight">
+                {todayRoutine?.focus ?? 'Plan your first routine'}
+              </h2>
+              <p className="text-sm text-slate-400 font-semibold mt-2">
+                {todayRoutine
+                  ? `${todayRoutine.exercises.length} exercises planned for ${todayName}.`
+                  : 'Create a weekly split to unlock session tracking.'}
+              </p>
+            </div>
+            <div className="w-12 h-12 rounded-2xl bg-slate-950/70 border border-slate-800 flex items-center justify-center text-indigo-300 shrink-0">
+              <Dumbbell className="w-6 h-6" />
+            </div>
+          </div>
+          <div className="mt-5">
+            <Link to={isWorkoutDay ? '/session' : '/routine'}>
+              <Button variant="primary" className="w-full sm:w-auto flex items-center gap-2">
+                {isWorkoutDay ? 'Start Workout' : 'Go Planner'} <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </Card>
+
+        <Card className="border-emerald-500/15 bg-slate-900/45">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-300 shrink-0">
+              <NextActionIcon className="w-6 h-6" />
+            </div>
+            <div className="min-w-0">
+              <Badge variant="info" className="mb-3">Next best action</Badge>
+              <h2 className="text-xl font-black text-slate-100 tracking-tight">{nextBestAction.title}</h2>
+              <p className="text-sm text-slate-400 font-semibold mt-2">{nextBestAction.helper}</p>
+            </div>
+          </div>
+          <div className="mt-5">
+            <Link to={nextBestAction.to}>
+              <Button variant="secondary" className="w-full sm:w-auto flex items-center gap-2">
+                {nextBestAction.cta} <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </Card>
+      </div>
 
       {/* Habit Score & Weekly Goal Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

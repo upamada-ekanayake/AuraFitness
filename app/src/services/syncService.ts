@@ -59,7 +59,7 @@ export async function syncLocalAndCloudData(
       markSynced();
 
       return {
-        result: makeResult('uploaded_local', 'No cloud data found. Local data uploaded to Supabase.', true),
+        result: makeResult('uploaded_local', 'Local data uploaded to cloud.', true),
         data: saved,
       };
     }
@@ -71,7 +71,7 @@ export async function syncLocalAndCloudData(
       markSynced();
 
       return {
-        result: makeResult('downloaded_cloud', 'Cloud data was newer and replaced local data.', true),
+        result: makeResult('downloaded_cloud', 'Cloud data downloaded to this device.', true),
         data: savedLocal,
       };
     }
@@ -84,8 +84,8 @@ export async function syncLocalAndCloudData(
         result: makeResult(
           comparison === 'local_newer' ? 'uploaded_local' : 'already_synced',
           comparison === 'local_newer'
-            ? 'Local data was newer and uploaded to Supabase.'
-            : 'Timestamps matched or were invalid. Local data was preferred and uploaded.',
+            ? 'Local data uploaded to cloud.'
+            : 'Already up to date.',
           comparison === 'local_newer'
         ),
         data: saved,
@@ -93,7 +93,7 @@ export async function syncLocalAndCloudData(
     }
 
     return {
-      result: makeResult('already_synced', 'Local and cloud data are already synced.', false),
+      result: makeResult('already_synced', 'Already up to date.', false),
       data: localData,
     };
   } catch (error) {
@@ -114,7 +114,7 @@ export async function pushLocalDataToCloud(
     await saveCloudAppData(userId, localData);
     markSynced();
 
-    return makeResult('uploaded_local', 'Local data uploaded to Supabase.', true);
+    return makeResult('uploaded_local', 'Local data uploaded to cloud.', true);
   } catch (error) {
     const message = getFriendlySyncError(error);
     return makeResult('error', message, false, 'error');
@@ -132,7 +132,7 @@ export async function pullCloudDataToLocal(
 
     if (!cloudData) {
       return {
-        result: makeResult('already_synced', 'No cloud data exists yet.', false),
+        result: makeResult('already_synced', 'No cloud copy exists yet. Upload local data first.', false),
         data: null,
       };
     }
@@ -141,7 +141,7 @@ export async function pullCloudDataToLocal(
     markSynced();
 
     return {
-      result: makeResult('downloaded_cloud', 'Cloud data downloaded to this browser.', true),
+      result: makeResult('downloaded_cloud', 'Cloud data downloaded to this device.', true),
       data: savedLocal,
     };
   } catch (error) {

@@ -3,7 +3,8 @@ import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { useAuth } from '../../hooks/useAuth';
-import { Mail, Lock, ShieldCheck } from 'lucide-react';
+import { Mail, Lock, ShieldCheck, Smartphone } from 'lucide-react';
+import { isNativeAndroidApp } from '../../utils/platform';
 
 interface AuthFormProps {
   onDemoMode: () => void;
@@ -20,6 +21,7 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
   const [confirmPassword, setConfirmPassword] = useState('');
   const [localError, setLocalError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const isNative = isNativeAndroidApp();
 
   const isSignUp = mode === 'sign-up';
   const title = isSignUp ? 'Create your account' : 'Welcome back';
@@ -75,9 +77,14 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
           <Badge variant={isSupabaseReady ? 'success' : 'warning'}>
             {isSupabaseReady ? 'Supabase ready' : 'Local demo available'}
           </Badge>
+          {isNative && (
+            <Badge variant="info" className="ml-2">
+              <Smartphone className="w-3 h-3 mr-1" /> Android
+            </Badge>
+          )}
           <h2 className="text-2xl font-black text-slate-100 tracking-tight mt-3">{title}</h2>
           <p className="text-sm text-slate-400 mt-1">
-            {isSignUp ? 'Start your cloud-ready AuraFitness profile.' : 'Sign in to continue your fitness workspace.'}
+            {isSignUp ? 'Create a profile you can sync to cloud.' : 'Sign in to restore or sync your fitness data.'}
           </p>
         </div>
         <ShieldCheck className="w-7 h-7 text-indigo-400 shrink-0" />
@@ -169,7 +176,7 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
       </div>
 
       <p className="text-[11px] text-slate-500 leading-relaxed mt-5">
-        Demo mode stores data only in this browser. Sign in to enable cloud account features later.
+        Demo mode stores data only on this device. Sign in when you want cloud backup and restore.
       </p>
     </Card>
   );

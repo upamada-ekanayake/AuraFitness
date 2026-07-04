@@ -1,7 +1,7 @@
 import type { WorkoutSessionLog } from '../../types/app';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
-import { Award, Calendar, Clock, CheckCircle2 } from 'lucide-react';
+import { Award, Calendar, Clock, CheckCircle2, Flame } from 'lucide-react';
 
 export interface SessionSummaryCardProps {
   log: WorkoutSessionLog;
@@ -17,6 +17,7 @@ export default function SessionSummaryCard({ log, className }: SessionSummaryCar
   const complianceRate = totalPlannedSets > 0
     ? Math.round((totalCompletedSets / totalPlannedSets) * 100)
     : 0;
+  const estimatedCalories = Math.max(Math.round(log.durationMinutes * 6.5), 25);
 
   return (
     <Card
@@ -51,6 +52,17 @@ export default function SessionSummaryCard({ log, className }: SessionSummaryCar
               {totalCompletedSets} / {totalPlannedSets}
             </span>
           </div>
+        </div>
+
+        <div className="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20 flex justify-between items-center">
+          <div>
+            <span className="text-[10px] text-emerald-300 font-bold block uppercase tracking-wider">Estimated Burn</span>
+            <span className="text-lg font-bold text-slate-100 block mt-1 flex items-center gap-1">
+              <Flame className="w-4 h-4 text-emerald-300 shrink-0" />
+              {estimatedCalories} kcal
+            </span>
+          </div>
+          <Badge variant="success">Logged</Badge>
         </div>
 
         <div className="grid grid-cols-2 gap-4">

@@ -1449,3 +1449,54 @@ Rules:
 
 Next:
 Perform real APK build/install verification, then prepare signed release APK/AAB.
+
+## Prompt 43: Native Android UI/UX Polish and Functional Upgrade
+
+Status: Completed
+
+Goal:
+Improve AuraFitness native Android app UI/UX and add focused functional upgrades after APK screenshot review.
+
+Files created or edited:
+- app/src/hooks/useNativeSystemBars.ts
+- app/src/components/layout/AppShell.tsx
+- app/src/components/navigation/MobileBottomNav.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/pages/AuthPage.tsx
+- app/src/components/auth/AuthForm.tsx
+- app/src/components/cards/CloudSyncCard.tsx
+- app/src/components/cards/RoutineDayCard.tsx
+- app/src/components/cards/ActiveExerciseCard.tsx
+- app/src/components/cards/SessionSummaryCard.tsx
+- app/src/components/forms/*
+- app/src/pages/RoutinePlanner.tsx
+- app/src/pages/WorkoutSession.tsx
+- app/src/services/syncService.ts
+- app/src/hooks/useCloudSync.ts
+- app/src/types/app.ts
+- app/android/app/src/main/res/values/styles.xml
+- app/android/app/src/main/res/values/colors.xml
+- docs/native-ui-functional-upgrade-report.md
+- prompts/43-native-ui-functional-upgrade.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- docs/capacitor-android-qa-report.md
+- README.md
+- app/README.md
+
+Result:
+Native Android system bars and safe areas improved.
+Dashboard, Settings, Auth, Cloud Sync, Routine Planner, Workout Session, and trackers polished.
+Profile/preferences editing added.
+Tracker validation improved.
+Build/lint/Capacitor sync passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- Existing auth/cloud/demo/PWA behavior preserved.
+
+Next:
+Rebuild debug APK and run final native Android QA.

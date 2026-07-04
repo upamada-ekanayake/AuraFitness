@@ -25,6 +25,7 @@ export default function WorkoutSession() {
   const [activeExercises, setActiveExercises] = useState<WorkoutSessionExerciseLog[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [startTime, setStartTime] = useState<number | null>(null);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   // Finished session state for showing summary card
   const [loggedSession, setLoggedSession] = useState<WorkoutSessionLog | null>(null);
@@ -53,12 +54,15 @@ export default function WorkoutSession() {
   };
 
   const handleCancelWorkout = () => {
-    if (window.confirm('Cancel active workout session? Current logged set progression will be discarded.')) {
-      setIsActiveSession(false);
-      setActiveExercises([]);
-      setActiveIndex(0);
-      setStartTime(null);
-    }
+    setShowCancelConfirm(true);
+  };
+
+  const confirmCancelWorkout = () => {
+    setIsActiveSession(false);
+    setActiveExercises([]);
+    setActiveIndex(0);
+    setStartTime(null);
+    setShowCancelConfirm(false);
   };
 
   const handleExerciseChange = (updated: WorkoutSessionExerciseLog) => {
@@ -211,6 +215,27 @@ export default function WorkoutSession() {
                 </Button>
               </div>
             </Card>
+
+            {showCancelConfirm && (
+              <Card className="border-rose-500/20 bg-rose-500/10">
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-100">Cancel this workout?</h3>
+                    <p className="text-xs text-rose-200/80 font-semibold mt-1">
+                      Current set progress will be discarded.
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="danger" size="sm" onClick={confirmCancelWorkout} className="flex-1">
+                      Cancel workout
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={() => setShowCancelConfirm(false)} className="flex-1">
+                      Keep going
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            )}
           </div>
         </div>
       </div>
@@ -234,10 +259,21 @@ export default function WorkoutSession() {
           <div className="p-4 rounded-full bg-slate-950/80 text-indigo-400 mb-4 border border-slate-900">
             <Heart className="w-8 h-8 animate-pulse text-indigo-400" />
           </div>
+          <Badge variant="neutral" className="mb-3">Recovery day</Badge>
           <h3 className="text-lg font-bold text-slate-200">Today is planned as recovery</h3>
           <p className="text-xs text-slate-500 font-semibold max-w-sm mt-2 leading-relaxed">
             Your weekly schedule designates {todayName} as a Rest Day. Focus on hydration, stretching, and nutrition.
           </p>
+          <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left max-w-md">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-3">
+              <span className="text-xs font-bold text-slate-200">Hydrate</span>
+              <p className="text-[11px] text-slate-500 font-semibold mt-1">Keep steady water intake across the day.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-3">
+              <span className="text-xs font-bold text-slate-200">Stretch</span>
+              <p className="text-[11px] text-slate-500 font-semibold mt-1">Add gentle mobility or an easy walk.</p>
+            </div>
+          </div>
           <div className="mt-8 flex gap-3">
             <Link to="/routine">
               <Button variant="secondary" className="flex items-center gap-1.5">
@@ -259,7 +295,7 @@ export default function WorkoutSession() {
           <div className="mt-8">
             <Link to="/routine">
               <Button variant="primary" className="flex items-center gap-1.5">
-                <Play className="w-4 h-4" /> Go to Routine Planner
+                <Play className="w-4 h-4" /> Add today's exercises
               </Button>
             </Link>
           </div>
@@ -302,11 +338,11 @@ export default function WorkoutSession() {
                   <div>
                     <span className="text-sm font-bold text-slate-200 block">{ex.name}</span>
                     <span className="text-[10px] text-slate-500 font-semibold block mt-1">
-                      {ex.bodyPart} · {ex.targetMuscle}
+                      {ex.bodyPart} / {ex.targetMuscle}
                     </span>
                   </div>
                   <Badge variant="neutral">
-                    {ex.sets} sets × {ex.mode === 'reps' ? `${ex.reps} reps` : `${ex.durationSeconds}s`}
+                    {ex.sets} sets x {ex.mode === 'reps' ? `${ex.reps} reps` : `${ex.durationSeconds}s`}
                   </Badge>
                 </div>
               ))}

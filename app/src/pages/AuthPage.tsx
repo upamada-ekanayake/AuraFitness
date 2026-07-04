@@ -4,6 +4,7 @@ import AuthForm from '../components/auth/AuthForm';
 import { useAuth } from '../hooks/useAuth';
 import { useDemoMode } from '../hooks/useDemoMode';
 import { Activity, BarChart3, Bot, CalendarDays } from 'lucide-react';
+import { isNativeAndroidApp } from '../utils/platform';
 
 const highlights = [
   { label: 'Routine planner', icon: CalendarDays },
@@ -17,6 +18,7 @@ export default function AuthPage() {
   const location = useLocation();
   const { isAuthenticated, isLoading } = useAuth();
   const { isDemoMode, enableDemo } = useDemoMode();
+  const isNative = isNativeAndroidApp();
 
   const state = location.state as { from?: { pathname?: string } } | null;
   const nextPath = state?.from?.pathname && state.from.pathname !== '/auth' ? state.from.pathname : '/';
@@ -28,7 +30,7 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 overflow-hidden relative">
       <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
-      <main className="relative z-10 min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-8 max-w-6xl mx-auto px-6 py-10 lg:py-16 items-center">
+      <main className="relative z-10 min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-8 max-w-6xl mx-auto px-5 py-8 pt-[calc(2rem+env(safe-area-inset-top))] lg:py-14 items-center">
         <section className="max-w-2xl">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black shadow-lg shadow-indigo-500/20">
@@ -36,12 +38,12 @@ export default function AuthPage() {
             </div>
             <div>
               <h1 className="text-3xl md:text-5xl font-black tracking-tight">AuraFitness</h1>
-              <p className="text-xs text-indigo-300 font-bold uppercase tracking-wider mt-1">AI Fitness OS</p>
+              <p className="text-xs text-indigo-300 font-bold uppercase tracking-wider mt-1">Native-ready fitness tracker</p>
             </div>
           </div>
 
-          <p className="text-lg md:text-xl text-slate-300 font-semibold leading-relaxed mt-8">
-            Sign in to prepare your cloud-ready fitness workspace, or continue in local demo mode to keep exploring the MVP.
+          <p className="text-lg md:text-xl text-slate-300 font-semibold leading-relaxed mt-7">
+            Track routines, workouts, hydration, calories, fasting, and progress from one focused mobile workspace.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
@@ -58,8 +60,9 @@ export default function AuthPage() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-2">
-            <Badge variant="info">Cloud sync coming next</Badge>
-            <Badge variant="neutral">LocalStorage fallback retained</Badge>
+            {isNative && <Badge variant="info">Native Android App</Badge>}
+            <Badge variant="success">Cloud sync ready</Badge>
+            <Badge variant="neutral">Demo mode available</Badge>
           </div>
         </section>
 

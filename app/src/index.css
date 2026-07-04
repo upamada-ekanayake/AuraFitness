@@ -13,6 +13,12 @@
 
   body {
     padding-bottom: env(safe-area-inset-bottom);
+    min-width: 320px;
+  }
+
+  #root {
+    min-height: 100vh;
+    background-color: #020617;
   }
 
   /* Custom scrollbar styling */

@@ -16,6 +16,29 @@ import {
 import type { RoutineExercise, WeeklyRoutineDay } from '../types/app';
 import { Sparkles } from 'lucide-react';
 
+const quickTemplates: Record<string, Omit<RoutineExercise, 'id'>[]> = {
+  'Push Day': [
+    { name: 'Dumbbell Bench Press', bodyPart: 'Chest', targetMuscle: 'Pectorals', equipment: 'Dumbbells', mode: 'reps', sets: 3, reps: 10, weightKg: 20, restSeconds: 90 },
+    { name: 'Seated Shoulder Press', bodyPart: 'Shoulders', targetMuscle: 'Deltoids', equipment: 'Dumbbells', mode: 'reps', sets: 3, reps: 10, weightKg: 14, restSeconds: 75 },
+    { name: 'Cable Triceps Pushdown', bodyPart: 'Arms', targetMuscle: 'Triceps', equipment: 'Cable', mode: 'reps', sets: 3, reps: 12, restSeconds: 60 },
+  ],
+  'Pull Day': [
+    { name: 'Lat Pulldown', bodyPart: 'Back', targetMuscle: 'Lats', equipment: 'Cable', mode: 'reps', sets: 4, reps: 10, restSeconds: 90 },
+    { name: 'Seated Cable Row', bodyPart: 'Back', targetMuscle: 'Mid Back', equipment: 'Cable', mode: 'reps', sets: 3, reps: 10, restSeconds: 90 },
+    { name: 'Dumbbell Curl', bodyPart: 'Arms', targetMuscle: 'Biceps', equipment: 'Dumbbells', mode: 'reps', sets: 3, reps: 12, restSeconds: 60 },
+  ],
+  'Leg Day': [
+    { name: 'Goblet Squat', bodyPart: 'Legs', targetMuscle: 'Quads', equipment: 'Dumbbell', mode: 'reps', sets: 4, reps: 10, restSeconds: 90 },
+    { name: 'Romanian Deadlift', bodyPart: 'Legs', targetMuscle: 'Hamstrings', equipment: 'Barbell', mode: 'reps', sets: 3, reps: 10, restSeconds: 120 },
+    { name: 'Standing Calf Raise', bodyPart: 'Legs', targetMuscle: 'Calves', equipment: 'Machine', mode: 'reps', sets: 3, reps: 15, restSeconds: 60 },
+  ],
+  'Full Body': [
+    { name: 'Squat', bodyPart: 'Legs', targetMuscle: 'Quads', equipment: 'Barbell', mode: 'reps', sets: 3, reps: 8, restSeconds: 120 },
+    { name: 'Push Up', bodyPart: 'Chest', targetMuscle: 'Pectorals', equipment: 'Bodyweight', mode: 'reps', sets: 3, reps: 12, restSeconds: 60 },
+    { name: 'Plank', bodyPart: 'Core', targetMuscle: 'Abs', equipment: 'Bodyweight', mode: 'time', sets: 3, durationSeconds: 45, restSeconds: 45 },
+  ],
+};
+
 export default function RoutinePlanner() {
   const { data, isReady, updateRoutine, resetData } = useAppData();
 
@@ -101,6 +124,25 @@ export default function RoutinePlanner() {
     updateRoutine(updated);
   };
 
+  const handleApplyTemplate = (templateName: string) => {
+    if (!activeDayId) return;
+    const template = quickTemplates[templateName];
+    if (!template) return;
+
+    const updatedRoutine = template.reduce(
+      (routine, exercise, index) =>
+        addExerciseToDay(routine, activeDayId, {
+          ...exercise,
+          id: createId(`tpl-${index}`),
+        }),
+      data.weeklyRoutine
+    );
+
+    const focusedRoutine = updateRoutineDay(updatedRoutine, activeDayId, templateName);
+    updateRoutine(focusedRoutine);
+    handleCloseModal();
+  };
+
   // Clear All Exercises for a day
   const handleClearExercises = (dayId: string) => {
     const dayToClear = data.weeklyRoutine.find((d) => d.id === dayId);
@@ -162,6 +204,26 @@ export default function RoutinePlanner() {
             <p className="text-xs text-slate-400 mb-6 font-semibold">
               Fill out targets for {data.weeklyRoutine.find((d) => d.id === activeDayId)?.dayName || 'day'} setup.
             </p>
+
+            {!editingExercise && (
+              <div className="mb-5">
+                <span className="block text-[10px] font-bold uppercase text-slate-500 mb-2">Quick templates</span>
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.keys(quickTemplates).map((templateName) => (
+                    <Button
+                      key={templateName}
+                      type="button"
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => handleApplyTemplate(templateName)}
+                      className="text-xs"
+                    >
+                      {templateName}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <ExerciseForm
               initialValues={editingExercise ?? undefined}

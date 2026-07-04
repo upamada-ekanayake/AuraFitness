@@ -47,7 +47,7 @@ export default function CloudSyncCard({
   const controlsDisabled = !canSync || isSyncing;
 
   return (
-    <Card title="Cloud Sync" subtitle="Manual Supabase sync for this account">
+    <Card title="Cloud Sync" subtitle="Manual backup and restore for this account">
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant={getStatusVariant(status.status)}>
@@ -64,7 +64,7 @@ export default function CloudSyncCard({
             <span className="text-slate-200 font-bold text-right pl-4">{formatSyncedAt(status.lastSyncedAt)}</span>
           </div>
           <div className="flex justify-between items-start gap-4 text-xs">
-            <span className="text-slate-400 font-semibold">Status</span>
+            <span className="text-slate-400 font-semibold">Latest result</span>
             <span className="text-slate-300 font-bold text-right leading-relaxed">{status.message}</span>
           </div>
         </div>
@@ -114,11 +114,22 @@ export default function CloudSyncCard({
           </Button>
         </div>
 
+        <div className="grid grid-cols-1 gap-2 text-[11px] font-semibold leading-relaxed">
+          <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-3 text-slate-400">
+            <strong className="text-slate-200">Sync now</strong> compares this device with your cloud copy and keeps the newest version.
+          </div>
+          <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-amber-200">
+            <strong>Upload local</strong> replaces your cloud copy with data from this phone/browser.
+          </div>
+          <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-amber-200">
+            <strong>Download cloud</strong> replaces this device's local copy with your cloud copy.
+          </div>
+        </div>
+
         <div className="flex items-start gap-2.5 text-[11px] text-slate-500 font-semibold leading-relaxed">
           <Cloud className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
           <p>
-            Sync now compares local and cloud timestamps. Upload local overwrites cloud with this browser data.
-            Download cloud overwrites this browser with the Supabase copy.
+            If cloud sync is unavailable, your local progress remains saved on this device.
           </p>
         </div>
       </div>

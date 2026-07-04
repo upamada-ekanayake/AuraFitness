@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { FastingStatus } from '../../types/app';
 import { Button } from '../ui/Button';
 
@@ -14,9 +15,15 @@ export default function FastingTrackerForm({
   onChangeStatus,
   onChangeHours,
 }: FastingTrackerFormProps) {
+  const [error, setError] = useState<string | null>(null);
   
   const handleHoursIncrement = (diff: number) => {
     const next = Math.max(currentHours + diff, 0);
+    if (next > 24) {
+      setError('Fasting hours must be between 0 and 24.');
+      return;
+    }
+    setError(null);
     onChangeHours(parseFloat(next.toFixed(1)));
   };
 
@@ -67,7 +74,7 @@ export default function FastingTrackerForm({
               variant="secondary"
               size="sm"
               onClick={() => handleHoursIncrement(0.5)}
-              disabled={currentHours >= 48}
+              disabled={currentHours >= 24}
               className="py-1 px-2.5 min-h-0 text-[10px]"
             >
               +0.5h
@@ -75,6 +82,7 @@ export default function FastingTrackerForm({
           </div>
         </div>
       )}
+      {error && <p className="text-[11px] font-semibold text-rose-300">{error}</p>}
     </div>
   );
 }
