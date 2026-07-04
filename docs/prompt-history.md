@@ -987,3 +987,35 @@ Fixes applied:
 
 Next:
 Build progress analytics charts and history views.
+
+## Prompt 28: Progress Analytics and History Views
+
+Status: Completed
+
+Goal:
+Build functional progress analytics and history views using LocalStorage app data.
+
+Files created or edited:
+- app/src/components/charts/SimpleBarChart.tsx
+- app/src/components/charts/SimpleLineChart.tsx
+- app/src/components/cards/HistoryListCard.tsx
+- app/src/components/cards/WorkoutHistoryCard.tsx
+- app/src/components/cards/ProgressSummaryCard.tsx
+- app/src/utils/analytics.ts
+- app/src/pages/Analytics.tsx
+- prompts/28-progress-analytics-history-views.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Analytics page now shows progress summaries, simple charts, tracker history, workout history, and AI high-priority insights. All analytics use LocalStorage app data. Build passed.
+
+Issues found:
+TypeScript compile warnings about missing sets array property and invalid start/end timestamps on the simplified `WorkoutSessionLog` models inside `WorkoutHistoryCard.tsx`.
+
+Fixes applied:
+- Re-coded stats extraction inside `WorkoutHistoryCard.tsx` using native attributes: `durationMinutes`, `completedSets`, and `painReported` directly from types.
+- Removed unused `Card` import from `Analytics.tsx`.
+
+Next:
+Build progress/streak dashboard polish and final MVP flow review.
