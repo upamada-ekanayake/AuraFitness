@@ -1077,3 +1077,25 @@ Rules:
 
 Next:
 Deploy AuraFitness MVP and perform user testing.
+
+## Prompt 31: GitHub Push and Vercel Deployment Check
+
+Status: In Progress (Awaiting Git Remote URL)
+
+Goal:
+Prepare AuraFitness MVP for GitHub push and Vercel deployment.
+
+Files created or edited:
+- docs/deployment-checklist.md
+- prompts/31-github-push-vercel-deployment-check.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Final build verified. Tracked files checked to ensure no leaked environments or dependencies exist in Git. Vercel deployment checklist and SPA routing paths documented. Ready to add git remote and push master branch.
+
+Rules:
+- No backend added.
+- No Python AI engines modified.
+- No large AI JSON imports.
+- No new features.
