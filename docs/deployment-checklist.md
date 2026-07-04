@@ -2,8 +2,8 @@
 
 ## GitHub
 
-- [x] GitHub remote configured (Awaiting user URL input)
-- [ ] Latest code pushed
+- [x] GitHub remote configured (`https://github.com/upamada-ekanayake/AuraFitness`)
+- [x] Latest code pushed
 - [x] Branch confirmed (`master`)
 - [x] No secrets committed
 - [x] No `node_modules` committed
