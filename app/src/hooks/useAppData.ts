@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { AuraFitnessData, UserProfile, WeeklyRoutineDay } from '../types/app';
+import type { AuraFitnessData, UserProfile, WeeklyRoutineDay, WorkoutSessionLog } from '../types/app';
 import {
   getAuraFitnessData,
   saveAuraFitnessData,
   resetAuraFitnessData,
   updateUserProfile,
   updateWeeklyRoutine,
+  addWorkoutSessionLog,
 } from '../services/appDataService';
 
 export function useAppData() {
@@ -48,6 +49,12 @@ export function useAppData() {
     setData(updated);
   }, []);
 
+  // Append a completed session log in storage and update local state
+  const addWorkoutLog = useCallback((log: WorkoutSessionLog) => {
+    const updated = addWorkoutSessionLog(log);
+    setData(updated);
+  }, []);
+
   return {
     data,
     profile: data?.profile ?? null,
@@ -57,5 +64,6 @@ export function useAppData() {
     resetData,
     updateProfile,
     updateRoutine,
+    addWorkoutLog,
   };
 }

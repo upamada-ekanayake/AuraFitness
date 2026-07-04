@@ -1,4 +1,4 @@
-import type { AuraFitnessData, UserProfile, WeeklyRoutineDay } from '../types/app';
+import type { AuraFitnessData, UserProfile, WeeklyRoutineDay, WorkoutSessionLog } from '../types/app';
 import { AURA_STORAGE_KEY, readStorage, writeStorage } from './storage';
 import { createSeedAuraFitnessData } from './seedData';
 
@@ -71,6 +71,18 @@ export function updateWeeklyRoutine(routine: WeeklyRoutineDay[]): AuraFitnessDat
   const updatedData: AuraFitnessData = {
     ...currentData,
     weeklyRoutine: routine,
+  };
+  return saveAuraFitnessData(updatedData);
+}
+
+/**
+ * Appends a completed workout log entry to the log array in storage.
+ */
+export function addWorkoutSessionLog(log: WorkoutSessionLog): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const updatedData: AuraFitnessData = {
+    ...currentData,
+    workoutLogs: [...currentData.workoutLogs, log],
   };
   return saveAuraFitnessData(updatedData);
 }

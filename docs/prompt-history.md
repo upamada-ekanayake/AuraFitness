@@ -886,3 +886,35 @@ Fixes applied:
 
 Next:
 Build workout session starter.
+
+## Prompt 25: Workout Session Starter
+
+Status: Completed
+
+Goal:
+Build workout session starter from weekly routine data.
+
+Files created or edited:
+- app/src/utils/date.ts
+- app/src/utils/session.ts
+- app/src/services/appDataService.ts
+- app/src/hooks/useAppData.ts
+- app/src/components/cards/ActiveExerciseCard.tsx
+- app/src/components/cards/SessionSummaryCard.tsx
+- app/src/pages/WorkoutSession.tsx
+- app/src/types/app.ts
+- prompts/25-workout-session-starter.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Users can start today’s workout from weekly routine. Users can update exercise session progress. Users can complete or cancel workout sessions. Completed workout sessions save to LocalStorage. Build passed.
+
+Issues found:
+Unused imports of `calculatePlannedSetCount` and `Flame` in `WorkoutSession.tsx` flagged during build validation.
+
+Fixes applied:
+- Removed unused imports to keep build verification fully clean and warnings-free.
+
+Next:
+Build daily trackers for water, calories, weight, and fasting.

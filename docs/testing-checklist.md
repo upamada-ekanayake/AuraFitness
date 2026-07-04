@@ -434,6 +434,28 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 1 / Prompt 25: Workout Session Starter
+
+- [x] Today day detection added
+- [x] Today routine lookup added
+- [x] Rest day state added
+- [x] No workout planned state added
+- [x] Start workout action added
+- [x] Active session state added
+- [x] ActiveExerciseCard created
+- [x] SessionSummaryCard created
+- [x] Exercise progress can be updated
+- [x] Previous/next exercise navigation works
+- [x] Complete workout saves log
+- [x] Cancel workout does not save log
+- [x] Workout logs persist in LocalStorage
+- [x] Mobile layout verified
+- [x] Desktop layout verified
+- [x] `npm run build` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+
 
 
 
