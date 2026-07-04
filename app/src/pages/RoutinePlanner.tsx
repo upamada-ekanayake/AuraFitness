@@ -1,58 +1,176 @@
+import { useState } from 'react';
 import { PageHeader } from '../components/layout/PageHeader';
-import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Calendar, Plus, ChevronRight } from 'lucide-react';
+import { Badge } from '../components/ui/Badge';
+import RoutineDayCard from '../components/cards/RoutineDayCard';
+import ExerciseForm from '../components/forms/ExerciseForm';
+import { useAppData } from '../hooks/useAppData';
+import { createId } from '../utils/id';
+import {
+  toggleRestDay,
+  updateRoutineDay,
+  addExerciseToDay,
+  updateExerciseInDay,
+  deleteExerciseFromDay,
+} from '../utils/routine';
+import type { RoutineExercise, WeeklyRoutineDay } from '../types/app';
+import { Sparkles } from 'lucide-react';
 
 export default function RoutinePlanner() {
-  const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const { data, isReady, updateRoutine, resetData } = useAppData();
+
+  // Active form modal configurations
+  const [activeDayId, setActiveDayId] = useState<string | null>(null);
+  const [editingExercise, setEditingExercise] = useState<RoutineExercise | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  if (!isReady || !data) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-slate-400 font-semibold">
+        Loading planner logs...
+      </div>
+    );
+  }
+
+  // Open modal for Adding Exercise
+  const handleOpenAddModal = (dayId: string) => {
+    setActiveDayId(dayId);
+    setEditingExercise(null);
+    setIsModalOpen(true);
+  };
+
+  // Open modal for Editing Exercise
+  const handleOpenEditModal = (dayId: string, exercise: RoutineExercise) => {
+    setActiveDayId(dayId);
+    setEditingExercise(exercise);
+    setIsModalOpen(true);
+  };
+
+  // Handle Form Submission (Add/Edit logic)
+  const handleFormSubmit = (exerciseFields: Omit<RoutineExercise, 'id'>) => {
+    if (!activeDayId) return;
+
+    let updatedRoutine: WeeklyRoutineDay[];
+
+    if (editingExercise) {
+      // Edit mode
+      const updatedExercise: RoutineExercise = {
+        ...exerciseFields,
+        id: editingExercise.id,
+      };
+      updatedRoutine = updateExerciseInDay(
+        data.weeklyRoutine,
+        activeDayId,
+        editingExercise.id,
+        updatedExercise
+      );
+    } else {
+      // Add mode
+      const newExercise: RoutineExercise = {
+        ...exerciseFields,
+        id: createId('ex'),
+      };
+      updatedRoutine = addExerciseToDay(data.weeklyRoutine, activeDayId, newExercise);
+    }
+
+    updateRoutine(updatedRoutine);
+    handleCloseModal();
+  };
+
+  const handleCloseModal = () => {
+    setActiveDayId(null);
+    setEditingExercise(null);
+    setIsModalOpen(false);
+  };
+
+  // Rest Day Toggle
+  const handleToggleRest = (dayId: string, isRest: boolean) => {
+    const updated = toggleRestDay(data.weeklyRoutine, dayId, isRest);
+    updateRoutine(updated);
+  };
+
+  // Day Focus Title Update
+  const handleUpdateFocus = (dayId: string, focusText: string) => {
+    const updated = updateRoutineDay(data.weeklyRoutine, dayId, focusText);
+    updateRoutine(updated);
+  };
+
+  // Exercise Deletion
+  const handleDeleteExercise = (dayId: string, exerciseId: string) => {
+    const updated = deleteExerciseFromDay(data.weeklyRoutine, dayId, exerciseId);
+    updateRoutine(updated);
+  };
+
+  // Clear All Exercises for a day
+  const handleClearExercises = (dayId: string) => {
+    const dayToClear = data.weeklyRoutine.find((d) => d.id === dayId);
+    if (!dayToClear) return;
+    const updated = toggleRestDay(data.weeklyRoutine, dayId, dayToClear.isRestDay); // Passing same rest state resets exercises
+    updateRoutine(updated);
+  };
+
+  const handleResetRoutine = () => {
+    if (window.confirm('Revert weekly routine configuration back to seed template defaults? This clears current custom edits.')) {
+      resetData();
+    }
+  };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 relative">
       <PageHeader
-        title="Routine Planner"
-        subtitle="Schedule your workouts, construct weekly split templates, and target muscles."
+        title="Weekly Routine Planner"
+        subtitle="Review your targeted focus schedule and manage your target movements."
         actions={
-          <Button variant="primary" className="flex items-center gap-2">
-            <Plus className="w-4 h-4" />
-            Create weekly routine
-          </Button>
+          <div className="flex gap-3">
+            <Button variant="secondary" size="sm" onClick={handleResetRoutine} className="flex items-center gap-1.5">
+              Reset defaults
+            </Button>
+            <Badge variant="info" className="text-xs px-3 py-1 font-bold">
+              Active Routine Split
+            </Badge>
+          </div>
         }
       />
 
-      {/* Empty State Card */}
-      <Card className="flex flex-col items-center justify-center text-center p-10 bg-slate-900/20 border border-dashed border-slate-800">
-        <div className="p-4 rounded-full bg-slate-950/60 text-slate-500 mb-4">
-          <Calendar className="w-8 h-8" />
-        </div>
-        <h3 className="text-lg font-bold text-slate-200">No active weekly routine</h3>
-        <p className="text-sm text-slate-500 max-w-sm mt-2">
-          Weekly plans help you maintain gym streaks. Establish your targeted days and exercises to begin.
-        </p>
-        <Button variant="secondary" className="mt-6">
-          Set up Weekly Split
-        </Button>
-      </Card>
-
-      {/* Weekly Days Grid Placeholders */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-bold text-slate-100 tracking-tight">Weekly Planner Slots</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {weekDays.map((day) => (
-            <Card
-              key={day}
-              className="flex justify-between items-center p-4 hover:border-slate-700/60 cursor-pointer transition-all duration-200 group"
-            >
-              <div>
-                <span className="text-sm font-bold text-slate-200 group-hover:text-indigo-400 transition-colors">
-                  {day}
-                </span>
-                <span className="block text-xs text-slate-500 mt-1 font-semibold">Unplanned</span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-400 group-hover:translate-x-0.5 transition-all" />
-            </Card>
-          ))}
-        </div>
+      {/* Routine Days Grid Display */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {data.weeklyRoutine.map((day) => (
+          <RoutineDayCard
+            key={day.id}
+            day={day}
+            onToggleRestDay={handleToggleRest}
+            onUpdateFocus={handleUpdateFocus}
+            onAddExerciseClick={handleOpenAddModal}
+            onEditExerciseClick={handleOpenEditModal}
+            onDeleteExercise={handleDeleteExercise}
+            onClearExercises={handleClearExercises}
+          />
+        ))}
       </div>
+
+      {/* Modal Popup Overlay */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-100 animate-fade-in">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-md shadow-2xl relative">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="w-5 h-5 text-indigo-400" />
+              <h3 className="text-lg font-bold text-slate-100 tracking-tight">
+                {editingExercise ? 'Edit Exercise target' : 'Add New Exercise'}
+              </h3>
+            </div>
+            
+            <p className="text-xs text-slate-400 mb-6 font-semibold">
+              Fill out targets for {data.weeklyRoutine.find((d) => d.id === activeDayId)?.dayName || 'day'} setup.
+            </p>
+
+            <ExerciseForm
+              initialValues={editingExercise ?? undefined}
+              onSubmit={handleFormSubmit}
+              onCancel={handleCloseModal}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

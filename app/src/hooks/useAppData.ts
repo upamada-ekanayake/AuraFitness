@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { AuraFitnessData, UserProfile } from '../types/app';
+import type { AuraFitnessData, UserProfile, WeeklyRoutineDay } from '../types/app';
 import {
   getAuraFitnessData,
   saveAuraFitnessData,
   resetAuraFitnessData,
   updateUserProfile,
+  updateWeeklyRoutine,
 } from '../services/appDataService';
 
 export function useAppData() {
@@ -41,6 +42,12 @@ export function useAppData() {
     setData(updated);
   }, []);
 
+  // Update weekly routine configuration in storage and local state
+  const updateRoutine = useCallback((newRoutine: WeeklyRoutineDay[]) => {
+    const updated = updateWeeklyRoutine(newRoutine);
+    setData(updated);
+  }, []);
+
   return {
     data,
     profile: data?.profile ?? null,
@@ -49,5 +56,6 @@ export function useAppData() {
     saveData,
     resetData,
     updateProfile,
+    updateRoutine,
   };
 }

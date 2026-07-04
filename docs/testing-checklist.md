@@ -414,5 +414,26 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 1 / Prompt 24: Weekly Routine Planner CRUD
+
+- [x] Weekly routine page displays 7 days
+- [x] Day focus can be edited
+- [x] Rest day can be toggled
+- [x] Marking rest day clears exercises
+- [x] Exercise form created
+- [x] Exercise can be added
+- [x] Exercise can be edited
+- [x] Exercise can be deleted
+- [x] Reps mode works
+- [x] Time mode works
+- [x] Routine updates save to LocalStorage
+- [x] Browser refresh keeps routine changes
+- [x] Mobile layout verified
+- [x] Desktop layout verified
+- [x] `npm run build` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+
 
 

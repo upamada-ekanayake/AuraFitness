@@ -1,4 +1,4 @@
-import type { AuraFitnessData, UserProfile } from '../types/app';
+import type { AuraFitnessData, UserProfile, WeeklyRoutineDay } from '../types/app';
 import { AURA_STORAGE_KEY, readStorage, writeStorage } from './storage';
 import { createSeedAuraFitnessData } from './seedData';
 
@@ -59,6 +59,18 @@ export function updateUserProfile(profileUpdates: Partial<UserProfile>): AuraFit
   const updatedData: AuraFitnessData = {
     ...currentData,
     profile: updatedProfile,
+  };
+  return saveAuraFitnessData(updatedData);
+}
+
+/**
+ * Replaces the weekly routine configuration in storage.
+ */
+export function updateWeeklyRoutine(routine: WeeklyRoutineDay[]): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const updatedData: AuraFitnessData = {
+    ...currentData,
+    weeklyRoutine: routine,
   };
   return saveAuraFitnessData(updatedData);
 }

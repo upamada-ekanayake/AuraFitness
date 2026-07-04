@@ -855,3 +855,34 @@ Fixes applied:
 
 Next:
 Build weekly routine planner CRUD.
+
+## Prompt 24: Weekly Routine Planner CRUD
+
+Status: Completed
+
+Goal:
+Build functional weekly routine planner CRUD using LocalStorage data layer.
+
+Files created or edited:
+- app/src/components/forms/ExerciseForm.tsx
+- app/src/components/cards/RoutineDayCard.tsx
+- app/src/pages/RoutinePlanner.tsx
+- app/src/utils/id.ts
+- app/src/utils/routine.ts
+- app/src/types/app.ts
+- app/src/services/appDataService.ts
+- prompts/24-weekly-routine-planner-crud.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Users can view and edit weekly routine days. Users can add, edit, and delete exercises. Users can toggle rest days. Routine data persists in LocalStorage. Build passed.
+
+Issues found:
+Unused imports of `ShieldAlert` in `RoutineDayCard.tsx` and `Calendar` in `RoutinePlanner.tsx` flagged during build validation.
+
+Fixes applied:
+- Removed unused imports to keep build verification fully clean and warnings-free.
+
+Next:
+Build workout session starter.
