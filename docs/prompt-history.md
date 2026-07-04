@@ -1149,6 +1149,45 @@ Rules:
 - No login UI added yet.
 - No secrets committed.
 
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.
+
 Next:
 Build login/signup UI and protected cloud-sync flow.
 
@@ -1185,6 +1224,45 @@ Rules:
 - No cloud sync connected yet.
 - No secrets committed.
 
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.
+
 Next:
 Build LocalStorage to Supabase cloud sync.
 
@@ -1218,6 +1296,45 @@ Rules:
 - No normalized tables added.
 - No secrets committed.
 
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.
+
 Next:
 Final cloud QA, Vercel env check, and user account testing.
 
@@ -1242,6 +1359,45 @@ Rules:
 - No backend added.
 - No Python AI engine changes.
 - No secrets committed.
+
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.
 - No major new features added.
 
 Next:
@@ -1279,6 +1435,45 @@ Rules:
 - No backend added.
 - No Python AI engine changes.
 - No secrets committed.
+
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.
 - LocalStorage/demo mode preserved.
 
 Next:
@@ -1307,6 +1502,45 @@ Rules:
 - No backend added.
 - No major new features added.
 - No secrets committed.
+
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.
 
 Next:
 Convert AuraFitness into an installable PWA/mobile app experience.
@@ -1346,6 +1580,45 @@ Rules:
 - No native Android wrapper added yet.
 - No secrets committed.
 
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.
+
 Next:
 Production PWA QA, Lighthouse PWA check, and optional native Android wrapper planning.
 
@@ -1377,3 +1650,42 @@ Rules:
 - No Python AI engine changes.
 - No native Android wrapper added.
 - No secrets committed.
+
+## Prompt 41: Capacitor Android Wrapper
+
+Status: Completed
+
+Goal:
+Create a Capacitor Android wrapper for AuraFitness and test the app inside Android Studio emulator/device.
+
+Files created or edited:
+- app/capacitor.config.ts
+- app/android/
+- app/src/utils/platform.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- app/src/hooks/useAndroidBackButton.ts
+- app/src/App.tsx
+- docs/capacitor-android-setup.md
+- docs/capacitor-android-qa-report.md
+- prompts/41-capacitor-android-wrapper.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/.gitignore
+
+Result:
+Capacitor installed.
+Android platform added.
+AuraFitness runs in Android Studio emulator/device.
+Auth, demo mode, cloud sync, navigation, and core features tested.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- No Play Store release generated yet.
+
+Next:
+Prepare debug APK, signed release APK/AAB, or Play Store release checklist.

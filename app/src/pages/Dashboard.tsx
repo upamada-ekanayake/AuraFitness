@@ -30,6 +30,7 @@ import type { WaterLog, CalorieLog, BodyWeightLog, FastingLog, FastingStatus } f
 import { Dumbbell, Heart } from 'lucide-react';
 import { useCloudSync } from '../hooks/useCloudSync';
 import { useInstallPrompt } from '../hooks/useInstallPrompt';
+import { isNativeAndroidApp } from '../utils/platform';
 
 export default function Dashboard() {
   const {
@@ -45,6 +46,7 @@ export default function Dashboard() {
   const { topSuggestions } = useAISuggestions();
   const { syncState } = useCloudSync();
   const { canInstall, isInstalled, promptInstall } = useInstallPrompt();
+  const isNative = isNativeAndroidApp();
 
   if (!isReady || !data || !profile) {
     return (
@@ -190,7 +192,7 @@ export default function Dashboard() {
         }
       />
 
-      {canInstall && !isInstalled && (
+      {canInstall && !isInstalled && !isNative && (
         <Card className="border-indigo-500/20 bg-indigo-500/5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>

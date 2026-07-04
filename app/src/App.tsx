@@ -20,10 +20,18 @@ function protectedPage(page: ReactNode) {
   );
 }
 
+import { useAndroidBackButton } from './hooks/useAndroidBackButton';
+
+function BackButtonHandler() {
+  useAndroidBackButton();
+  return null;
+}
+
 export default function App() {
   return (
     <AppErrorBoundary>
       <Router>
+        <BackButtonHandler />
         <Routes>
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/" element={protectedPage(<Dashboard />)} />

@@ -1,11 +1,31 @@
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
-import { Download, Smartphone } from 'lucide-react';
+import { Download, Smartphone, CheckCircle } from 'lucide-react';
 import { useInstallPrompt } from '../../hooks/useInstallPrompt';
+import { isNativeAndroidApp } from '../../utils/platform';
 
 export default function InstallAppCard() {
   const { canInstall, isInstalled, promptInstall } = useInstallPrompt();
+  const isNative = isNativeAndroidApp();
+
+  if (isNative) {
+    return (
+      <Card title="App status" subtitle="Native Android Application">
+        <div className="bg-slate-950/40 p-4 border border-slate-900 rounded-2xl space-y-3">
+          <div className="flex items-start gap-3">
+            <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-bold text-slate-200">Running as Native Android App</p>
+              <p className="text-xs font-semibold text-slate-500 mt-1 leading-relaxed">
+                You are using the Capacitor wrapper version of AuraFitness.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Card>
+    );
+  }
 
   return (
     <Card title="App install" subtitle="Install AuraFitness as an app">

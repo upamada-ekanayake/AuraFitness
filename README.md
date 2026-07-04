@@ -32,7 +32,8 @@ The app will help users manage:
 8. UI/UX design system
 9. Core features
 10. Testing and bug fixes
-11. Final polish
+11. PWA and Native Android Wrapper
+12. Final polish
 
 ## Project Structure
 
