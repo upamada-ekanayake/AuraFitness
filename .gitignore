@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# AI data/models
+ai/datasets/raw/
+ai/models/*.pkl
+ai/models/*.joblib
+
+# Node / React
+node_modules/
+dist/
+build/
+.env.local
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
