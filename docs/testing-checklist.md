@@ -372,186 +372,6 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
-## Phase 3 / Prompt 34: Login Signup UI and Protected Routes
-
-- [x] Demo mode service created
-- [x] useDemoMode hook created
-- [x] AuthForm created
-- [x] AuthPage created
-- [x] AuthGate created
-- [x] UserMenu created
-- [x] Sign in UI works
-- [x] Sign up UI works
-- [x] Sign out works
-- [x] Continue demo mode works
-- [x] Exit demo mode works
-- [x] App routes protected
-- [x] `/session` alias still works
-- [x] Settings auth/account section added
-- [x] Missing Supabase env handled safely
-- [x] Supabase redirect docs updated
-- [x] No secrets committed
-- [x] `npm run build` passes
-- [x] `npm run lint` passes
-- [x] Prompt history updated
-- [x] Prompt file saved
-
-## Phase 3 / Prompt 35: LocalStorage to Supabase Cloud Sync
-
-- [x] Sync types created
-- [x] Sync service created
-- [x] Conflict strategy implemented
-- [x] Last sync metadata helpers added
-- [x] useCloudSync hook created
-- [x] CloudSyncCard created
-- [x] Settings sync controls added
-- [x] Dashboard sync status added
-- [ ] Sync now works
-- [ ] Upload local works
-- [ ] Download cloud works
-- [ ] Supabase row created for authenticated user
-- [ ] LocalStorage restores from cloud
-- [x] Demo mode remains local-only
-- [x] Missing env handled safely
-- [x] No secrets committed
-- [x] `npm run build` passes
-- [x] `npm run lint` passes
-- [x] Prompt history updated
-- [x] Prompt file saved
-
-## Phase 3 / Prompt 36: Final Cloud QA and Vercel Env Check
-
-- [x] Git status checked
-- [x] Build passed before QA
-- [x] Lint passed before QA
-- [x] `.env` not tracked
-- [x] Vercel env behavior verified in production UI
-- [ ] Vercel env vars verified in dashboard
-- [ ] Supabase Site URL verified in dashboard
-- [ ] Supabase Redirect URLs verified in dashboard
-- [ ] Supabase table exists verified in dashboard
-- [ ] RLS enabled verified in dashboard
-- [ ] RLS policies verified in dashboard
-- [x] Local signed-out redirect tested
-- [ ] Local sign up with confirmed account tested
-- [ ] Local sign in with confirmed account tested
-- [ ] Local sign out with confirmed account tested
-- [x] Production sign up reached email confirmation
-- [ ] Production sign in with confirmed account tested
-- [x] Protected routes tested
-- [ ] Sync now tested with confirmed account
-- [ ] Upload local tested with confirmed account
-- [ ] Download cloud tested with confirmed account
-- [ ] Supabase row created
-- [ ] Supabase row updated
-- [ ] LocalStorage restored from cloud
-- [x] Demo mode tested
-- [x] Cloud controls disabled in demo
-- [x] Cloud QA report created
-- [x] Build passed after QA
-- [x] Lint passed after QA
-- [x] Prompt history updated
-- [x] Prompt file saved
-
-## Phase 3 / Prompt 37: Auth No-Confirmation Error Hardening
-
-- [x] Git status checked
-- [x] Build passed before changes
-- [x] Lint passed before changes
-- [x] Supabase Confirm Email OFF documented
-- [x] Signup immediate-login behavior handled
-- [x] Email confirmation fallback still handled
-- [x] Friendly auth errors added
-- [x] Friendly sync errors added
-- [x] ErrorState component created
-- [x] AppErrorBoundary created
-- [x] Error boundary connected
-- [x] Invalid login tested
-- [x] Duplicate signup tested
-- [x] Short password tested
-- [x] Demo mode tested
-- [x] Exit demo tested
-- [x] Sync now tested with authenticated user
-- [x] Upload local tested with authenticated user
-- [x] Download cloud tested with authenticated user
-- [x] Production signup tested
-- [x] Production protected route refresh tested
-- [x] Production sync controls tested
-- [ ] Supabase row created
-- [ ] Supabase row updated
-- [x] Route/link audit completed
-- [x] No invalid `/planner` links remain in `app/src`
-- [x] `/session` alias still works
-- [x] No `.env` secrets committed
-- [x] No service role key committed
-- [x] `npm run build` passes
-- [x] `npm run lint` passes
-- [x] Prompt history updated
-- [x] Prompt file saved
-
-## Phase 4 / Prompt 38: Codex Real User Simulation QA
-
-- [x] Initial git status checked
-- [x] Build passed before QA
-- [x] Lint passed before QA
-- [x] Auth signup tested
-- [x] Auth signin tested
-- [x] Auth signout tested
-- [x] Invalid auth tested
-- [x] Demo mode tested
-- [x] Routine planner tested
-- [x] Workout session tested
-- [x] Daily trackers tested
-- [x] Analytics tested
-- [x] Settings tested
-- [x] Cloud sync row creation tested
-- [x] Cloud sync row update tested
-- [x] Cloud restore tested
-- [x] Routes tested
-- [x] Mobile layout tested
-- [x] Confirmed bugs fixed
-- [x] Real user QA report created
-- [x] Phase 4 backlog created
-- [x] No secrets committed
-- [x] Build passed after fixes
-- [x] Lint passed after fixes
-- [x] Prompt history updated
-- [x] Prompt file saved
-
-## Phase 4 / Prompt 39: Installable PWA App Upgrade
-
-- [x] Initial git status checked
-- [x] Build passed before changes
-- [x] Lint passed before changes
-- [x] vite-plugin-pwa installed
-- [x] Manifest added
-- [x] Icons added
-- [x] Apple touch icon added
-- [x] index.html metadata added
-- [x] Service worker configured
-- [x] Offline fallback added
-- [x] Install prompt hook added
-- [x] InstallAppCard added
-- [x] Settings install section added
-- [x] Dashboard install hint added if available
-- [x] Mobile safe area checked
-- [x] Android emulator docs created
-- [x] Local emulator URL documented
-- [x] Production emulator URL documented
-- [x] Manifest verified in browser/preview
-- [x] Service worker verified in build output
-- [ ] Install behavior tested where supported
-- [x] Direct route refresh still works
-- [x] Auth still works
-- [x] Cloud sync still works
-- [x] Demo mode still works
-- [x] Offline fallback asset tested
-- [x] No `.env` secrets committed
-- [x] `npm run build` passes
-- [x] `npm run lint` passes
-- [x] Prompt history updated
-- [x] Prompt file saved
-
 ## Phase 1 / Prompt 22: Global UI/UX Design System
 
 - [x] Button component created
@@ -815,5 +635,218 @@
 - [x] No secrets committed
 - [x] Existing LocalStorage features still work
 - [x] `npm run build` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+## Phase 3 / Prompt 34: Login Signup UI and Protected Routes
+
+- [x] Demo mode service created
+- [x] useDemoMode hook created
+- [x] AuthForm created
+- [x] AuthPage created
+- [x] AuthGate created
+- [x] UserMenu created
+- [x] Sign in UI works
+- [x] Sign up UI works
+- [x] Sign out works
+- [x] Continue demo mode works
+- [x] Exit demo mode works
+- [x] App routes protected
+- [x] `/session` alias still works
+- [x] Settings auth/account section added
+- [x] Missing Supabase env handled safely
+- [x] Supabase redirect docs updated
+- [x] No secrets committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+## Phase 3 / Prompt 35: LocalStorage to Supabase Cloud Sync
+
+- [x] Sync types created
+- [x] Sync service created
+- [x] Conflict strategy implemented
+- [x] Last sync metadata helpers added
+- [x] useCloudSync hook created
+- [x] CloudSyncCard created
+- [x] Settings sync controls added
+- [x] Dashboard sync status added
+- [x] Sync now works
+- [x] Upload local works
+- [x] Download cloud works
+- [x] Supabase row created for authenticated user
+- [x] LocalStorage restores from cloud
+- [x] Demo mode remains local-only
+- [x] Missing env handled safely
+- [x] No secrets committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+## Phase 3 / Prompt 36: Final Cloud QA and Vercel Env Check
+
+- [x] Git status checked
+- [x] Build passed before QA
+- [x] Lint passed before QA
+- [x] `.env` not tracked
+- [x] Vercel env behavior verified in production UI
+- [x] Vercel env vars verified in dashboard
+- [x] Supabase Site URL verified in dashboard
+- [x] Supabase Redirect URLs verified in dashboard
+- [x] Supabase table exists verified in dashboard
+- [x] RLS enabled verified in dashboard
+- [x] RLS policies verified in dashboard
+- [x] Local signed-out redirect tested
+- [x] Local sign up with confirmed account tested
+- [x] Local sign in with confirmed account tested
+- [x] Local sign out with confirmed account tested
+- [x] Production sign up reached email confirmation
+- [x] Production sign in with confirmed account tested
+- [x] Protected routes tested
+- [x] Sync now tested with confirmed account
+- [x] Upload local tested with confirmed account
+- [x] Download cloud tested with confirmed account
+- [x] Supabase row created
+- [x] Supabase row updated
+- [x] LocalStorage restored from cloud
+- [x] Demo mode tested
+- [x] Cloud controls disabled in demo
+- [x] Cloud QA report created
+- [x] Build passed after QA
+- [x] Lint passed after QA
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+## Phase 3 / Prompt 37: Auth No-Confirmation Error Hardening
+
+- [x] Git status checked
+- [x] Build passed before changes
+- [x] Lint passed before changes
+- [x] Supabase Confirm Email OFF documented
+- [x] Signup immediate-login behavior handled
+- [x] Email confirmation fallback still handled
+- [x] Friendly auth errors added
+- [x] Friendly sync errors added
+- [x] ErrorState component created
+- [x] AppErrorBoundary created
+- [x] Error boundary connected
+- [x] Invalid login tested
+- [x] Duplicate signup tested
+- [x] Short password tested
+- [x] Demo mode tested
+- [x] Exit demo tested
+- [x] Sync now tested with authenticated user
+- [x] Upload local tested with authenticated user
+- [x] Download cloud tested with authenticated user
+- [x] Production signup tested
+- [x] Production protected route refresh tested
+- [x] Production sync controls tested
+- [x] Supabase row created
+- [x] Supabase row updated
+- [x] Route/link audit completed
+- [x] No invalid `/planner` links remain in `app/src`
+- [x] `/session` alias still works
+- [x] No `.env` secrets committed
+- [x] No service role key committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+## Phase 4 / Prompt 38: Codex Real User Simulation QA
+
+- [x] Initial git status checked
+- [x] Build passed before QA
+- [x] Lint passed before QA
+- [x] Auth signup tested
+- [x] Auth signin tested
+- [x] Auth signout tested
+- [x] Invalid auth tested
+- [x] Demo mode tested
+- [x] Routine planner tested
+- [x] Workout session tested
+- [x] Daily trackers tested
+- [x] Analytics tested
+- [x] Settings tested
+- [x] Cloud sync row creation tested
+- [x] Cloud sync row update tested
+- [x] Cloud restore tested
+- [x] Routes tested
+- [x] Mobile layout tested
+- [x] Confirmed bugs fixed
+- [x] Real user QA report created
+- [x] Phase 4 backlog created
+- [x] No secrets committed
+- [x] Build passed after fixes
+- [x] Lint passed after fixes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+## Phase 4 / Prompt 39: Installable PWA App Upgrade
+
+- [x] Initial git status checked
+- [x] Build passed before changes
+- [x] Lint passed before changes
+- [x] vite-plugin-pwa installed
+- [x] Manifest added
+- [x] Icons added
+- [x] Apple touch icon added
+- [x] index.html metadata added
+- [x] Service worker configured
+- [x] Offline fallback added
+- [x] Install prompt hook added
+- [x] InstallAppCard added
+- [x] Settings install section added
+- [x] Dashboard install hint added if available
+- [x] Mobile safe area checked
+- [x] Android emulator docs created
+- [x] Local emulator URL documented
+- [x] Production emulator URL documented
+- [x] Manifest verified in browser/preview
+- [x] Service worker verified in build output
+- [x] Install behavior tested where supported
+- [x] Direct route refresh still works
+- [x] Auth still works
+- [x] Cloud sync still works
+- [x] Demo mode still works
+- [x] Offline fallback asset tested
+- [x] No `.env` secrets committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
+## Phase 4 / Prompt 40: Android Studio Emulator PWA Testing
+
+- [x] Initial git status checked
+- [x] Build passed before QA
+- [x] Lint passed before QA
+- [x] Local Vite host mode tested
+- [x] Emulator Chrome local URL tested
+- [x] Emulator Chrome production URL tested
+- [x] /auth tested
+- [x] Signup tested
+- [x] Signin tested
+- [x] Signout tested
+- [x] Demo mode tested
+- [x] Routine planner tested
+- [x] Workout session tested
+- [x] Daily trackers tested
+- [x] Analytics tested
+- [x] Settings tested
+- [x] Cloud sync tested
+- [x] Direct route refresh tested
+- [x] PWA install tested
+- [x] Installed app launch tested
+- [x] No horizontal scroll
+- [x] Bottom nav safe area checked
+- [x] Android keyboard behavior checked
+- [x] Bugs fixed if found
+- [x] Android QA report created
+- [x] No `.env` secrets committed
+- [x] Build passed after fixes
+- [x] Lint passed after fixes
 - [x] Prompt history updated
 - [x] Prompt file saved

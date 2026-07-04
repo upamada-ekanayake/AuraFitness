@@ -1348,3 +1348,32 @@ Rules:
 
 Next:
 Production PWA QA, Lighthouse PWA check, and optional native Android wrapper planning.
+
+## Prompt 40: Android Studio Emulator PWA Testing
+
+Status: Completed
+
+Goal:
+Test AuraFitness PWA in Android Studio Emulator, verify production/local behavior, PWA install behavior, mobile layout, auth, demo mode, cloud sync, and core app flows.
+
+Files created or edited:
+- docs/android-emulator-qa-report.md
+- docs/android-emulator-testing.md
+- app/src/components/navigation/MobileBottomNav.tsx
+- app/src/components/layout/AppShell.tsx
+- prompts/40-android-studio-emulator-pwa-testing.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Android emulator QA completed.
+PWA install behavior tested where supported.
+Core app flows tested on emulator.
+Confirmed mobile safe-area issues fixed.
+Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No native Android wrapper added.
+- No secrets committed.

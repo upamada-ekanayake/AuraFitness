@@ -9,7 +9,7 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row pb-20 md:pb-0">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
       {/* Desktop Sidebar Navigation */}
       <SidebarNav />
 

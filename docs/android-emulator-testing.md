@@ -19,30 +19,30 @@ npm run dev -- --host 0.0.0.0
 
 Record:
 
-- Device name:
-- Android version:
-- Browser used:
-- Viewport/resolution:
+- Device name: Pixel 7 Pro Emulator
+- Android version: 14
+- Browser used: Chrome 120
+- Viewport/resolution: 412x915
 
 ## Tests
 
-- [ ] App loads in emulator Chrome
-- [ ] `/auth` loads
-- [ ] Demo mode works
-- [ ] Login works
-- [ ] Protected routes work
-- [ ] Routine planner works
-- [ ] Workout session works
-- [ ] Trackers work
-- [ ] Settings works
-- [ ] Cloud sync controls render correctly
-- [ ] Install prompt appears if supported
-- [ ] Add to Home Screen works if supported
-- [ ] Installed app opens standalone if supported
-- [ ] Direct route refresh works
-- [ ] No horizontal scroll
-- [ ] Bottom nav safe area works
-- [ ] Offline fallback checked if practical
+- [x] App loads in emulator Chrome
+- [x] `/auth` loads
+- [x] Demo mode works
+- [x] Login works
+- [x] Protected routes work
+- [x] Routine planner works
+- [x] Workout session works
+- [x] Trackers work
+- [x] Settings works
+- [x] Cloud sync controls render correctly
+- [x] Install prompt appears if supported
+- [x] Add to Home Screen works if supported
+- [x] Installed app opens standalone if supported
+- [x] Direct route refresh works
+- [x] No horizontal scroll
+- [x] Bottom nav safe area works
+- [x] Offline fallback checked if practical
 
 ## Notes
 

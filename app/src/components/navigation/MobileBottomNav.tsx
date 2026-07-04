@@ -6,7 +6,7 @@ export default function MobileBottomNav() {
   const location = useLocation();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xl border-t border-slate-900 flex justify-around items-center h-16 px-4 z-50 shadow-2xl">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xl border-t border-slate-900 flex justify-around items-center h-[calc(64px+env(safe-area-inset-bottom))] pb-[env(safe-area-inset-bottom)] px-4 z-50 shadow-2xl">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.path;
