@@ -5,9 +5,14 @@ import { Button } from '../components/ui/Button';
 import { User, Settings as SettingsIcon, Shield, Sliders, Database } from 'lucide-react';
 import { useAppData } from '../hooks/useAppData';
 import { isSupabaseConfigured } from '../lib/supabase';
+import { useAuth } from '../hooks/useAuth';
+import { useDemoMode } from '../hooks/useDemoMode';
+import UserMenu from '../components/auth/UserMenu';
 
 export default function Settings() {
   const { data, profile, resetData, isReady } = useAppData();
+  const { user, isAuthenticated } = useAuth();
+  const { isDemoMode } = useDemoMode();
 
   if (!isReady || !profile || !data) {
     return (
@@ -160,6 +165,42 @@ export default function Settings() {
 
         {/* AI Configuration Section */}
         <div className="space-y-6">
+          <Card title="Account" subtitle="Authentication and access status">
+            <div className="space-y-4">
+              <UserMenu />
+              <div className="bg-slate-950/40 p-4 border border-slate-900 rounded-2xl space-y-3">
+                <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                  <span className="text-slate-400 font-semibold">Auth status</span>
+                  <Badge variant={isAuthenticated ? 'success' : isDemoMode ? 'warning' : 'neutral'}>
+                    {isAuthenticated ? 'Signed in' : isDemoMode ? 'Demo mode' : 'Signed out'}
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                  <span className="text-slate-400 font-semibold">User email</span>
+                  <span className="text-slate-300 font-bold text-right truncate pl-4">
+                    {user?.email ?? 'Not signed in'}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                  <span className="text-slate-400 font-semibold">Demo mode</span>
+                  <Badge variant={isDemoMode ? 'warning' : 'neutral'}>
+                    {isDemoMode ? 'Active' : 'Inactive'}
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                  <span className="text-slate-400 font-semibold">Supabase configured</span>
+                  <Badge variant={isSupabaseConfigured ? 'success' : 'neutral'}>
+                    {isSupabaseConfigured ? 'Yes' : 'No'}
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400 font-semibold">Cloud sync</span>
+                  <span className="text-slate-300 font-bold">Coming next</span>
+                </div>
+              </div>
+            </div>
+          </Card>
+
           <Card title="AI Status" subtitle="Check the status of loaded AI engine models">
             <div className="space-y-4">
               

@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../../lib/navigation';
 import { cn } from '../../utils/cn';
+import UserMenu from '../auth/UserMenu';
 
 export default function SidebarNav() {
   const location = useLocation();
@@ -44,11 +45,14 @@ export default function SidebarNav() {
         })}
       </nav>
 
-      <div className="mt-auto p-4 bg-slate-900/30 border border-slate-800/60 rounded-2xl">
-        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">AI Core Status</span>
-        <div className="flex items-center gap-2 mt-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs text-slate-300 font-semibold">Rule Engine Loaded</span>
+      <div className="mt-auto flex flex-col gap-4">
+        <UserMenu />
+        <div className="p-4 bg-slate-900/30 border border-slate-800/60 rounded-2xl">
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">AI Core Status</span>
+          <div className="flex items-center gap-2 mt-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs text-slate-300 font-semibold">Rule Engine Loaded</span>
+          </div>
         </div>
       </div>
     </aside>

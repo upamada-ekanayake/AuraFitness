@@ -372,6 +372,30 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 3 / Prompt 34: Login Signup UI and Protected Routes
+
+- [x] Demo mode service created
+- [x] useDemoMode hook created
+- [x] AuthForm created
+- [x] AuthPage created
+- [x] AuthGate created
+- [x] UserMenu created
+- [x] Sign in UI works
+- [x] Sign up UI works
+- [x] Sign out works
+- [x] Continue demo mode works
+- [x] Exit demo mode works
+- [x] App routes protected
+- [x] `/session` alias still works
+- [x] Settings auth/account section added
+- [x] Missing Supabase env handled safely
+- [x] Supabase redirect docs updated
+- [x] No secrets committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
 ## Phase 1 / Prompt 22: Global UI/UX Design System
 
 - [x] Button component created
@@ -637,7 +661,6 @@
 - [x] `npm run build` passes
 - [x] Prompt history updated
 - [x] Prompt file saved
-
 
 
 

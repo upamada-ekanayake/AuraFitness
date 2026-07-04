@@ -1,6 +1,7 @@
 import React from 'react';
 import SidebarNav from '../navigation/SidebarNav';
 import MobileBottomNav from '../navigation/MobileBottomNav';
+import UserMenu from '../auth/UserMenu';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -19,6 +20,9 @@ export default function AppShell({ children }: AppShellProps) {
 
         {/* Inner container */}
         <main className="flex-1 p-6 md:p-10 max-w-7xl w-full mx-auto overflow-y-auto relative z-10">
+          <div className="md:hidden mb-6">
+            <UserMenu compact />
+          </div>
           {children}
         </main>
       </div>

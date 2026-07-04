@@ -33,7 +33,13 @@ export async function getCurrentUser(): Promise<AuthUserProfile | null> {
     const client = requireSupabase();
     const { data, error } = await client.auth.getUser();
 
-    if (error) throw error;
+    if (error) {
+      if (error.message.toLowerCase().includes('auth session missing')) {
+        return null;
+      }
+
+      throw error;
+    }
 
     return toAuthUserProfile(data.user);
   } catch (error) {
@@ -52,7 +58,7 @@ export async function signUpWithEmail(
 
     if (error) throw error;
 
-    return toAuthUserProfile(data.user);
+    return toAuthUserProfile(data.session?.user ?? null);
   } catch (error) {
     throw getFriendlyAuthError(error);
   }

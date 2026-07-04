@@ -53,3 +53,11 @@ using (auth.uid() = user_id);
 - Cloud sync will be connected in the next prompt.
 - Do not expose the Supabase service role key in the frontend.
 - Add the Vercel environment variables before enabling production cloud sync.
+
+## Supabase Auth URL Settings
+
+Use these values in Supabase Authentication URL settings:
+
+- Site URL: `https://aura-fitness-kappa.vercel.app`
+- Redirect URL: `https://aura-fitness-kappa.vercel.app/**`
+- Redirect URL: `http://localhost:5173/**`
