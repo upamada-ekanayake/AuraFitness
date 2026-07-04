@@ -1,9 +1,27 @@
 import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { User, Settings as SettingsIcon, Shield, Sliders } from 'lucide-react';
+import { Button } from '../components/ui/Button';
+import { User, Settings as SettingsIcon, Shield, Sliders, Database } from 'lucide-react';
+import { useAppData } from '../hooks/useAppData';
 
 export default function Settings() {
+  const { profile, resetData, isReady } = useAppData();
+
+  if (!isReady || !profile) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-slate-400 font-semibold">
+        Loading Preferences...
+      </div>
+    );
+  }
+
+  const handleReset = () => {
+    if (window.confirm('Are you sure you want to reset all data to default seed values? This will wipe your current log progress.')) {
+      resetData();
+    }
+  };
+
   return (
     <div className="space-y-8">
       <PageHeader
@@ -21,23 +39,27 @@ export default function Settings() {
                 <User className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="text-base font-bold text-slate-200">AuraFitness User</h4>
+                <h4 className="text-base font-bold text-slate-200">{profile.name}</h4>
                 <p className="text-xs text-slate-500 font-semibold mt-0.5">Joined July 2026</p>
               </div>
             </div>
 
-            <div className="mt-6 border-t border-slate-850 pt-4 space-y-3">
+            <div className="mt-6 border-t border-slate-800/80 pt-4 space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-slate-400">Body weight</span>
-                <span className="font-semibold text-slate-200">75.0 kg</span>
+                <span className="text-slate-400 font-medium">Body weight</span>
+                <span className="font-bold text-slate-200">{profile.bodyWeightKg} kg</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-slate-400">Fasting target</span>
-                <span className="font-semibold text-slate-200">16 hours</span>
+                <span className="text-slate-400 font-medium">Fasting target</span>
+                <span className="font-bold text-slate-200">{profile.fastingGoalHours} hours</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-slate-400">Daily Water Goal</span>
-                <span className="font-semibold text-slate-200">2,500 ml</span>
+                <span className="text-slate-400 font-medium">Daily Water Goal</span>
+                <span className="font-bold text-slate-200">{Math.round(profile.waterGoalLiters * 1000)} ml</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-400 font-medium">Target Goal</span>
+                <span className="font-bold text-indigo-400 uppercase text-xs tracking-wider">{profile.goal.replace('_', ' ')}</span>
               </div>
             </div>
           </Card>
@@ -45,7 +67,7 @@ export default function Settings() {
           {/* Preferences Card */}
           <Card title="App Preferences" subtitle="Customize themes and units">
             <div className="space-y-4">
-              <div className="flex justify-between items-center text-sm py-1.5 border-b border-slate-850">
+              <div className="flex justify-between items-center text-sm py-1.5 border-b border-slate-800/80">
                 <div className="flex items-center gap-2">
                   <Sliders className="w-4 h-4 text-slate-500" />
                   <span className="text-slate-300 font-semibold">Weight Unit</span>
@@ -53,13 +75,31 @@ export default function Settings() {
                 <Badge variant="neutral">Kilograms (kg)</Badge>
               </div>
 
-              <div className="flex justify-between items-center text-sm py-1.5 border-b border-slate-850">
+              <div className="flex justify-between items-center text-sm py-1.5 border-b border-slate-800/80">
                 <div className="flex items-center gap-2">
                   <SettingsIcon className="w-4 h-4 text-slate-500" />
                   <span className="text-slate-300 font-semibold">Weekly Target</span>
                 </div>
-                <span className="text-slate-400 font-bold">5 sessions</span>
+                <span className="text-slate-400 font-bold">{profile.weeklyWorkoutGoal} sessions</span>
               </div>
+            </div>
+          </Card>
+
+          {/* System Actions / Reset Section */}
+          <Card title="Database Actions" subtitle="Reset and clear application state data">
+            <div className="space-y-4">
+              <p className="text-xs text-slate-400 font-medium leading-relaxed">
+                Clearing your cache resets workouts, hydration tables, fasting periods, and weight indicators to original demo states.
+              </p>
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={handleReset}
+                className="flex items-center gap-2"
+              >
+                <Database className="w-4 h-4" />
+                Reset demo data
+              </Button>
             </div>
           </Card>
         </div>
@@ -93,7 +133,7 @@ export default function Settings() {
                 <Badge variant="neutral">Offline</Badge>
               </div>
 
-              <div className="p-4 bg-slate-950/20 border border-slate-850 rounded-xl flex items-start gap-2.5">
+              <div className="p-4 bg-slate-950/20 border border-slate-900 rounded-xl flex items-start gap-2.5">
                 <Shield className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-bold text-slate-200">Local Privacy First</h4>

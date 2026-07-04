@@ -824,3 +824,34 @@ Fixes applied:
 
 Next:
 Build LocalStorage data service and seed data layer.
+
+## Prompt 23: LocalStorage Data Service and Seed Data Layer
+
+Status: Completed
+
+Goal:
+Create typed LocalStorage-based data foundation for AuraFitness.
+
+Files created or edited:
+- app/src/types/app.ts
+- app/src/services/storage.ts
+- app/src/services/seedData.ts
+- app/src/services/appDataService.ts
+- app/src/hooks/useAppData.ts
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Settings.tsx
+- prompts/23-localstorage-data-service.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+LocalStorage data layer created. Seed demo data created. Dashboard reads real seed values. Settings can reset demo data. Build passed.
+
+Issues found:
+TypeScript strict check `verbatimModuleSyntax: true` threw errors regarding type-only imports lacking the `type` modifier (e.g. `import { AuraFitnessData } from ...`).
+
+Fixes applied:
+- Prefixed all structural type imports with the `type` keyword inside `useAppData.ts`, `appDataService.ts`, and `seedData.ts`.
+
+Next:
+Build weekly routine planner CRUD.
