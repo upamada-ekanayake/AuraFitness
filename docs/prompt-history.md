@@ -1092,7 +1092,7 @@ Files created or edited:
 - docs/testing-checklist.md
 
 Result:
-Final build verified. Tracked files checked to ensure no leaked environments or dependencies exist in Git. GitHub remote confirmed as `https://github.com/upamada-ekanayake/AuraFitness`, `master` verified on origin, and Vercel deployment checklist and SPA routing paths documented.
+Final build verified. Tracked files checked to ensure no leaked environments or dependencies exist in Git. GitHub remote confirmed as `https://github.com/upamada-ekanayake/AuraFitness`, `main` verified on origin, and Vercel deployment checklist and SPA routing paths documented.
 
 Rules:
 - No backend added.

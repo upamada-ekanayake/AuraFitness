@@ -4,7 +4,7 @@
 
 - [x] GitHub remote configured (`https://github.com/upamada-ekanayake/AuraFitness`)
 - [x] Latest code pushed
-- [x] Branch confirmed (`master`)
+- [x] Branch confirmed (`main`)
 - [x] No secrets committed
 - [x] No `node_modules` committed
 - [x] No `app/dist` committed
