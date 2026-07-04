@@ -2,7 +2,7 @@ import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { ProgressRing } from '../components/ui/ProgressRing';
-import AISuggestionCard from '../components/cards/AISuggestionCard';
+import AISuggestionList from '../components/cards/AISuggestionList';
 import WorkoutSummaryCard from '../components/cards/WorkoutSummaryCard';
 import TrackerCard from '../components/cards/TrackerCard';
 import WaterTrackerForm from '../components/forms/WaterTrackerForm';
@@ -10,6 +10,7 @@ import CalorieTrackerForm from '../components/forms/CalorieTrackerForm';
 import BodyWeightForm from '../components/forms/BodyWeightForm';
 import FastingTrackerForm from '../components/forms/FastingTrackerForm';
 import { useAppData } from '../hooks/useAppData';
+import { useAISuggestions } from '../hooks/useAISuggestions';
 import { getTodayIsoDate } from '../services/appDataService';
 import {
   getTodayWaterLog,
@@ -33,6 +34,8 @@ export default function Dashboard() {
     upsertBodyWeight,
     upsertFasting,
   } = useAppData();
+
+  const { topSuggestions } = useAISuggestions();
 
   if (!isReady || !data || !profile) {
     return (
@@ -269,24 +272,7 @@ export default function Dashboard() {
 
         {/* AI Recommendations Column */}
         <div className="lg:col-span-2 space-y-6 flex flex-col justify-between">
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold text-slate-100 tracking-tight">AI Insights</h3>
-            
-            <AISuggestionCard
-              type="overload"
-              title="Time to progress: Bench Press weight increase"
-              message="You successfully hit all 12 reps at RPE 8 on your last workout. We suggest adding 2.5 kg to your next session for progressive overload."
-              confidence={0.85}
-            />
-
-            <AISuggestionCard
-              type="rest"
-              title="Avoid shoulder training today"
-              message="Your shoulders have had high workout volume over the last 48 hours. Focus on lower body training or active rest for recovery."
-              confidence={0.92}
-            />
-          </div>
-
+          <AISuggestionList title="AI Insights" suggestions={topSuggestions} />
           <WorkoutSummaryCard className="mt-4 lg:mt-0" />
         </div>
 

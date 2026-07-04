@@ -955,3 +955,35 @@ Fixes applied:
 
 Next:
 Build AI suggestion integration layer using exported sample AI data and app state.
+
+## Prompt 27: AI Suggestion Integration Layer
+
+Status: Completed
+
+Goal:
+Build rule-based AI suggestion integration layer using current LocalStorage app state.
+
+Files created or edited:
+- app/src/types/aiSuggestions.ts
+- app/src/services/aiSuggestionService.ts
+- app/src/hooks/useAISuggestions.ts
+- app/src/components/cards/AISuggestionList.tsx
+- app/src/components/cards/AISuggestionCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Analytics.tsx
+- app/src/pages/Settings.tsx
+- prompts/27-ai-suggestion-integration-layer.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Dashboard displays AI-style suggestions based on app state. Analytics displays high-priority insight summary. Settings displays AI status. Suggestions update from LocalStorage tracker/routine/workout data. Build passed.
+
+Issues found:
+Unused variable declarations (`WeeklyRoutineDay`, `BodyWeightLog`, `fastingProgress`, `latestWeight`, `getLatestBodyWeightLog`) in `aiSuggestionService.ts` flagged during build validation.
+
+Fixes applied:
+- Removed unused imports and variable declarations to ensure clean compilation.
+
+Next:
+Build progress analytics charts and history views.

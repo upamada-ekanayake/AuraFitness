@@ -2,7 +2,9 @@ import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { ProgressRing } from '../components/ui/ProgressRing';
 import { Badge } from '../components/ui/Badge';
+import AISuggestionList from '../components/cards/AISuggestionList';
 import { useAppData } from '../hooks/useAppData';
+import { useAISuggestions } from '../hooks/useAISuggestions';
 import { getTodayIsoDate } from '../services/appDataService';
 import {
   getTodayWaterLog,
@@ -17,6 +19,7 @@ import { BarChart2, TrendingUp, RefreshCw, Dumbbell, Droplets, Flame, Calendar, 
 
 export default function Analytics() {
   const { data, profile, isReady } = useAppData();
+  const { highPrioritySuggestions } = useAISuggestions();
 
   if (!isReady || !data || !profile) {
     return (
@@ -121,6 +124,13 @@ export default function Analytics() {
         </Card>
 
       </div>
+
+      {/* AI insight summary section */}
+      <AISuggestionList
+        title="High Priority AI Insights"
+        suggestions={highPrioritySuggestions}
+        emptyMessage="No high-priority insights active. Keep tracking your parameters to populate insights!"
+      />
 
       {/* Daily Tracker Metrics Summary Table */}
       <Card title="Biometric Tracking Summary" subtitle="Latest recorded parameters and daily compliance">

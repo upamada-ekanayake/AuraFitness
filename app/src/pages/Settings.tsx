@@ -109,28 +109,32 @@ export default function Settings() {
           <Card title="AI Status" subtitle="Check the status of loaded AI engine models">
             <div className="space-y-4">
               
+              {/* Core AI Parameters list */}
+              <div className="bg-slate-950/40 p-4 border border-slate-900 rounded-2xl space-y-3">
+                <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                  <span className="text-slate-400 font-semibold">AI mode</span>
+                  <span className="text-indigo-400 font-bold">Rule-based MVP</span>
+                </div>
+                <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                  <span className="text-slate-400 font-semibold">ML enabled</span>
+                  <span className="text-slate-400 font-bold">No</span>
+                </div>
+                <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                  <span className="text-slate-400 font-semibold">LLM enabled</span>
+                  <span className="text-slate-400 font-bold">No</span>
+                </div>
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-slate-400 font-semibold">Data source</span>
+                  <span className="text-slate-300 font-bold text-right truncate pl-4">Local app data + exported AI rules</span>
+                </div>
+              </div>
+
               <div className="p-4 bg-slate-950/40 rounded-xl border border-slate-900 flex justify-between items-center">
                 <div>
                   <span className="text-xs font-bold text-slate-200 block">Rule Engine Model</span>
                   <span className="text-[10px] text-slate-500 font-semibold mt-0.5 block">Status: Loaded (1730 exercises)</span>
                 </div>
                 <Badge variant="success">Online</Badge>
-              </div>
-
-              <div className="p-4 bg-slate-950/40 rounded-xl border border-slate-900 flex justify-between items-center">
-                <div>
-                  <span className="text-xs font-bold text-slate-200 block">Machine Learning (ML)</span>
-                  <span className="text-[10px] text-slate-500 font-semibold mt-0.5 block">Status: Not initialized for MVP</span>
-                </div>
-                <Badge variant="neutral">Disabled</Badge>
-              </div>
-
-              <div className="p-4 bg-slate-950/40 rounded-xl border border-slate-900 flex justify-between items-center">
-                <div>
-                  <span className="text-xs font-bold text-slate-200 block">Large Language Model (LLM)</span>
-                  <span className="text-[10px] text-slate-500 font-semibold mt-0.5 block">Status: Disabled by privacy policy</span>
-                </div>
-                <Badge variant="neutral">Offline</Badge>
               </div>
 
               <div className="p-4 bg-slate-950/20 border border-slate-900 rounded-xl flex items-start gap-2.5">
