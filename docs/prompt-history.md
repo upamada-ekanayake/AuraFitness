@@ -1019,3 +1019,34 @@ Fixes applied:
 
 Next:
 Build progress/streak dashboard polish and final MVP flow review.
+
+## Prompt 29: Streak Dashboard Polish and MVP Flow Review
+
+Status: Completed
+
+Goal:
+Polish dashboard streak/habit experience and review full MVP app flow.
+
+Files created or edited:
+- app/src/utils/streaks.ts
+- app/src/components/cards/StreakCard.tsx
+- app/src/components/cards/WeeklyGoalCard.tsx
+- app/src/components/cards/HabitScoreCard.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/pages/Analytics.tsx
+- app/src/pages/Settings.tsx
+- prompts/29-streak-dashboard-polish-mvp-flow-review.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Dashboard now shows streaks, weekly goal progress, and habit score. Analytics includes streak summary. Settings includes data health section. Full MVP flow reviewed and small issues fixed. Build passed.
+
+Issues found:
+TypeScript compile warnings in `StreakCard.tsx` regarding declared but unused variable `iconTones`.
+
+Fixes applied:
+- Deleted unused `iconTones` variable in `StreakCard.tsx` to maintain warnings-free build validation.
+
+Next:
+Final MVP QA, responsive polish, and deployment preparation.

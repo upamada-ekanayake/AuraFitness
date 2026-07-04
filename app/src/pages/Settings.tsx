@@ -6,15 +6,23 @@ import { User, Settings as SettingsIcon, Shield, Sliders, Database } from 'lucid
 import { useAppData } from '../hooks/useAppData';
 
 export default function Settings() {
-  const { profile, resetData, isReady } = useAppData();
+  const { data, profile, resetData, isReady } = useAppData();
 
-  if (!isReady || !profile) {
+  if (!isReady || !profile || !data) {
     return (
       <div className="flex items-center justify-center min-h-screen text-slate-400 font-semibold">
         Loading Preferences...
       </div>
     );
   }
+
+  const routineDaysCount = data.weeklyRoutine.length;
+  const workoutLogsCount = data.workoutLogs.length;
+  const trackerLogsCount =
+    data.waterLogs.length +
+    data.calorieLogs.length +
+    data.fastingLogs.length +
+    data.bodyWeightLogs.length;
 
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset all data to default seed values? This will wipe your current log progress.')) {
@@ -81,6 +89,28 @@ export default function Settings() {
                   <span className="text-slate-300 font-semibold">Weekly Target</span>
                 </div>
                 <span className="text-slate-400 font-bold">{profile.weeklyWorkoutGoal} sessions</span>
+              </div>
+            </div>
+          </Card>
+
+          {/* Data Health summary Card */}
+          <Card title="Data Health Summary" subtitle="Local storage health and record stats">
+            <div className="space-y-3 pt-2">
+              <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                <span className="text-slate-400 font-semibold">Routine days count</span>
+                <span className="text-slate-200 font-bold">{routineDaysCount} days</span>
+              </div>
+              <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                <span className="text-slate-400 font-semibold">Workout logs count</span>
+                <span className="text-slate-200 font-bold">{workoutLogsCount} sessions</span>
+              </div>
+              <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                <span className="text-slate-400 font-semibold">Tracker logs count</span>
+                <span className="text-slate-200 font-bold">{trackerLogsCount} records</span>
+              </div>
+              <div className="flex justify-between items-center text-xs">
+                <span className="text-slate-400 font-semibold">Storage mode</span>
+                <Badge variant="success">LocalStorage</Badge>
               </div>
             </div>
           </Card>

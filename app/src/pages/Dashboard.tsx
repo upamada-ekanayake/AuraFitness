@@ -5,6 +5,9 @@ import { ProgressRing } from '../components/ui/ProgressRing';
 import AISuggestionList from '../components/cards/AISuggestionList';
 import WorkoutSummaryCard from '../components/cards/WorkoutSummaryCard';
 import TrackerCard from '../components/cards/TrackerCard';
+import WeeklyGoalCard from '../components/cards/WeeklyGoalCard';
+import HabitScoreCard from '../components/cards/HabitScoreCard';
+import StreakCard from '../components/cards/StreakCard';
 import WaterTrackerForm from '../components/forms/WaterTrackerForm';
 import CalorieTrackerForm from '../components/forms/CalorieTrackerForm';
 import BodyWeightForm from '../components/forms/BodyWeightForm';
@@ -21,6 +24,7 @@ import {
   calculateWeightChange,
   getCalorieStatus,
 } from '../utils/tracker';
+import { calculateAllStreaks, calculateHabitScore } from '../utils/streaks';
 import type { WaterLog, CalorieLog, BodyWeightLog, FastingLog, FastingStatus } from '../types/app';
 import { Dumbbell, Heart } from 'lucide-react';
 
@@ -46,6 +50,9 @@ export default function Dashboard() {
   }
 
   const today = getTodayIsoDate();
+
+  const streaks = calculateAllStreaks(data);
+  const habitScore = calculateHabitScore(streaks);
 
   // Retrieve today's hydration logs
   const waterLog = getTodayWaterLog(data.waterLogs, today) ?? {
@@ -158,6 +165,20 @@ export default function Dashboard() {
           </div>
         }
       />
+
+      {/* Habit Score & Weekly Goal Overview Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <WeeklyGoalCard
+          completed={completedWorkoutsCount}
+          goal={profile.weeklyWorkoutGoal}
+        />
+        <HabitScoreCard
+          score={habitScore.score}
+          label={habitScore.label}
+          helper={habitScore.helper}
+          tone={habitScore.tone}
+        />
+      </div>
 
       {/* 4 Tracker Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -276,6 +297,16 @@ export default function Dashboard() {
           <WorkoutSummaryCard className="mt-4 lg:mt-0" />
         </div>
 
+      </div>
+
+      {/* Active Streak Grid */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-bold text-slate-100 tracking-tight">Active Habit Streaks</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          {streaks.map((str) => (
+            <StreakCard key={str.kind} metric={str} />
+          ))}
+        </div>
       </div>
     </div>
   );

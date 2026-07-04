@@ -1,6 +1,7 @@
 import { PageHeader } from '../components/layout/PageHeader';
 import AISuggestionList from '../components/cards/AISuggestionList';
 import ProgressSummaryCard from '../components/cards/ProgressSummaryCard';
+import HabitScoreCard from '../components/cards/HabitScoreCard';
 import SimpleBarChart from '../components/charts/SimpleBarChart';
 import SimpleLineChart from '../components/charts/SimpleLineChart';
 import WorkoutHistoryCard from '../components/cards/WorkoutHistoryCard';
@@ -20,6 +21,7 @@ import {
   getRecentWorkoutLogs,
 } from '../utils/analytics';
 import { getLatestBodyWeightLog, getCalorieStatus } from '../utils/tracker';
+import { calculateAllStreaks, calculateHabitScore } from '../utils/streaks';
 import { RefreshCw } from 'lucide-react';
 import type { HistoryListItem } from '../components/cards/HistoryListCard';
 
@@ -36,6 +38,9 @@ export default function Analytics() {
   }
 
   // 1. Gather historical data from last 7 days
+  const streaks = calculateAllStreaks(data);
+  const habitScore = calculateHabitScore(streaks);
+
   const waterHist7 = getWaterHistory(data.waterLogs, 7);
   const calorieHist7 = getCalorieHistory(data.calorieLogs, 7);
   const fastingHist7 = getFastingHistory(data.fastingLogs, 7);
@@ -158,7 +163,13 @@ export default function Analytics() {
       />
 
       {/* Progress Summary Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <HabitScoreCard
+          score={habitScore.score}
+          label={habitScore.label}
+          helper={habitScore.helper}
+          tone={habitScore.tone}
+        />
         <ProgressSummaryCard
           label="Workouts (7d)"
           value={`${workoutsLast7} sessions`}
