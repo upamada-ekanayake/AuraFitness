@@ -352,3 +352,23 @@
 - [x] Set up AI type exports in `src/types/ai.ts`
 - [x] Implement basic layout, navigation, and router placeholder
 - [x] Verify build and local dev environment
+
+## Phase 1 / Prompt 21: Base Setup Review
+
+- [x] Git status checked
+- [x] Tracked files reviewed
+- [x] `.gitignore` reviewed
+- [x] No `node_modules` tracked
+- [x] No `app/dist` tracked
+- [x] No Python virtual environment tracked
+- [x] No raw datasets tracked unless intentionally allowed
+- [x] App folder structure reviewed
+- [x] AI TypeScript interfaces reviewed
+- [x] React Router verified
+- [x] Desktop layout verified
+- [x] Mobile navigation verified
+- [x] Tailwind CSS verified
+- [x] `npm run build` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+

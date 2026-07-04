@@ -745,3 +745,37 @@ None.
 
 Next:
 Configure the UI/UX design system and start building core app features.
+
+## Prompt 21: Base Setup Review, Repo Hygiene, and App Architecture Cleanup
+
+Status: Completed
+
+Goal:
+Review Prompt 20 output, clean repo hygiene, verify app architecture, and confirm build stability.
+
+Files reviewed:
+- app/package.json
+- app/vite.config.ts
+- app/src/App.tsx
+- app/src/index.css
+- app/src/pages/
+- app/src/types/ai.ts
+- .gitignore
+- docs/testing-checklist.md
+- docs/prompt-history.md
+
+Result:
+Base React setup reviewed and cleaned.
+Repository hygiene verified.
+Build passed.
+
+Issues found:
+None.
+
+Fixes applied:
+- Updated the root `.gitignore` file to ensure comprehensive coverage, explicitly including `.ipynb_checkpoints/`, `app/dist/`, and adding negative ignore patterns for processed datasets (`!ai/datasets/processed/`) and AI exports (`!ai/exports/`).
+- Copied the AI export interfaces from `ai/exports/typescript_interfaces.ts` directly into `app/src/types/ai.ts` to make the React app self-contained and build-ready.
+- Created the target directory structure inside `app/src/components` and other utility directories, using `.gitkeep` to track empty placeholders.
+
+Next:
+Global UI/UX design system.

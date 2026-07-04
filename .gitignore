@@ -4,16 +4,22 @@ __pycache__/
 .venv/
 venv/
 .env
+.ipynb_checkpoints/
 
-# AI data/models
+# AI raw/private/heavy data
 ai/datasets/raw/
 ai/models/*.pkl
 ai/models/*.joblib
+
+# Keep processed and exports
+!ai/datasets/processed/
+!ai/exports/
 
 # Node / React
 node_modules/
 dist/
 build/
+app/dist/
 .env.local
 
 # IDE
