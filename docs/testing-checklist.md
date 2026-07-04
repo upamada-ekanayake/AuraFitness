@@ -2,15 +2,15 @@
 
 ## Phase 0: Project Setup
 
-- [ ] Root folder created
-- [ ] AI folder created
-- [ ] App folder created
-- [ ] Docs folder created
-- [ ] Prompts folder created
-- [ ] README files created
-- [ ] Prompt history file created
-- [ ] Testing checklist created
-- [ ] Folder structure checked using `tree /F`
+- [x] Root folder created
+- [x] AI folder created
+- [x] App folder created
+- [x] Docs folder created
+- [x] Prompts folder created
+- [x] README files created
+- [x] Prompt history file created
+- [x] Testing checklist created
+- [x] Folder structure checked using `tree /F`
 
 ## Phase 1: AI Workspace Setup
 

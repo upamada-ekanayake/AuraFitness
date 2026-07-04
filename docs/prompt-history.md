@@ -2,7 +2,7 @@
 
 ## Prompt 01: Project Setup
 
-Status: In Progress
+Status: Completed
 
 Goal:
 Set up the AuraFitness professional project folder structure.
