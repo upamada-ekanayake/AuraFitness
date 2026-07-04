@@ -65,7 +65,7 @@ export function generateAISuggestions(data: AuraFitnessData): AISuggestion[] {
           'Today is planned as recovery. Focus on light stretching and nutrition to prepare for your next active session.',
           0.92,
           ['REST_SCHEDULED'],
-          '/planner',
+          '/routine',
           'View Routine'
         )
       );
@@ -91,7 +91,7 @@ export function generateAISuggestions(data: AuraFitnessData): AISuggestion[] {
           `Your routine for ${todayName} is active but has no exercises. Add movements to complete your planned splits.`,
           0.98,
           ['EMPTY_ACTIVE_DAY'],
-          '/planner',
+          '/routine',
           'Add Exercises'
         )
       );

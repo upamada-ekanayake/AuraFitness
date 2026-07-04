@@ -13,6 +13,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/routine" element={<RoutinePlanner />} />
+          <Route path="/session" element={<WorkoutSession />} />
           <Route path="/workout" element={<WorkoutSession />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/settings" element={<Settings />} />

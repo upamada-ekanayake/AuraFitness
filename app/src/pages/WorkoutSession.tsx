@@ -239,7 +239,7 @@ export default function WorkoutSession() {
             Your weekly schedule designates {todayName} as a Rest Day. Focus on hydration, stretching, and nutrition.
           </p>
           <div className="mt-8 flex gap-3">
-            <Link to="/planner">
+            <Link to="/routine">
               <Button variant="secondary" className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" /> Go to Routine Planner
               </Button>
@@ -257,7 +257,7 @@ export default function WorkoutSession() {
             {todayName} split has empty exercise entries. Add exercises to your day in the planner.
           </p>
           <div className="mt-8">
-            <Link to="/planner">
+            <Link to="/routine">
               <Button variant="primary" className="flex items-center gap-1.5">
                 <Play className="w-4 h-4" /> Go to Routine Planner
               </Button>
