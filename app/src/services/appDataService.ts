@@ -1,4 +1,13 @@
-import type { AuraFitnessData, UserProfile, WeeklyRoutineDay, WorkoutSessionLog } from '../types/app';
+import type {
+  AuraFitnessData,
+  UserProfile,
+  WeeklyRoutineDay,
+  WorkoutSessionLog,
+  WaterLog,
+  CalorieLog,
+  BodyWeightLog,
+  FastingLog,
+} from '../types/app';
 import { AURA_STORAGE_KEY, readStorage, writeStorage } from './storage';
 import { createSeedAuraFitnessData } from './seedData';
 
@@ -83,6 +92,67 @@ export function addWorkoutSessionLog(log: WorkoutSessionLog): AuraFitnessData {
   const updatedData: AuraFitnessData = {
     ...currentData,
     workoutLogs: [...currentData.workoutLogs, log],
+  };
+  return saveAuraFitnessData(updatedData);
+}
+
+/**
+ * Upserts a WaterLog into storage by matching date keys.
+ */
+export function upsertWaterLog(log: WaterLog): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const filtered = currentData.waterLogs.filter((w) => w.date !== log.date);
+  const updatedData: AuraFitnessData = {
+    ...currentData,
+    waterLogs: [...filtered, log],
+  };
+  return saveAuraFitnessData(updatedData);
+}
+
+/**
+ * Upserts a CalorieLog into storage by matching date keys.
+ */
+export function upsertCalorieLog(log: CalorieLog): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const filtered = currentData.calorieLogs.filter((c) => c.date !== log.date);
+  const updatedData: AuraFitnessData = {
+    ...currentData,
+    calorieLogs: [...filtered, log],
+  };
+  return saveAuraFitnessData(updatedData);
+}
+
+/**
+ * Upserts a BodyWeightLog into storage by matching date keys.
+ */
+export function upsertBodyWeightLog(log: BodyWeightLog): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const filtered = currentData.bodyWeightLogs.filter((w) => w.date !== log.date);
+  const updatedData: AuraFitnessData = {
+    ...currentData,
+    bodyWeightLogs: [...filtered, log],
+  };
+  // Also update the core profile bodyWeightKg configuration so forms are in sync
+  const updatedProfile: UserProfile = {
+    ...currentData.profile,
+    bodyWeightKg: log.weightKg,
+  };
+  const updatedDataWithProfile: AuraFitnessData = {
+    ...updatedData,
+    profile: updatedProfile,
+  };
+  return saveAuraFitnessData(updatedDataWithProfile);
+}
+
+/**
+ * Upserts a FastingLog into storage by matching date keys.
+ */
+export function upsertFastingLog(log: FastingLog): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const filtered = currentData.fastingLogs.filter((f) => f.date !== log.date);
+  const updatedData: AuraFitnessData = {
+    ...currentData,
+    fastingLogs: [...filtered, log],
   };
   return saveAuraFitnessData(updatedData);
 }

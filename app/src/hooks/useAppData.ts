@@ -1,5 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { AuraFitnessData, UserProfile, WeeklyRoutineDay, WorkoutSessionLog } from '../types/app';
+import type {
+  AuraFitnessData,
+  UserProfile,
+  WeeklyRoutineDay,
+  WorkoutSessionLog,
+  WaterLog,
+  CalorieLog,
+  BodyWeightLog,
+  FastingLog,
+} from '../types/app';
 import {
   getAuraFitnessData,
   saveAuraFitnessData,
@@ -7,6 +16,10 @@ import {
   updateUserProfile,
   updateWeeklyRoutine,
   addWorkoutSessionLog,
+  upsertWaterLog,
+  upsertCalorieLog,
+  upsertBodyWeightLog,
+  upsertFastingLog,
 } from '../services/appDataService';
 
 export function useAppData() {
@@ -55,6 +68,30 @@ export function useAppData() {
     setData(updated);
   }, []);
 
+  // Upsert a daily WaterLog entry
+  const upsertWater = useCallback((log: WaterLog) => {
+    const updated = upsertWaterLog(log);
+    setData(updated);
+  }, []);
+
+  // Upsert a daily CalorieLog entry
+  const upsertCalories = useCallback((log: CalorieLog) => {
+    const updated = upsertCalorieLog(log);
+    setData(updated);
+  }, []);
+
+  // Upsert a daily BodyWeightLog entry
+  const upsertBodyWeight = useCallback((log: BodyWeightLog) => {
+    const updated = upsertBodyWeightLog(log);
+    setData(updated);
+  }, []);
+
+  // Upsert a daily FastingLog entry
+  const upsertFasting = useCallback((log: FastingLog) => {
+    const updated = upsertFastingLog(log);
+    setData(updated);
+  }, []);
+
   return {
     data,
     profile: data?.profile ?? null,
@@ -65,5 +102,9 @@ export function useAppData() {
     updateProfile,
     updateRoutine,
     addWorkoutLog,
+    upsertWater,
+    upsertCalories,
+    upsertBodyWeight,
+    upsertFasting,
   };
 }
