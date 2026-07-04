@@ -19,10 +19,12 @@ Local:
 
 Production:
 - Vercel URL: `https://aura-fitness-kappa.vercel.app/`
-- Latest production deployment before Prompt 37: `4edbf94` (`Complete cloud QA and Vercel env check`)
-- Production retest after Prompt 37: Pending redeploy from latest pushed commit
+- Prompt 37 production deployment tested: `a0f33e2` (`Harden auth and cloud sync error handling`)
+- Production auth page: Verified
+- Production immediate signup: Verified
+- Production protected route refresh: Verified for `/routine`, `/session`, `/analytics`, and `/settings`
+- Production cloud sync controls: Verified; blocked by Supabase table setup or policies
 - Vercel dashboard env values: Not exposed by available tooling; verify names manually in Vercel
-- Runtime errors: No new production runtime check completed in Prompt 37 before redeploy
 
 ## Supabase
 
@@ -52,12 +54,14 @@ Auth:
 - Immediate signup tested locally with generated QA account
 - Sign in with same generated QA account tested locally
 - Sign out tested locally
+- Immediate signup tested in production with generated QA account
 - Duplicate signup tested locally
 - Invalid login tested locally
 - Short password tested locally
 - Demo mode tested locally
 - Exit demo mode tested locally
 - Protected route refresh tested locally in demo mode for `/`, `/routine`, `/session`, `/analytics`, and `/settings`
+- Protected route refresh tested in production for `/routine`, `/session`, `/analytics`, and `/settings`
 
 ## Cloud Sync QA
 

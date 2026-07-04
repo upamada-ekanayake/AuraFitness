@@ -1273,7 +1273,7 @@ Files created or edited:
 - docs/testing-checklist.md
 
 Result:
-Email/password signup supports immediate login when Supabase Confirm Email is disabled. Auth errors are friendly. Cloud sync errors are handled safely. App-level error boundary added. Full route/link audit completed. Local authenticated signup and sign-in passed. Supabase row creation/update is blocked until `public.user_app_data` table setup or policies are verified in Supabase Dashboard. Build and lint passed.
+Email/password signup supports immediate login when Supabase Confirm Email is disabled. Auth errors are friendly. Cloud sync errors are handled safely. App-level error boundary added. Full route/link audit completed. Local authenticated signup and sign-in passed. Production signup and protected route refresh passed on deployment `a0f33e2`. Supabase row creation/update is blocked until `public.user_app_data` table setup or policies are verified in Supabase Dashboard. Build and lint passed.
 
 Rules:
 - No backend added.

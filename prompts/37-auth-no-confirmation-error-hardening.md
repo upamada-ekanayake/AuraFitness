@@ -32,6 +32,10 @@ Support immediate email/password signup when Supabase Confirm Email is disabled,
 - Direct route refresh worked for `/`, `/routine`, `/session`, `/analytics`, and `/settings` in demo mode.
 - No active invalid `/planner` links remain in `app/src`.
 - Authenticated cloud sync reached the app safely, but Supabase returned a table/setup issue before row creation.
+- Production deployment for commit `a0f33e2` reached READY on Vercel.
+- Production signup returned an active session and unlocked the app.
+- Production protected routes refreshed directly.
+- Production sync controls reached the same friendly table/setup error.
 
 ## Supabase Follow-Up
 

@@ -474,6 +474,9 @@
 - [x] Sync now tested with authenticated user
 - [x] Upload local tested with authenticated user
 - [x] Download cloud tested with authenticated user
+- [x] Production signup tested
+- [x] Production protected route refresh tested
+- [x] Production sync controls tested
 - [ ] Supabase row created
 - [ ] Supabase row updated
 - [x] Route/link audit completed
@@ -751,7 +754,6 @@
 - [x] `npm run build` passes
 - [x] Prompt history updated
 - [x] Prompt file saved
-
 
 
 
