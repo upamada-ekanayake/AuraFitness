@@ -619,6 +619,24 @@
 - [x] Deployment route alias fix pushed to GitHub
 - [x] Next recommended step documented: Phase 2 / Prompt 32
 
+## Phase 3 / Prompt 33: Supabase Auth and Database Foundation
+
+- [x] Supabase client installed
+- [x] `.env.example` created
+- [x] `supabase.ts` created
+- [x] Missing env vars handled safely
+- [x] Auth types created
+- [x] Auth service created
+- [x] `useAuth` hook created
+- [x] Cloud data service created
+- [x] Supabase SQL setup documented
+- [x] Settings cloud status added
+- [x] App works without env vars
+- [x] No secrets committed
+- [x] Existing LocalStorage features still work
+- [x] `npm run build` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
 
 
 

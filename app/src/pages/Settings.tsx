@@ -4,6 +4,7 @@ import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { User, Settings as SettingsIcon, Shield, Sliders, Database } from 'lucide-react';
 import { useAppData } from '../hooks/useAppData';
+import { isSupabaseConfigured } from '../lib/supabase';
 
 export default function Settings() {
   const { data, profile, resetData, isReady } = useAppData();
@@ -111,6 +112,29 @@ export default function Settings() {
               <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-400 font-semibold">Storage mode</span>
                 <Badge variant="success">LocalStorage</Badge>
+              </div>
+            </div>
+          </Card>
+
+          <Card title="Cloud Sync Foundation" subtitle="Supabase auth and database readiness">
+            <div className="space-y-3 pt-2">
+              <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                <span className="text-slate-400 font-semibold">Cloud sync foundation</span>
+                <Badge variant="success">Ready</Badge>
+              </div>
+              <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                <span className="text-slate-400 font-semibold">Supabase configured</span>
+                <Badge variant={isSupabaseConfigured ? 'success' : 'neutral'}>
+                  {isSupabaseConfigured ? 'Yes' : 'No'}
+                </Badge>
+              </div>
+              <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
+                <span className="text-slate-400 font-semibold">Login UI</span>
+                <span className="text-slate-300 font-bold">Coming next</span>
+              </div>
+              <div className="flex justify-between items-center text-xs">
+                <span className="text-slate-400 font-semibold">Storage mode</span>
+                <span className="text-slate-300 font-bold text-right">LocalStorage + Supabase foundation</span>
               </div>
             </div>
           </Card>
