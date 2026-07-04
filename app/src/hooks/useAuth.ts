@@ -7,7 +7,8 @@ import {
   signOutUser,
   signUpWithEmail,
 } from '../services/authService';
-import type { AuthState, AuthUserProfile } from '../types/auth';
+import type { AuthSignUpResult, AuthState, AuthUserProfile } from '../types/auth';
+import { getFriendlyAuthError } from '../utils/errors';
 
 export function useAuth() {
   const [authState, setAuthState] = useState<AuthState>({
@@ -34,7 +35,7 @@ export function useAuth() {
       setUserState(user);
       return user;
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unable to refresh auth session.';
+      const message = getFriendlyAuthError(error);
       setUserState(null, message);
       return null;
     }
@@ -55,13 +56,16 @@ export function useAuth() {
       setAuthState((current) => ({ ...current, isLoading: true, error: null }));
 
       try {
-        const user = await signUpWithEmail(email, password);
-        setUserState(user);
-        return user;
+        const result = await signUpWithEmail(email, password);
+        setUserState(result.user);
+        return result;
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unable to create account.';
+        const message = getFriendlyAuthError(error);
         setAuthState((current) => ({ ...current, isLoading: false, error: message }));
-        return null;
+        return {
+          user: null,
+          requiresEmailConfirmation: false,
+        } satisfies AuthSignUpResult;
       }
     },
     [setUserState]
@@ -76,7 +80,7 @@ export function useAuth() {
         setUserState(user);
         return user;
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unable to sign in.';
+        const message = getFriendlyAuthError(error);
         setAuthState((current) => ({ ...current, isLoading: false, error: message }));
         return null;
       }
@@ -91,7 +95,7 @@ export function useAuth() {
       await signOutUser();
       setUserState(null);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unable to sign out.';
+      const message = getFriendlyAuthError(error);
       setAuthState((current) => ({ ...current, isLoading: false, error: message }));
     }
   }, [setUserState]);

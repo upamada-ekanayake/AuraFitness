@@ -12,6 +12,7 @@ import {
   syncLocalAndCloudData,
 } from '../services/syncService';
 import type { CloudSyncResult, CloudSyncState } from '../types/sync';
+import { getFriendlySyncError } from '../utils/errors';
 
 function getDefaultState(isDemoMode: boolean, isAuthenticated: boolean): CloudSyncState {
   if (isDemoMode) {
@@ -62,6 +63,18 @@ export function useCloudSync() {
   );
   const isSyncing = syncState.status === 'syncing';
 
+  const failSync = useCallback((error: unknown) => {
+    const message = getFriendlySyncError(error);
+
+    setSyncState({
+      status: 'error',
+      mode: isDemoMode ? 'demo_mode' : isAuthenticated ? 'cloud_enabled' : 'local_only',
+      lastSyncedAt: getLastCloudSyncAt(),
+      error: message,
+      message,
+    });
+  }, [isAuthenticated, isDemoMode]);
+
   const applyResult = useCallback((result: CloudSyncResult) => {
     const syncedAt = result.status === 'synced' ? new Date().toISOString() : getLastCloudSyncAt();
 
@@ -96,9 +109,13 @@ export function useCloudSync() {
       message: 'Syncing local and cloud data...',
     }));
 
-    const { result } = await syncLocalAndCloudData(user.id, data);
-    applyResult(result);
-  }, [applyResult, canSync, data, isAuthenticated, isDemoMode, user]);
+    try {
+      const { result } = await syncLocalAndCloudData(user.id, data);
+      applyResult(result);
+    } catch (error) {
+      failSync(error);
+    }
+  }, [applyResult, canSync, data, failSync, isAuthenticated, isDemoMode, user]);
 
   const pushNow = useCallback(async () => {
     if (!canSync || !user || !data) {
@@ -114,9 +131,13 @@ export function useCloudSync() {
       message: 'Uploading local data to Supabase...',
     }));
 
-    const result = await pushLocalDataToCloud(user.id, data);
-    applyResult(result);
-  }, [applyResult, canSync, data, isAuthenticated, isDemoMode, user]);
+    try {
+      const result = await pushLocalDataToCloud(user.id, data);
+      applyResult(result);
+    } catch (error) {
+      failSync(error);
+    }
+  }, [applyResult, canSync, data, failSync, isAuthenticated, isDemoMode, user]);
 
   const pullNow = useCallback(async () => {
     if (!canSync || !user) {
@@ -132,9 +153,13 @@ export function useCloudSync() {
       message: 'Downloading cloud data...',
     }));
 
-    const { result } = await pullCloudDataToLocal(user.id);
-    applyResult(result);
-  }, [applyResult, canSync, isAuthenticated, isDemoMode, user]);
+    try {
+      const { result } = await pullCloudDataToLocal(user.id);
+      applyResult(result);
+    } catch (error) {
+      failSync(error);
+    }
+  }, [applyResult, canSync, failSync, isAuthenticated, isDemoMode, user]);
 
   useEffect(() => {
     setSyncState((current) => ({

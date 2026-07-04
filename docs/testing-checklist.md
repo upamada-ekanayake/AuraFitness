@@ -453,6 +453,39 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 3 / Prompt 37: Auth No-Confirmation Error Hardening
+
+- [x] Git status checked
+- [x] Build passed before changes
+- [x] Lint passed before changes
+- [x] Supabase Confirm Email OFF documented
+- [x] Signup immediate-login behavior handled
+- [x] Email confirmation fallback still handled
+- [x] Friendly auth errors added
+- [x] Friendly sync errors added
+- [x] ErrorState component created
+- [x] AppErrorBoundary created
+- [x] Error boundary connected
+- [x] Invalid login tested
+- [x] Duplicate signup tested
+- [x] Short password tested
+- [x] Demo mode tested
+- [x] Exit demo tested
+- [x] Sync now tested with authenticated user
+- [x] Upload local tested with authenticated user
+- [x] Download cloud tested with authenticated user
+- [ ] Supabase row created
+- [ ] Supabase row updated
+- [x] Route/link audit completed
+- [x] No invalid `/planner` links remain in `app/src`
+- [x] `/session` alias still works
+- [x] No `.env` secrets committed
+- [x] No service role key committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
 ## Phase 1 / Prompt 22: Global UI/UX Design System
 
 - [x] Button component created
@@ -718,7 +751,6 @@
 - [x] `npm run build` passes
 - [x] Prompt history updated
 - [x] Prompt file saved
-
 
 
 

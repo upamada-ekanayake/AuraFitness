@@ -2,30 +2,34 @@
 
 ## Status
 
-Cloud QA completed for repo, build, routing, deployed auth gate, Supabase-ready frontend configuration, and demo-mode safeguards.
+Cloud QA completed for repo, build, routing, deployed auth gate, local no-confirmation signup, friendly auth errors, friendly sync errors, and demo-mode safeguards.
 
-Authenticated row sync remains pending a confirmed Supabase test account or dashboard session.
+Authenticated Supabase row sync is blocked by Supabase table setup or policies. The app now reports that state safely with a friendly message.
 
 ## Environment
 
 Local:
-- Build: Passed
-- Lint: Passed
+- Build before changes: Passed
+- Lint before changes: Passed
+- Build after changes: Passed
+- Lint after changes: Passed
+- No-env build: Passed
 - Supabase env: Verified locally through auth screen showing Supabase ready
 - Signed-out redirect: Verified
 
 Production:
 - Vercel URL: `https://aura-fitness-kappa.vercel.app/`
-- Latest production deployment: `7dc1d12` (`Add Supabase cloud sync`)
-- Vercel env vars: Frontend behavior verified through production auth screen showing Supabase ready
+- Latest production deployment before Prompt 37: `4edbf94` (`Complete cloud QA and Vercel env check`)
+- Production retest after Prompt 37: Pending redeploy from latest pushed commit
 - Vercel dashboard env values: Not exposed by available tooling; verify names manually in Vercel
-- SPA routing: Verified in demo mode for `/routine`, `/session`, `/analytics`, and `/settings`
-- Runtime errors: None found in Vercel runtime error check for the last 24 hours
+- Runtime errors: No new production runtime check completed in Prompt 37 before redeploy
 
 ## Supabase
 
 Table:
 - `public.user_app_data`
+- Local authenticated sync test reported: `Cloud sync is not ready yet. Check Supabase table setup.`
+- Result: row creation/update not completed until the table and RLS policies are verified in Supabase Dashboard.
 
 RLS:
 - Expected to be enabled by documented SQL
@@ -38,46 +42,58 @@ Policies:
 - Delete own data
 
 Auth:
-- Email auth screen tested
-- Production signup reached email confirmation state
-- Email confirmation setting: enabled or effectively required for the generated test account
+- Email provider: app behavior confirms email/password auth is active
+- Confirm Email: effectively OFF for local MVP QA because a generated signup immediately returned an active session and unlocked the app
+- Dashboard manual verification still recommended: Authentication -> Providers -> Email -> Confirm email OFF
 
 ## Auth QA
 
 - Signed-out redirect tested locally
-- Signed-out redirect tested in production
-- Sign up tested in production through generated QA account
-- Sign in with a confirmed account: pending user-provided confirmed test account
-- Sign out with an authenticated account: pending user-provided confirmed test account
-- Demo mode tested
-- Protected routes tested
+- Immediate signup tested locally with generated QA account
+- Sign in with same generated QA account tested locally
+- Sign out tested locally
+- Duplicate signup tested locally
+- Invalid login tested locally
+- Short password tested locally
+- Demo mode tested locally
+- Exit demo mode tested locally
+- Protected route refresh tested locally in demo mode for `/`, `/routine`, `/session`, `/analytics`, and `/settings`
 
 ## Cloud Sync QA
 
-- Sync now UI state tested
-- Upload local UI state tested
-- Download cloud UI state tested
+- Sync now UI state tested with authenticated user
+- Upload local UI state tested with authenticated user
+- Download cloud UI state tested with authenticated user
+- Friendly setup/policy failure message verified
 - Demo mode disables cloud controls
-- Supabase row creation test: pending confirmed authenticated account
-- Supabase row update test: pending confirmed authenticated account
-- LocalStorage restore from cloud: pending confirmed authenticated account
+- Supabase row creation test: blocked by table setup or policies
+- Supabase row update test: blocked by table setup or policies
+- LocalStorage restore from cloud: blocked until row sync works
 
 ## Demo Mode QA
 
 - Demo mode works
 - Demo data remains LocalStorage-only
 - Cloud controls are disabled in demo mode
+- Exit demo returns to `/auth`
+
+## Route Audit
+
+- `/routine` remains the planner route
+- `/session` alias still works
+- No active invalid `/planner` links remain in `app/src`
+- AI suggestion action routes point to valid routes
 
 ## Known Limitations
 
+- Supabase table/dashboard setup must be verified before cloud row sync can pass
 - Conflict resolution is timestamp-based only
 - No row-level normalized fitness tables yet
 - No automatic continuous sync after every edit yet
 - Manual sync controls are used for MVP safety
 - No password reset UI yet
 - No social login yet
-- Authenticated row-sync proof requires a confirmed Supabase test account
 
 ## Final Result
 
-AuraFitness cloud-auth MVP is ready for confirmed-account QA and user testing.
+AuraFitness cloud-auth MVP is ready for real user testing after Supabase `user_app_data` table and RLS policies are corrected or verified.

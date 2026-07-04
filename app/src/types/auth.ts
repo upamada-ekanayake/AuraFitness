@@ -10,3 +10,8 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
 }
+
+export interface AuthSignUpResult {
+  user: AuthUserProfile | null;
+  requiresEmailConfirmation: boolean;
+}

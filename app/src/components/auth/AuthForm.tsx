@@ -30,7 +30,7 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
     setMessage(null);
 
     if (!isSupabaseReady) {
-      setLocalError('Supabase is not configured yet. Continue in demo mode for local testing.');
+      setLocalError('Cloud login is unavailable right now. You can continue in demo mode.');
       return;
     }
 
@@ -44,15 +44,25 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
       return;
     }
 
-    const user = isSignUp ? await signUp(email, password) : await signIn(email, password);
+    if (isSignUp) {
+      const result = await signUp(email, password);
 
-    if (user) {
-      onAuthenticated();
+      if (result.user) {
+        setMessage('Account created. You are signed in.');
+        onAuthenticated();
+        return;
+      }
+
+      if (result.requiresEmailConfirmation) {
+        setMessage('Account created. Please check your email to confirm your account.');
+      }
       return;
     }
 
-    if (isSignUp) {
-      setMessage('Check your email to confirm your account.');
+    const user = await signIn(email, password);
+
+    if (user) {
+      onAuthenticated();
     }
   };
 

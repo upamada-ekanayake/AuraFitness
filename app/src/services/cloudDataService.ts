@@ -1,5 +1,6 @@
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
 import type { AuraFitnessData } from '../types/app';
+import { getErrorMessage } from '../utils/errors';
 
 interface UserAppDataRow {
   data: AuraFitnessData;
@@ -11,11 +12,6 @@ function requireSupabase() {
   }
 
   return supabase;
-}
-
-function getCloudErrorMessage(error: unknown): string {
-  if (error instanceof Error) return error.message;
-  return 'Supabase cloud data request failed.';
 }
 
 export async function fetchCloudAppData(
@@ -33,7 +29,7 @@ export async function fetchCloudAppData(
 
     return data?.data ?? null;
   } catch (error) {
-    throw new Error(getCloudErrorMessage(error));
+    throw new Error(getErrorMessage(error));
   }
 }
 
@@ -65,7 +61,7 @@ export async function saveCloudAppData(
 
     return savedRow.data;
   } catch (error) {
-    throw new Error(getCloudErrorMessage(error));
+    throw new Error(getErrorMessage(error));
   }
 }
 
@@ -81,7 +77,7 @@ export async function deleteCloudAppData(
 
     if (error) throw error;
   } catch (error) {
-    throw new Error(getCloudErrorMessage(error));
+    throw new Error(getErrorMessage(error));
   }
 }
 

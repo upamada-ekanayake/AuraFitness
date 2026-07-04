@@ -1,6 +1,7 @@
 import type { User } from '@supabase/supabase-js';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
-import type { AuthUserProfile } from '../types/auth';
+import type { AuthSignUpResult, AuthUserProfile } from '../types/auth';
+import { getFriendlyAuthError } from '../utils/errors';
 
 function requireSupabase() {
   if (!isSupabaseConfigured || !supabase) {
@@ -20,14 +21,6 @@ function toAuthUserProfile(user: User | null): AuthUserProfile | null {
   };
 }
 
-function getFriendlyAuthError(error: unknown): Error {
-  if (error instanceof Error) {
-    return new Error(error.message || 'Supabase auth request failed.');
-  }
-
-  return new Error('Supabase auth request failed.');
-}
-
 export async function getCurrentUser(): Promise<AuthUserProfile | null> {
   try {
     const client = requireSupabase();
@@ -44,23 +37,26 @@ export async function getCurrentUser(): Promise<AuthUserProfile | null> {
     return toAuthUserProfile(data.user);
   } catch (error) {
     if (!isSupabaseConfigured) return null;
-    throw getFriendlyAuthError(error);
+    throw new Error(getFriendlyAuthError(error));
   }
 }
 
 export async function signUpWithEmail(
   email: string,
   password: string
-): Promise<AuthUserProfile | null> {
+): Promise<AuthSignUpResult> {
   try {
     const client = requireSupabase();
     const { data, error } = await client.auth.signUp({ email, password });
 
     if (error) throw error;
 
-    return toAuthUserProfile(data.session?.user ?? null);
+    return {
+      user: toAuthUserProfile(data.session?.user ?? null),
+      requiresEmailConfirmation: Boolean(data.user && !data.session),
+    };
   } catch (error) {
-    throw getFriendlyAuthError(error);
+    throw new Error(getFriendlyAuthError(error));
   }
 }
 
@@ -76,7 +72,7 @@ export async function signInWithEmail(
 
     return toAuthUserProfile(data.user);
   } catch (error) {
-    throw getFriendlyAuthError(error);
+    throw new Error(getFriendlyAuthError(error));
   }
 }
 
@@ -87,7 +83,7 @@ export async function signOutUser(): Promise<void> {
 
     if (error) throw error;
   } catch (error) {
-    throw getFriendlyAuthError(error);
+    throw new Error(getFriendlyAuthError(error));
   }
 }
 

@@ -50,9 +50,22 @@ using (auth.uid() = user_id);
 ## Notes
 
 - LocalStorage remains as offline/demo fallback.
-- Cloud sync will be connected in the next prompt.
+- Cloud sync is connected through manual Settings controls.
 - Do not expose the Supabase service role key in the frontend.
 - Add the Vercel environment variables before enabling production cloud sync.
+- For MVP testing, disable email confirmation in Supabase Dashboard.
+
+## Supabase Auth Provider Settings
+
+Use these values in Supabase Dashboard:
+
+- Authentication -> Providers -> Email
+- Enable Email provider: ON
+- Confirm email: OFF for MVP testing
+
+If Confirm email is turned ON later, AuraFitness will keep showing the fallback message:
+
+`Account created. Please check your email to confirm your account.`
 
 ## Supabase Auth URL Settings
 
@@ -97,6 +110,8 @@ Supabase Auth URL configuration:
 Cloud sync table:
 
 - `public.user_app_data`
+
+If authenticated sync shows `Cloud sync is not ready yet. Check Supabase table setup.`, verify that `public.user_app_data` exists and that the documented RLS policies are enabled.
 
 Frontend key rule:
 

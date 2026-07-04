@@ -6,6 +6,7 @@ import {
   saveAuraFitnessData,
   setLastCloudSyncAt,
 } from './appDataService';
+import { getFriendlySyncError } from '../utils/errors';
 
 type TimestampComparison = 'local_newer' | 'cloud_newer' | 'same_or_invalid';
 
@@ -96,7 +97,7 @@ export async function syncLocalAndCloudData(
       data: localData,
     };
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Cloud sync failed.';
+    const message = getFriendlySyncError(error);
 
     return {
       result: makeResult('error', message, false, 'error'),
@@ -115,7 +116,7 @@ export async function pushLocalDataToCloud(
 
     return makeResult('uploaded_local', 'Local data uploaded to Supabase.', true);
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Cloud upload failed.';
+    const message = getFriendlySyncError(error);
     return makeResult('error', message, false, 'error');
   }
 }
@@ -144,7 +145,7 @@ export async function pullCloudDataToLocal(
       data: savedLocal,
     };
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Cloud download failed.';
+    const message = getFriendlySyncError(error);
 
     return {
       result: makeResult('error', message, false, 'error'),

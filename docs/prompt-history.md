@@ -1246,3 +1246,40 @@ Rules:
 
 Next:
 Complete confirmed-account row-sync QA, then begin user testing and optional Phase 4 improvements.
+
+## Prompt 37: Auth No-Confirmation Flow, Full Error Audit, and Error Handling Hardening
+
+Status: Completed with Supabase table setup follow-up
+
+Goal:
+Support immediate email/password signup when Supabase Confirm Email is disabled, complete authenticated cloud sync QA, and harden app error handling.
+
+Files created or edited:
+- app/src/components/error/AppErrorBoundary.tsx
+- app/src/components/error/ErrorState.tsx
+- app/src/utils/errors.ts
+- app/src/types/auth.ts
+- app/src/services/authService.ts
+- app/src/hooks/useAuth.ts
+- app/src/components/auth/AuthForm.tsx
+- app/src/services/cloudDataService.ts
+- app/src/services/syncService.ts
+- app/src/hooks/useCloudSync.ts
+- app/src/App.tsx
+- docs/cloud-qa-report.md
+- docs/supabase-setup.md
+- prompts/37-auth-no-confirmation-error-hardening.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Email/password signup supports immediate login when Supabase Confirm Email is disabled. Auth errors are friendly. Cloud sync errors are handled safely. App-level error boundary added. Full route/link audit completed. Local authenticated signup and sign-in passed. Supabase row creation/update is blocked until `public.user_app_data` table setup or policies are verified in Supabase Dashboard. Build and lint passed.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No secrets committed.
+- LocalStorage/demo mode preserved.
+
+Next:
+Correct or verify Supabase table/RLS setup, then complete production row-sync QA and user testing.
