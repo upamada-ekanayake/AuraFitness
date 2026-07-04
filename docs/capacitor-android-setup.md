@@ -35,6 +35,18 @@ npx cap open android
 
 Then run from Android Studio.
 
+## Building Debug APK
+
+To build a debug APK from the terminal:
+
+```powershell
+cd app/android
+.\gradlew assembleDebug
+```
+
+The APK will be located at:
+`app/android/app/build/outputs/apk/debug/app-debug.apk`
+
 ## Environment Variables
 
 Native build uses Vite env variables at build time.

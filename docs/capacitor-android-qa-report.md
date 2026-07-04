@@ -53,3 +53,18 @@ Passed
 ## Final Result
 
 AuraFitness Android wrapper is ready for APK/AAB release preparation.
+
+---
+
+## Update: Debug APK Build QA (Prompt 42)
+
+**Status:** Passed
+
+**Test Date:** 2026-07-04
+
+**Changes:**
+- Verified debug APK build via Gradle.
+- Verified APK installation on emulated device.
+- Retested all core flows (Auth, Sync, Routine, Sessions) on standalone debug APK.
+- Back button handling confirmed stable.
+- Layout remains consistent with safe area improvements.
