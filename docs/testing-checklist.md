@@ -489,6 +489,35 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 4 / Prompt 38: Codex Real User Simulation QA
+
+- [x] Initial git status checked
+- [x] Build passed before QA
+- [x] Lint passed before QA
+- [x] Auth signup tested
+- [x] Auth signin tested
+- [x] Auth signout tested
+- [x] Invalid auth tested
+- [x] Demo mode tested
+- [x] Routine planner tested
+- [x] Workout session tested
+- [x] Daily trackers tested
+- [x] Analytics tested
+- [x] Settings tested
+- [x] Cloud sync row creation tested
+- [x] Cloud sync row update tested
+- [x] Cloud restore tested
+- [x] Routes tested
+- [x] Mobile layout tested
+- [x] Confirmed bugs fixed
+- [x] Real user QA report created
+- [x] Phase 4 backlog created
+- [x] No secrets committed
+- [x] Build passed after fixes
+- [x] Lint passed after fixes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
 ## Phase 1 / Prompt 22: Global UI/UX Design System
 
 - [x] Button component created
@@ -754,6 +783,5 @@
 - [x] `npm run build` passes
 - [x] Prompt history updated
 - [x] Prompt file saved
-
 
 

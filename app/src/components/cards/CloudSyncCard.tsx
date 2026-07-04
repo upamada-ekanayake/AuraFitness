@@ -81,11 +81,11 @@ export default function CloudSyncCard({
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
           <Button
             type="button"
             variant="primary"
-            size="sm"
+            size="md"
             onClick={onSyncNow}
             disabled={controlsDisabled}
             className="flex items-center gap-1.5"
@@ -95,7 +95,7 @@ export default function CloudSyncCard({
           <Button
             type="button"
             variant="secondary"
-            size="sm"
+            size="md"
             onClick={onPushLocal}
             disabled={controlsDisabled}
             className="flex items-center gap-1.5"
@@ -105,7 +105,7 @@ export default function CloudSyncCard({
           <Button
             type="button"
             variant="secondary"
-            size="sm"
+            size="md"
             onClick={onPullCloud}
             disabled={controlsDisabled}
             className="flex items-center gap-1.5"

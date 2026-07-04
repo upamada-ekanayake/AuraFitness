@@ -1283,3 +1283,30 @@ Rules:
 
 Next:
 Correct or verify Supabase table/RLS setup, then complete production row-sync QA and user testing.
+
+## Prompt 38: Codex Real User Simulation QA and Bug Fix Loop
+
+Status: Completed
+
+Goal:
+Use Codex as a simulated real user to test all AuraFitness flows, identify bugs/UX issues, fix confirmed small issues, and prepare a Phase 4 improvement backlog.
+
+Files created or edited:
+- app/src/components/cards/CloudSyncCard.tsx
+- docs/real-user-qa-report.md
+- docs/phase-4-improvement-backlog.md
+- prompts/38-codex-real-user-simulation-qa.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+
+Result:
+Full app QA completed across auth, demo mode, routine planner, workout session, daily trackers, analytics, settings, cloud sync, routes, and mobile layout. Cloud sync succeeded through app row creation/update responses after Supabase table setup. A tablet Cloud Sync control layout bug was fixed. Improvement backlog created.
+
+Rules:
+- No Python AI engine changes.
+- No backend added.
+- No major new features added.
+- No secrets committed.
+
+Next:
+Convert AuraFitness into an installable PWA/mobile app experience.
