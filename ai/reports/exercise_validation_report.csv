@@ -1,0 +1,21 @@
+check,passed,details
+required_column_exercise_id,True,Column exists
+required_column_name,True,Column exists
+required_column_body_part,True,Column exists
+required_column_target_muscle,True,Column exists
+required_column_secondary_muscles,True,Column exists
+required_column_equipment,True,Column exists
+required_column_exercise_type,True,Column exists
+required_column_difficulty_level,True,Column exists
+required_column_instructions,True,Column exists
+required_column_source_dataset,True,Column exists
+unique_exercise_id,True,Duplicate exercise_id count: 0
+unique_name_target_equipment,True,Duplicate identity count: 0
+unknown_rate_name,True,"0.0% unknown, max allowed 0%"
+unknown_rate_body_part,True,"0.0% unknown, max allowed 0%"
+unknown_rate_target_muscle,True,"0.0% unknown, max allowed 0%"
+unknown_rate_equipment,True,"0.98% unknown, max allowed 5%"
+unknown_rate_exercise_type,True,"0.0% unknown, max allowed 0%"
+unknown_rate_instructions,True,"23.82% unknown, max allowed 40%"
+unknown_rate_secondary_muscles,True,"23.82% unknown, max allowed 40%"
+allowed_exercise_types,True,All exercise types are allowed

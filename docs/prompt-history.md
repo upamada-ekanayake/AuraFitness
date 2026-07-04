@@ -27,3 +27,721 @@ None yet.
 
 Next:
 Set up the AI development environment in PyCharm.
+
+## Prompt 02: PyCharm AI Workspace Setup
+
+Status: Completed
+
+Goal:
+Set up the Python AI development workspace for AuraFitness using PyCharm.
+
+Files changed:
+- ai/requirements.txt
+- ai/utils/paths.py
+- ai/scripts/load_data.py
+- docs/ai-plan.md
+- docs/testing-checklist.md
+- docs/prompt-history.md
+
+Result:
+Python workspace prepared for real dataset-based AI development.
+
+Rules added:
+- Use real datasets for AI work.
+- Use notebooks for dataset exploration, charts, accuracy, and evaluation.
+- Do not use fake sample datasets for training/evaluation.
+
+Issues:
+None yet.
+
+Next:
+Research real datasets from Kaggle, Hugging Face, public exercise datasets, nutrition datasets, and calorie expenditure datasets.
+## Prompt 03: Real Dataset and Data Source Research
+
+Status: Completed
+
+Goal:
+Find real datasets and public data sources for AuraFitness AI development.
+
+Datasets researched:
+- Fitness Exercises Dataset — Kaggle
+- Gym Exercises Dataset — Kaggle
+- 2024 Adult Compendium of Physical Activities
+- Gym Members Exercise Dataset — Kaggle
+- Calories Burning Dataset — Kaggle
+- Running Calorie Burn Dataset — Kaggle
+- USDA FoodData Central
+- Open Food Facts
+- Hugging Face Fitness Q&A datasets
+- Hugging Face nutrition datasets
+
+Decision:
+Use real exercise datasets and MET values first.
+Do not use fake/sample datasets for AI training or evaluation.
+
+MVP dataset direction:
+- Exercise recommendation engine: real exercise dataset
+- Calorie estimator: MET-based rule engine
+- Notebook charts: real gym/exercise metrics dataset
+
+Issues:
+Need to download and verify exact dataset files and licenses before coding.
+
+Next:
+Download selected datasets into `ai/datasets/raw/` and create the first dataset exploration notebook.
+
+## Prompt 04: Download Real Datasets and Create First Notebook
+
+Status: In Progress
+
+Goal:
+Download real datasets into the AuraFitness AI workspace and create the first dataset exploration notebook.
+
+Datasets:
+- Fitness Exercises Dataset
+- Gym Exercises Dataset
+- Gym Members Exercise Dataset
+- 2024 Adult Compendium of Physical Activities
+
+Files changed:
+- ai/requirements.txt
+- ai/datasets/raw/dataset-sources.md
+- ai/notebooks/01_dataset_exploration.ipynb
+- ai/reports/dataset_overview.csv
+- ai/reports/dataset_decision_table.csv
+- ai/reports/figures/
+
+Notebook outputs:
+- Dataset row count chart
+- Missing values chart
+- Exercise category charts
+- Gym member metric charts
+- Dataset decision table
+
+Rules:
+- Real datasets only
+- No fake/sample training data
+- No model training before dataset review
+
+Issues:
+Pending until datasets are downloaded and notebook is executed.
+
+Next:
+Review notebook results and choose the first dataset for cleaning.
+
+## Prompt 05: Review Dataset Results and Choose Cleaning Direction
+
+Status: Completed
+
+Goal:
+Review the output of the first dataset exploration notebook and choose the dataset cleaning direction.
+
+Datasets reviewed:
+- exercises.csv
+- Gym Exercises Dataset.xlsx
+- gym_members_exercise_tracking.csv
+- 2024 Adult Compendium PDF
+
+Decision:
+Use the two exercise datasets first for the MVP exercise library and recommendation engine.
+
+MVP cleaning target:
+Create one clean exercise library at:
+
+- ai/datasets/processed/exercises_clean.csv
+
+Target schema:
+- exercise_id
+- name
+- body_part
+- target_muscle
+- secondary_muscles
+- equipment
+- exercise_type
+- difficulty_level
+- instructions
+- source_dataset
+
+Issues found:
+A real column name contained `/`, which broke Windows chart filename saving.
+
+Fix applied:
+Notebook chart filenames were sanitized before saving.
+
+Status:
+Completed.
+
+Next:
+Create `02_data_cleaning_analysis.ipynb` and `scripts/clean_data.py`.
+
+## Prompt 06: Data Cleaning Notebook and Script
+
+Status: Completed
+
+Goal:
+Create a reproducible data cleaning pipeline for the real exercise datasets.
+
+Input datasets:
+- ai/datasets/raw/fitness_exercises/exercises.csv
+- ai/datasets/raw/gym_exercises/Gym Exercises Dataset.xlsx
+
+Files created or edited:
+- ai/notebooks/02_data_cleaning_analysis.ipynb
+- ai/scripts/clean_data.py
+- ai/datasets/processed/exercises_clean.csv
+- ai/reports/exercise_cleaning_report.csv
+- ai/reports/exercise_cleaned_preview.csv
+- ai/reports/exercise_unknown_summary.csv
+- ai/reports/figures/
+
+Target schema:
+- exercise_id
+- name
+- body_part
+- target_muscle
+- secondary_muscles
+- equipment
+- exercise_type
+- difficulty_level
+- instructions
+- source_dataset
+
+Rules:
+- Use real datasets only.
+- Do not create fake exercise records.
+- Mark missing real values as unknown.
+- Keep cleaning logic reusable in `scripts/clean_data.py`.
+
+Issues:
+- `python scripts\clean_data.py` initially could not import `utils` when run from `ai/`; fixed by adding the AI project root to `sys.path`.
+- The fitness exercise dataset stores secondary muscles and instructions in flattened numbered columns, so the cleaner now combines those real columns before parsing.
+- The gym exercise dataset has URL/rating columns but no real step-by-step instructions, so those fields stay `unknown` instead of misusing unrelated data.
+
+Next:
+Review the cleaned dataset quality and decide whether normalization should improve before JSON export.
+
+## Prompt 07: Review Cleaning Results and Improve Normalization Rules
+
+Status: Completed
+
+Goal:
+Review the cleaned exercise dataset quality and add reusable validation checks.
+
+Cleaning results:
+- Raw merged rows: 1795
+- Cleaned rows: 1730
+- Duplicates removed: 65
+- Remaining duplicate count: 0
+
+Unknown values:
+- secondary_muscles: 412 / 23.82%
+- equipment: 17 / 0.98%
+- difficulty_level: 1730 / 100.00%
+- instructions: 412 / 23.82%
+
+Decision:
+The cleaned dataset is approved for the MVP exercise library and rule-based recommendation engine.
+
+Important rule:
+Do not invent difficulty labels. Keep `difficulty_level` as `unknown` because real datasets do not provide reliable difficulty data.
+
+Files created or edited:
+- ai/scripts/validate_clean_data.py
+- ai/reports/exercise_dataset_quality_review.md
+- ai/reports/exercise_validation_report.csv
+- ai/notebooks/02_data_cleaning_analysis.ipynb
+
+Next:
+Build the first rule-based AI engine using the cleaned exercise dataset.
+
+## Prompt 08: Build First Rule-Based AI Engine
+
+Status: Completed
+
+Goal:
+Build the first MVP AI engine for AuraFitness: exercise recommendations.
+
+Input:
+- ai/datasets/processed/exercises_clean.csv
+
+Files created or edited:
+- ai/utils/recommendation_engine.py
+- ai/scripts/test_recommendation_engine.py
+- ai/notebooks/03_rule_engine_testing.ipynb
+- ai/reports/rule_engine_test_results.csv
+- ai/reports/figures/rule_engine_recommendation_score_distribution.png
+- ai/reports/figures/rule_engine_recommended_equipment.png
+
+Recommendation inputs:
+- body_part
+- target_muscle
+- equipment
+- exercise_type
+- fitness_level
+- goal
+- limit
+
+Rules:
+- Use real cleaned exercise data only.
+- No ML yet.
+- No fake training data.
+- Do not modify `difficulty_level` in the cleaned dataset.
+- Use `estimated_difficulty` only for recommendation ranking.
+
+Next:
+Review rule engine results and improve recommendation scoring if needed.
+
+## Prompt 09: Review Rule Engine Results and Improve Scoring
+
+Status: Completed
+
+Goal:
+Review the first rule-based recommendation engine and improve output quality.
+
+Results:
+- Recommendation engine test script passed.
+- Rule engine notebook executed successfully.
+- Recommendation charts generated.
+- First recommendation outputs looked mostly correct.
+
+Issue found:
+- `dumbbell incline breeding` appeared in chest dumbbell results.
+- This looks like a real dataset naming quality issue.
+
+Fix:
+- Added `ai/config/exercise_blocklist.json`.
+- Added quality filtering to recommendation output.
+- Added blocked exercise test.
+- Added notebook quality filter review section.
+- Created `ai/reports/rule_engine_quality_review.md`.
+
+Files changed:
+- ai/config/exercise_blocklist.json
+- ai/utils/paths.py
+- ai/utils/recommendation_engine.py
+- ai/scripts/test_recommendation_engine.py
+- ai/notebooks/03_rule_engine_testing.ipynb
+- ai/reports/rule_engine_quality_review.md
+
+Rules:
+- Do not delete raw data.
+- Do not invent replacement exercise names.
+- Do not fake difficulty labels.
+- Exclude suspicious records only from recommendations.
+
+Status:
+Completed.
+
+Next:
+Build the progressive overload engine.
+
+## Prompt 10: Build Progressive Overload Engine
+
+Status: Completed
+
+Goal:
+Build the second MVP rule-based AI engine for AuraFitness: progressive overload recommendations.
+
+Files created or edited:
+- ai/utils/overload_engine.py
+- ai/scripts/test_overload_engine.py
+- ai/notebooks/04_overload_engine_testing.ipynb
+- ai/reports/overload_engine_test_results.csv
+- ai/reports/figures/overload_engine_actions.png
+- ai/reports/figures/overload_engine_confidence.png
+
+Engine actions:
+- increase_weight
+- keep_same_weight
+- reduce_weight
+- increase_reps
+- increase_duration
+- reduce_volume
+- rest_recover
+
+Rules:
+- No ML training yet.
+- No fake training dataset.
+- Manual cases are used only for function testing.
+- Later the app will pass real user workout history into this engine.
+
+Next:
+Review overload engine outputs and adjust decision rules if needed.
+
+## Prompt 11: Review Overload Engine and Improve Rules
+
+Status: Completed
+
+Goal:
+Review the progressive overload engine, confirm output quality, and add safer input validation.
+
+Results:
+- Test script passed.
+- Notebook executed successfully.
+- Action chart generated.
+- Confidence chart generated.
+- No strange recommendations found.
+
+Confirmed outputs:
+- Completed strength workout easily -> increase_weight, confidence 0.85
+- Completed strength workout but too hard -> keep_same_weight, confidence 0.82
+- Missed too much volume -> reduce_weight, confidence 0.88
+- Pain reported -> rest_recover, confidence 0.95
+- Completed cardio duration easily -> increase_duration, confidence 0.82
+
+Improvements:
+- Added input validation.
+- Added invalid RPE edge-case test.
+- Added notebook edge-case section.
+- Created overload engine quality review report.
+
+Files changed:
+- ai/utils/overload_engine.py
+- ai/scripts/test_overload_engine.py
+- ai/notebooks/04_overload_engine_testing.ipynb
+- ai/reports/overload_engine_quality_review.md
+
+Rules:
+- No ML training added.
+- No fake training dataset used.
+- Manual cases used only for controlled function tests.
+
+Status:
+Completed.
+
+Next:
+Build rest day suggestion engine.
+
+## Prompt 12: Build Rest Day Suggestion Engine
+
+Status: Completed
+
+Goal:
+Build the third MVP rule-based AI engine for AuraFitness: rest day suggestions.
+
+Files created or edited:
+- ai/utils/rest_day_engine.py
+- ai/scripts/test_rest_day_engine.py
+- ai/notebooks/05_rest_day_engine_testing.ipynb
+- ai/reports/rest_day_engine_test_results.csv
+- ai/reports/figures/rest_day_engine_actions.png
+- ai/reports/figures/rest_day_engine_risk_scores.png
+- ai/reports/figures/rest_day_engine_confidence.png
+
+Engine actions:
+- train
+- rest_day
+- active_recovery
+- avoid_same_muscle
+- reduce_intensity
+
+Rules:
+- No ML training yet.
+- No fake training dataset.
+- Manual cases are used only for controlled function testing.
+- Later the app will pass real user workout history into this engine.
+
+Next:
+Review rest day engine outputs and adjust recovery rules if needed.
+
+## Prompt 13: Review Rest Day Engine and Improve Recovery Rules
+
+Status: Completed
+
+Goal:
+Review rest day engine outputs and improve product behavior.
+
+Results before fix:
+- Safe to train -> train, risk 0, confidence 0.72
+- Same muscle trained yesterday -> avoid_same_muscle, risk 35, confidence 0.82
+- High soreness and low sleep -> rest_day, risk 165, confidence 0.90
+- Planned rest day -> reduce_intensity, risk 40, confidence 0.76
+- Invalid soreness input -> reduce_intensity, risk 50, confidence 0.60
+
+Issue:
+`planned_rest_day=True` returned `reduce_intensity` because the risk score was 40.
+
+Decision:
+A planned rest day is a schedule decision, not only a recovery-risk signal.
+
+Fix:
+`planned_rest_day=True` now returns `rest_day` directly.
+
+Expected result after fix:
+- Planned rest day -> rest_day, risk 40, confidence 0.92
+
+Files changed:
+- ai/utils/rest_day_engine.py
+- ai/scripts/test_rest_day_engine.py
+- ai/notebooks/05_rest_day_engine_testing.ipynb
+- ai/reports/rest_day_engine_quality_review.md
+
+Rules:
+- No ML training added.
+- No fake training dataset used.
+- Manual cases used only for controlled function tests.
+
+Status:
+Completed.
+
+Next:
+Build calorie burned estimator.
+
+## Prompt 14: Build Calorie Burned Estimator
+
+Status: Completed
+
+Goal:
+Build the fourth MVP rule-based AI engine for AuraFitness: calorie burned estimation.
+
+Method:
+Use MET-based rule estimation.
+
+Formula:
+estimated_calories = MET x body_weight_kg x duration_hours
+
+Files created or edited:
+- ai/config/met_values.json
+- ai/utils/calorie_estimator.py
+- ai/scripts/test_calorie_estimator.py
+- ai/notebooks/06_calorie_estimator_testing.ipynb
+- ai/reports/calorie_estimator_test_results.csv
+- ai/reports/figures/calorie_estimator_estimated_calories.png
+- ai/reports/figures/calorie_estimator_met_values.png
+- ai/reports/figures/calorie_estimator_confidence.png
+
+Rules:
+- No ML training added.
+- No fake training dataset used.
+- MET values are from reviewed Compendium-based activity mappings.
+- Manual cases are used only for controlled function tests.
+- Calorie estimates are approximations, not medical-grade measurements.
+
+Next:
+Review calorie estimator outputs and improve activity mapping if needed.
+
+## Prompt 15: Review Calorie Estimator and Improve MET Mapping
+
+Status: Completed
+
+Goal:
+Review calorie estimator outputs and improve activity mapping priority.
+
+Original issue:
+`Jump Squat Circuit` selected `circuit_vigorous` because the name contained `circuit`.
+
+Original output:
+- Bodyweight high intensity 20 minutes -> 237.5 kcal, MET 7.5, circuit_vigorous
+
+Decision:
+Bodyweight movement should take priority over generic circuit keyword matching when equipment is bodyweight or the movement name is clearly bodyweight-based.
+
+Fix:
+Moved bodyweight mapping before circuit mapping and added bodyweight movement keywords.
+
+Expected result after fix:
+- Bodyweight high intensity 20 minutes -> 205.8 kcal, MET 6.5, bodyweight_high
+
+Files changed:
+- ai/utils/calorie_estimator.py
+- ai/scripts/test_calorie_estimator.py
+- ai/notebooks/06_calorie_estimator_testing.ipynb
+- ai/reports/calorie_estimator_quality_review.md
+
+Rules:
+- No ML training added.
+- No fake training dataset used.
+- MET estimates remain approximate.
+- Explicit `activity_key` still overrides automatic mapping.
+
+Status:
+Completed.
+
+Next:
+Build streak insight engine.
+
+## Prompt 16: Build Streak Insight Engine
+
+Status: Completed
+
+Goal:
+Build the fifth MVP rule-based AI engine for AuraFitness: streak insights.
+
+Tracks:
+- workout streak
+- water streak
+- calorie goal streak
+- fasting streak
+- rest day discipline
+
+Files created or edited:
+- ai/utils/streak_insights.py
+- ai/scripts/test_streak_insights.py
+- ai/notebooks/07_streak_insights_testing.ipynb
+- ai/reports/streak_insights_test_results.csv
+- ai/reports/figures/streak_insights_current_streaks.png
+- ai/reports/figures/streak_insights_best_streaks.png
+- ai/reports/figures/streak_insights_confidence.png
+
+Rules:
+- No ML training added.
+- No fake training dataset used.
+- Manual logs are used only for controlled function tests.
+- Later the app will pass real localStorage user logs into this engine.
+
+Next:
+Review streak insight outputs and improve messaging if needed.
+
+## Prompt 17: Review Streak Insights and Improve Messaging
+
+Status: Completed
+
+Goal:
+Review streak insight outputs and improve rest-day discipline messaging.
+
+Results before fix:
+- workout current 4, best 4, tone positive
+- water current 6, best 6, tone positive
+- calorie current 1, best 3, tone positive
+- fasting current 3, best 3, tone positive
+- rest_day current 0, best 1, tone motivation
+
+Issue:
+Rest-day message said to start the rest-day discipline streak today even when today was not a planned rest day.
+
+Decision:
+Rest day discipline should only ask the user to follow or restart rest-day discipline when today is actually a planned rest day.
+
+Fix:
+Added today-log aware rest-day messaging.
+
+Expected result after fix:
+- rest_day title: No rest day planned today
+- rest_day tone: recovery
+- reason code: no_rest_day_planned_today
+
+Files changed:
+- ai/utils/streak_insights.py
+- ai/scripts/test_streak_insights.py
+- ai/notebooks/07_streak_insights_testing.ipynb
+- ai/reports/streak_insights_quality_review.md
+
+Rules:
+- No ML training added.
+- No fake training dataset used.
+- Manual logs used only for controlled function tests.
+
+Status:
+Completed.
+
+Next:
+Build motivation message generator.
+
+## Prompt 18: Build Motivation Message Generator
+
+Status: Completed
+
+Goal:
+Build the sixth MVP rule-based AI engine for AuraFitness: motivation message generation.
+
+Supported events:
+- workout_completed
+- missed_workout
+- new_pr
+- streak_progress
+- fasting_progress
+- water_progress
+- calorie_progress
+- rest_day_followed
+- rest_day_missed
+- general
+
+Files created or edited:
+- ai/utils/motivation_engine.py
+- ai/scripts/test_motivation_engine.py
+- ai/notebooks/08_motivation_engine_testing.ipynb
+- ai/reports/motivation_engine_test_results.csv
+- ai/reports/figures/motivation_engine_tone_distribution.png
+- ai/reports/figures/motivation_engine_confidence.png
+- ai/reports/motivation_engine_quality_review.md
+
+Rules:
+- No LLM API used.
+- No ML training added.
+- No fake training dataset used.
+- Manual cases used only for controlled function tests.
+- Messages should be supportive and app-friendly.
+
+Next:
+Review motivation message outputs and improve tone if needed.
+
+## Prompt 19: Review Motivation Engine and Final AI Export Preparation
+
+Status: Completed
+
+Goal:
+Prepare final app-friendly AI exports after completing MVP rule-based AI engines.
+
+Completed AI engines:
+- Exercise recommendation engine
+- Progressive overload engine
+- Rest day suggestion engine
+- Calorie burned estimator
+- Streak insight engine
+- Motivation message generator
+
+Files created or edited:
+- ai/scripts/export_ai_data.py
+- ai/scripts/validate_exports.py
+- ai/notebooks/09_ai_export_validation.ipynb
+- ai/exports/exercises.json
+- ai/exports/ai_rules.json
+- ai/exports/recommendations.json
+- ai/exports/model_metadata.json
+- ai/exports/typescript_interfaces.ts
+- ai/reports/ai_export_quality_review.md
+- ai/reports/figures/ai_export_file_sizes.png
+
+Rules:
+- No React app setup yet.
+- No Codex app prompt yet.
+- Validate AI exports before app integration.
+- `recommendations.json` contains sample outputs only, not training data.
+- No ML training added.
+- No LLM API used.
+- No fake training dataset used.
+
+Next:
+Validate exports and prepare for React TypeScript app setup.
+
+## Prompt 20: React + TypeScript + Tailwind Base Setup
+
+Status: Completed
+
+Goal:
+Initialize a clean, professional React + TypeScript + Tailwind CSS (v4) development foundation inside the `app/` directory, importing and linking the exported AI types, and establishing responsive routing layouts with placeholders.
+
+Files changed:
+- app/vite.config.ts
+- app/package.json
+- app/src/index.css
+- app/src/App.tsx
+- app/src/App.css (Deleted)
+- app/src/types/ai.ts
+- app/src/pages/Dashboard.tsx
+- app/src/pages/RoutinePlanner.tsx
+- app/src/pages/WorkoutSession.tsx
+- app/src/pages/Analytics.tsx
+- app/src/pages/Settings.tsx
+- docs/testing-checklist.md
+- docs/prompt-history.md
+- prompts/20-react-base-setup.md
+
+Result:
+React TS Base setup completed successfully. Responsive routing layout is functional using React Router v6 and Lucide Icons. The dev server is active and the production build compiles cleanly without warnings.
+
+Issues:
+None.
+
+Next:
+Configure the UI/UX design system and start building core app features.

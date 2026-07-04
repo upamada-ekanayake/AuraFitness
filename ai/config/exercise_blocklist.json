@@ -1,0 +1,11 @@
+{
+  "exact_names": [
+    "dumbbell incline breeding"
+  ],
+  "suspicious_keywords": [
+    "breeding"
+  ],
+  "notes": {
+    "dumbbell incline breeding": "Appeared in real dataset but looks like a naming/data quality issue. Excluded from recommendations, not deleted from source dataset."
+  }
+}

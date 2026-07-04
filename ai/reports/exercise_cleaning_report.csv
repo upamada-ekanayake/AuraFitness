@@ -1,0 +1,11 @@
+column,missing_or_unknown_count,unique_values,example_values
+exercise_id,0,1730,"ex_0e2eff7dc4, ex_a66a59d23a, ex_b1ced5f64e, ex_32a5b22d7e, ex_3f76f9aa3b"
+name,0,1729,"3/4 sit-up, Ab Roller, Ab bicycle, Barbell Ab Rollout - On Knees, Barbell roll-out"
+body_part,0,24,"abdominals, abdominals, abdominals, abdominals, abdominals"
+target_muscle,0,26,"abdominals, abdominals, abdominals, abdominals, abdominals"
+secondary_muscles,412,164,"unknown, unknown, unknown, unknown, unknown"
+equipment,17,35,"bodyweight, other, bodyweight, barbell, barbell"
+exercise_type,0,3,"strength, strength, strength, strength, strength"
+difficulty_level,1730,1,"unknown, unknown, unknown, unknown, unknown"
+instructions,412,1296,"unknown, unknown, unknown, unknown, unknown"
+source_dataset,0,2,"gym_exercises, gym_exercises, gym_exercises, gym_exercises, gym_exercises"

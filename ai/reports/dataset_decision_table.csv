@@ -1,0 +1,4 @@
+dataset_name,rows,columns,recommended_use,mvp_status
+exercises,1324,23,Exercise library / recommendation engine,MVP candidate
+gym_members_exercise_tracking,973,15,EDA / calorie model experiment,Research or later ML
+Gym Exercises Dataset,471,10,Exercise library / recommendation engine,MVP candidate

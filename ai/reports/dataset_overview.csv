@@ -1,0 +1,4 @@
+dataset_name,file_path,rows,columns,missing_values,duplicate_rows
+exercises,datasets\raw\fitness_exercises\exercises.csv,1324,23,12217,0
+gym_members_exercise_tracking,datasets\raw\gym_members\gym_members_exercise_tracking.csv,973,15,0,0
+Gym Exercises Dataset,datasets\raw\gym_exercises\Gym Exercises Dataset.xlsx,471,10,490,0

@@ -1,0 +1,6 @@
+streak_name,streak_type,current_streak,best_streak,completed_today,title,message,tone,confidence,reason_codes
+workout,workout,4,4,True,Workout streak is strong,You are on a 4-day workout streak. This matches or beats your best streak.,positive,0.85,"['active_streak', 'matched_or_beat_best_streak']"
+water,water,6,6,True,Water streak is strong,You are on a 6-day water streak. This matches or beats your best streak.,positive,0.85,"['active_streak', 'matched_or_beat_best_streak']"
+calorie,calorie,1,3,True,Calorie goal streak active,You are on a 1-day calorie goal streak. Keep it going today.,positive,0.85,['active_streak']
+fasting,fasting,3,3,True,Fasting streak is strong,You are on a 3-day fasting streak. This matches or beats your best streak.,positive,0.85,"['active_streak', 'matched_or_beat_best_streak']"
+rest_day,rest_day,0,1,False,No rest day planned today,Rest day discipline will be tracked when a planned rest day appears. Train or recover based on today's plan.,recovery,0.85,['no_rest_day_planned_today']

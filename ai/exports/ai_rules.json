@@ -1,0 +1,112 @@
+{
+  "version": "0.1.0",
+  "createdAt": "2026-07-04T02:43:33.260708+00:00",
+  "ruleBasedEngines": [
+    {
+      "id": "exercise_recommendation",
+      "name": "Exercise Recommendation Engine",
+      "type": "rule_based",
+      "inputs": [
+        "body_part",
+        "target_muscle",
+        "equipment",
+        "exercise_type",
+        "fitness_level",
+        "goal"
+      ],
+      "outputs": [
+        "recommended_exercises",
+        "score",
+        "recommendation_reason",
+        "estimated_difficulty"
+      ],
+      "notes": "Uses cleaned real exercise dataset. Suspicious records are excluded from recommendation outputs using config/exercise_blocklist.json."
+    },
+    {
+      "id": "progressive_overload",
+      "name": "Progressive Overload Engine",
+      "type": "rule_based",
+      "outputs": [
+        "increase_weight",
+        "keep_same_weight",
+        "reduce_weight",
+        "increase_reps",
+        "increase_duration",
+        "reduce_volume",
+        "rest_recover"
+      ],
+      "notes": "Uses user workout history later. Manual cases are only for function tests."
+    },
+    {
+      "id": "rest_day_suggestion",
+      "name": "Rest Day Suggestion Engine",
+      "type": "rule_based",
+      "outputs": [
+        "train",
+        "rest_day",
+        "active_recovery",
+        "avoid_same_muscle",
+        "reduce_intensity"
+      ],
+      "notes": "Uses recent workout history, soreness, fatigue, sleep, and planned rest days."
+    },
+    {
+      "id": "calorie_estimator",
+      "name": "Calorie Burned Estimator",
+      "type": "met_formula",
+      "formula": "estimated_calories = MET * body_weight_kg * duration_hours",
+      "metMetadata": {
+        "source": "2024 Adult Compendium of Physical Activities",
+        "source_url": "https://pacompendium.com/conditioning-exercise/",
+        "formula": "estimated_calories = MET * body_weight_kg * duration_hours",
+        "note": "These values are used for MVP estimation only. They are not medical-grade measurements."
+      },
+      "notes": "Uses reviewed MET mappings. Estimates are approximate, not medical-grade measurements."
+    },
+    {
+      "id": "streak_insights",
+      "name": "Streak Insight Engine",
+      "type": "rule_based",
+      "outputs": [
+        "workout_streak",
+        "water_streak",
+        "calorie_goal_streak",
+        "fasting_streak",
+        "rest_day_discipline",
+        "overall_score"
+      ],
+      "notes": "Uses user habit logs later from the app."
+    },
+    {
+      "id": "motivation_message",
+      "name": "Motivation Message Generator",
+      "type": "rule_based_text",
+      "outputs": [
+        "title",
+        "message",
+        "tone",
+        "confidence",
+        "reason_codes"
+      ],
+      "notes": "No LLM API. No ML. Short app-friendly coaching messages."
+    }
+  ],
+  "blockedExerciseRules": {
+    "exact_names": [
+      "dumbbell incline breeding"
+    ],
+    "suspicious_keywords": [
+      "breeding"
+    ],
+    "notes": {
+      "dumbbell incline breeding": "Appeared in real dataset but looks like a naming/data quality issue. Excluded from recommendations, not deleted from source dataset."
+    }
+  },
+  "dataIntegrityRules": [
+    "Use real datasets for AI/data work.",
+    "Do not use fake datasets for training or evaluation.",
+    "Manual examples are allowed only for controlled function tests.",
+    "Do not invent difficulty labels.",
+    "Keep suspicious raw records for traceability, but filter them from user-facing recommendations."
+  ]
+}

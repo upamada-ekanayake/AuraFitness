@@ -1,0 +1,195 @@
+{
+  "version": "0.1.0",
+  "createdAt": "2026-07-04T02:43:33.307918+00:00",
+  "samplesOnly": true,
+  "note": "These outputs are sample AI responses for app integration testing. They are not a training dataset.",
+  "exerciseRecommendations": [
+    {
+      "exercise_id": "ex_bb6e791c69",
+      "name": "dumbbell incline alternate press",
+      "body_part": "chest",
+      "target_muscle": "pectorals",
+      "secondary_muscles": "shoulders, triceps",
+      "equipment": "dumbbell",
+      "exercise_type": "strength",
+      "estimated_difficulty": "beginner",
+      "score": 136,
+      "recommendation_reason": "Recommended because it targets pectorals, matches chest body part, uses dumbbell, fits strength training, estimated beginner level.",
+      "instructions": "Sit on an incline bench with a dumbbell in each hand, resting on your thighs. Lean back on the bench and use your thighs to help raise the dumbbells to shoulder height, palms facing forward. Once at shoulder height, rotate your wrists so that the palms of your hands are facing forward. Push the dumbbells up with your chest and shoulders, extending your arms fully. Lower the dumbbells back down to the starting position, keeping your elbows slightly bent. Repeat for the desired number of repetitions, alternating arms.",
+      "source_dataset": "fitness_exercises"
+    },
+    {
+      "exercise_id": "ex_d234283c23",
+      "name": "dumbbell incline bench press",
+      "body_part": "chest",
+      "target_muscle": "pectorals",
+      "secondary_muscles": "shoulders, triceps",
+      "equipment": "dumbbell",
+      "exercise_type": "strength",
+      "estimated_difficulty": "beginner",
+      "score": 136,
+      "recommendation_reason": "Recommended because it targets pectorals, matches chest body part, uses dumbbell, fits strength training, estimated beginner level.",
+      "instructions": "Set up an incline bench at a 45-degree angle. Sit on the bench with your feet flat on the ground and your back pressed firmly against the bench. Hold a dumbbell in each hand, palms facing forward, and lift them to shoulder height. Slowly lower the dumbbells to the sides of your chest, keeping your elbows at a 90-degree angle. Push the dumbbells back up to the starting position, fully extending your arms. Repeat for the desired number of repetitions.",
+      "source_dataset": "fitness_exercises"
+    },
+    {
+      "exercise_id": "ex_aad63b1426",
+      "name": "dumbbell incline fly",
+      "body_part": "chest",
+      "target_muscle": "pectorals",
+      "secondary_muscles": "shoulders",
+      "equipment": "dumbbell",
+      "exercise_type": "strength",
+      "estimated_difficulty": "beginner",
+      "score": 136,
+      "recommendation_reason": "Recommended because it targets pectorals, matches chest body part, uses dumbbell, fits strength training, estimated beginner level.",
+      "instructions": "Set an incline bench to a 45-degree angle. Sit on the bench with a dumbbell in each hand, palms facing each other. Lie back on the bench and press the dumbbells up to the starting position, directly above your chest. Lower the dumbbells out to the sides in a wide arc until you feel a stretch in your chest. Pause for a moment, then squeeze your chest muscles to bring the dumbbells back up to the starting position. Repeat for the desired number of repetitions.",
+      "source_dataset": "fitness_exercises"
+    },
+    {
+      "exercise_id": "ex_7a15e514e7",
+      "name": "dumbbell incline fly on exercise ball",
+      "body_part": "chest",
+      "target_muscle": "pectorals",
+      "secondary_muscles": "shoulders",
+      "equipment": "dumbbell",
+      "exercise_type": "strength",
+      "estimated_difficulty": "beginner",
+      "score": 136,
+      "recommendation_reason": "Recommended because it targets pectorals, matches chest body part, uses dumbbell, fits strength training, estimated beginner level.",
+      "instructions": "Set up an incline bench at a 45-degree angle. Sit on an exercise ball and roll forward until your upper back is resting on the incline bench. Hold a dumbbell in each hand with your palms facing each other and your arms extended above your chest. Lower the dumbbells out to the sides in a wide arc until you feel a stretch in your chest. Pause for a moment, then squeeze your chest muscles to bring the dumbbells back to the starting position. Repeat for the desired number of repetitions.",
+      "source_dataset": "fitness_exercises"
+    },
+    {
+      "exercise_id": "ex_3d638e10bb",
+      "name": "dumbbell incline hammer press",
+      "body_part": "chest",
+      "target_muscle": "pectorals",
+      "secondary_muscles": "shoulders, triceps",
+      "equipment": "dumbbell",
+      "exercise_type": "strength",
+      "estimated_difficulty": "beginner",
+      "score": 136,
+      "recommendation_reason": "Recommended because it targets pectorals, matches chest body part, uses dumbbell, fits strength training, estimated beginner level.",
+      "instructions": "Set an incline bench to a 45-degree angle and sit on it with a dumbbell in each hand, resting on your thighs. Lie back on the bench and position the dumbbells at shoulder level with your palms facing each other. Press the dumbbells up and away from your body until your arms are fully extended. Pause for a moment at the top, then slowly lower the dumbbells back down to the starting position. Repeat for the desired number of repetitions.",
+      "source_dataset": "fitness_exercises"
+    }
+  ],
+  "overload": {
+    "action": "increase_weight",
+    "title": "Progress next session",
+    "message": "You completed all planned work for Dumbbell Bench Press with manageable effort. Increase the load slightly next session if form stayed clean.",
+    "confidence": 0.85,
+    "next_weight_kg": 21.0,
+    "next_reps": 10,
+    "next_duration_seconds": null,
+    "reason_codes": [
+      "completed_all_sets_and_reps",
+      "low_to_moderate_rpe"
+    ]
+  },
+  "restDay": {
+    "action": "train",
+    "title": "You can train today",
+    "message": "Recovery risk looks acceptable. Train as planned and keep good form.",
+    "confidence": 0.72,
+    "risk_score": 0,
+    "reason_codes": []
+  },
+  "calorieEstimate": {
+    "estimated_calories": 332.5,
+    "met_value": 3.5,
+    "activity_key": "strength_general",
+    "activity_label": "Resistance training, multiple exercises, 8-15 reps at varied resistance",
+    "duration_hours": 1.0,
+    "confidence": 0.9,
+    "formula": "calories = MET * body_weight_kg * duration_hours",
+    "reason_codes": [
+      "activity_key_matched_directly"
+    ],
+    "warning": null
+  },
+  "streakInsights": {
+    "workout": {
+      "streak_type": "workout",
+      "current_streak": 4,
+      "best_streak": 4,
+      "completed_today": true,
+      "title": "Workout streak is strong",
+      "message": "You are on a 4-day workout streak. This matches or beats your best streak.",
+      "tone": "positive",
+      "confidence": 0.85,
+      "reason_codes": [
+        "active_streak",
+        "matched_or_beat_best_streak"
+      ]
+    },
+    "water": {
+      "streak_type": "water",
+      "current_streak": 4,
+      "best_streak": 4,
+      "completed_today": true,
+      "title": "Water streak is strong",
+      "message": "You are on a 4-day water streak. This matches or beats your best streak.",
+      "tone": "positive",
+      "confidence": 0.85,
+      "reason_codes": [
+        "active_streak",
+        "matched_or_beat_best_streak"
+      ]
+    },
+    "calorie": {
+      "streak_type": "calorie",
+      "current_streak": 1,
+      "best_streak": 2,
+      "completed_today": true,
+      "title": "Calorie goal streak active",
+      "message": "You are on a 1-day calorie goal streak. Keep it going today.",
+      "tone": "positive",
+      "confidence": 0.85,
+      "reason_codes": [
+        "active_streak"
+      ]
+    },
+    "fasting": {
+      "streak_type": "fasting",
+      "current_streak": 3,
+      "best_streak": 3,
+      "completed_today": true,
+      "title": "Fasting streak is strong",
+      "message": "You are on a 3-day fasting streak. This matches or beats your best streak.",
+      "tone": "positive",
+      "confidence": 0.85,
+      "reason_codes": [
+        "active_streak",
+        "matched_or_beat_best_streak"
+      ]
+    },
+    "restDay": {
+      "streak_type": "rest_day",
+      "current_streak": 0,
+      "best_streak": 0,
+      "completed_today": false,
+      "title": "No rest day planned today",
+      "message": "Rest day discipline will be tracked when a planned rest day appears. Train or recover based on today's plan.",
+      "tone": "recovery",
+      "confidence": 0.85,
+      "reason_codes": [
+        "no_rest_day_planned_today"
+      ]
+    },
+    "overallMessage": "Strong week. Your consistency is building momentum across training and habits.",
+    "overallScore": 76
+  },
+  "motivationMessage": {
+    "event_type": "workout_completed",
+    "title": "Workout completed",
+    "message": "Upamada, you completed Push Day. You are 3/5 workouts into this week. Keep stacking wins.",
+    "tone": "positive",
+    "confidence": 0.86,
+    "reason_codes": [
+      "workout_completed",
+      "weekly_progress_available"
+    ]
+  }
+}

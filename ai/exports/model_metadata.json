@@ -1,0 +1,50 @@
+{
+  "project": "AuraFitness",
+  "version": "0.1.0",
+  "createdAt": "2026-07-04T02:43:33.309172+00:00",
+  "aiStatus": "MVP rule-based AI layer ready",
+  "usesML": false,
+  "usesLLM": false,
+  "realDatasetsUsed": [
+    {
+      "name": "Fitness Exercises Dataset",
+      "localPath": "ai/datasets/raw/fitness_exercises/exercises.csv",
+      "purpose": "Exercise library and recommendations"
+    },
+    {
+      "name": "Gym Exercises Dataset",
+      "localPath": "ai/datasets/raw/gym_exercises/Gym Exercises Dataset.xlsx",
+      "purpose": "Exercise library and recommendations"
+    },
+    {
+      "name": "2024 Adult Compendium of Physical Activities",
+      "localPath": "ai/datasets/raw/met_compendium/1_2024-adult-compendium_1_2024.pdf",
+      "purpose": "MET-based calorie estimation reference"
+    }
+  ],
+  "processedDatasets": [
+    {
+      "name": "Clean Exercise Library",
+      "localPath": "ai/datasets/processed/exercises_clean.csv",
+      "rows": 1730,
+      "columns": 10
+    }
+  ],
+  "engines": [
+    "exercise_recommendation",
+    "progressive_overload",
+    "rest_day_suggestion",
+    "calorie_estimator",
+    "streak_insights",
+    "motivation_message"
+  ],
+  "limitations": [
+    "Difficulty labels are not from source datasets and are not written into the clean dataset.",
+    "Calorie estimates are approximate.",
+    "No advanced personalization yet.",
+    "No ML-based prediction yet.",
+    "No LLM-based coaching yet.",
+    "No computer vision form checking yet."
+  ],
+  "nextStep": "Integrate exports into React TypeScript app."
+}

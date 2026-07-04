@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "source": "2024 Adult Compendium of Physical Activities",
+    "source_url": "https://pacompendium.com/conditioning-exercise/",
+    "formula": "estimated_calories = MET * body_weight_kg * duration_hours",
+    "note": "These values are used for MVP estimation only. They are not medical-grade measurements."
+  },
+  "activities": {
+    "strength_general": {
+      "met": 3.5,
+      "label": "Resistance training, multiple exercises, 8-15 reps at varied resistance",
+      "source_code": "02054"
+    },
+    "strength_compound": {
+      "met": 5.0,
+      "label": "Resistance training, squats, deadlift, slow or explosive effort",
+      "source_code": "02052"
+    },
+    "strength_vigorous": {
+      "met": 6.0,
+      "label": "Resistance weight lifting, vigorous effort",
+      "source_code": "02050"
+    },
+    "bodyweight_general": {
+      "met": 3.0,
+      "label": "Body weight resistance exercises, general",
+      "source_code": "02056"
+    },
+    "bodyweight_high": {
+      "met": 6.5,
+      "label": "Body weight resistance exercises, high intensity",
+      "source_code": "02057"
+    },
+    "circuit_light": {
+      "met": 3.5,
+      "label": "Circuit training, light effort",
+      "source_code": "02034"
+    },
+    "circuit_moderate": {
+      "met": 5.0,
+      "label": "Circuit training, moderate effort",
+      "source_code": "02035"
+    },
+    "circuit_vigorous": {
+      "met": 7.5,
+      "label": "Circuit training with kettlebells/aerobic movement, vigorous intensity",
+      "source_code": "02040"
+    },
+    "elliptical_moderate": {
+      "met": 5.0,
+      "label": "Elliptical trainer, moderate effort",
+      "source_code": "02048"
+    },
+    "elliptical_vigorous": {
+      "met": 9.0,
+      "label": "Elliptical trainer, vigorous effort",
+      "source_code": "02049"
+    },
+    "rowing_moderate": {
+      "met": 5.0,
+      "label": "Rowing, stationary ergometer, moderate effort",
+      "source_code": "02071"
+    },
+    "rowing_vigorous": {
+      "met": 7.3,
+      "label": "Rowing, stationary ergometer, vigorous effort",
+      "source_code": "02070"
+    },
+    "rope_skipping": {
+      "met": 11.0,
+      "label": "Rope skipping exercise, general",
+      "source_code": "02068"
+    },
+    "kettlebell_swings": {
+      "met": 9.8,
+      "label": "Kettlebell swings",
+      "source_code": "02058"
+    },
+    "health_club_general": {
+      "met": 5.5,
+      "label": "Health club exercise, general",
+      "source_code": "02060"
+    },
+    "mobility_light": {
+      "met": 2.5,
+      "label": "Light mobility or stretching estimate",
+      "source_code": "manual_mapping_needs_review"
+    }
+  }
+}

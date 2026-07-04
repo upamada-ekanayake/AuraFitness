@@ -1,0 +1,10 @@
+test_case,event_type,title,message,tone,confidence,reason_codes
+Workout completed weekly progress,workout_completed,Workout completed,"Upamada, you completed Push Day. You are 3/5 workouts into this week. Keep stacking wins.",positive,0.86,"['workout_completed', 'weekly_progress_available']"
+Missed workout supportive,missed_workout,Reset with one small action,"Upamada, one missed workout does not break your progress. Do the next planned session and restart momentum.",supportive,0.82,['missed_workout']
+New PR,new_pr,New personal record,"Upamada, new PR on Bench Press: 60 kg. That is real progress.",positive,0.92,"['new_pr', 'pr_value_available']"
+Workout streak progress,streak_progress,Best streak energy,"Upamada, your workout streak is 4 days. That matches or beats your best. Keep protecting it.",positive,0.9,"['streak_progress', 'matched_or_beat_best_streak']"
+Fasting progress,fasting_progress,Fasting progress,"Upamada, you are 14/16 hours into your fast. Keep it controlled and listen to your body.",focused,0.82,"['fasting_progress', 'fasting_progress_available']"
+Water goal reached,water_progress,Water goal reached,"Upamada, you reached your water goal today. Hydration discipline supports better training.",positive,0.88,"['water_progress', 'water_progress_available', 'water_goal_reached']"
+Calories above target,calorie_progress,Calories above target,"Upamada, you are about 200 kcal above your goal. Do not panic; make the next meal simple and controlled.",supportive,0.82,"['calorie_progress', 'calorie_progress_available', 'above_calorie_goal']"
+Rest day followed,rest_day_followed,Recovery discipline,"Upamada, you followed your rest day. That discipline helps your body come back stronger.",recovery,0.88,['rest_day_followed']
+Invalid water input,water_progress,Check your inputs,Some values look invalid. Review your logged workout or habit data before showing a coaching message.,warning,0.5,['water_liters_negative']
