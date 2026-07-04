@@ -4,10 +4,15 @@
   html,
   body {
     @apply bg-slate-950 text-slate-100 min-h-screen antialiased select-none font-sans;
+    overflow-x: hidden;
     background-image: 
       radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
       radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 40%);
     background-attachment: fixed;
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   /* Custom scrollbar styling */

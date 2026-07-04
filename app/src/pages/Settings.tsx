@@ -10,6 +10,7 @@ import { useDemoMode } from '../hooks/useDemoMode';
 import UserMenu from '../components/auth/UserMenu';
 import { useCloudSync } from '../hooks/useCloudSync';
 import CloudSyncCard from '../components/cards/CloudSyncCard';
+import InstallAppCard from '../components/pwa/InstallAppCard';
 
 export default function Settings() {
   const { data, profile, resetData, isReady } = useAppData();
@@ -159,6 +160,8 @@ export default function Settings() {
             onPushLocal={pushNow}
             onPullCloud={pullNow}
           />
+
+          <InstallAppCard />
 
           {/* System Actions / Reset Section */}
           <Card title="Database Actions" subtitle="Reset and clear application state data">

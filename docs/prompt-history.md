@@ -1310,3 +1310,41 @@ Rules:
 
 Next:
 Convert AuraFitness into an installable PWA/mobile app experience.
+
+## Prompt 39: Installable PWA App Upgrade and Android Emulator Testing
+
+Status: Completed with manual Android emulator follow-up
+
+Goal:
+Upgrade AuraFitness into an installable PWA/mobile app experience and test it with Android Studio emulator.
+
+Files created or edited:
+- app/vite.config.ts
+- app/index.html
+- app/public/manifest.webmanifest
+- app/public/offline.html
+- app/public/icons/
+- app/src/hooks/useInstallPrompt.ts
+- app/src/components/pwa/InstallAppCard.tsx
+- app/src/pages/Settings.tsx
+- app/src/pages/Dashboard.tsx
+- app/src/index.css
+- docs/pwa-setup.md
+- docs/android-emulator-testing.md
+- prompts/39-installable-pwa-android-emulator-testing.md
+- docs/prompt-history.md
+- docs/testing-checklist.md
+- app/package.json
+- app/package-lock.json
+
+Result:
+AuraFitness now has PWA install support, app metadata, icons, basic offline fallback asset, app-shell service worker fallback, and install guidance. Android emulator testing documentation added. Build and lint passed. Direct-route fallback was fixed during QA so refreshed app routes continue to load the React app instead of the offline page.
+
+Rules:
+- No backend added.
+- No Python AI engine changes.
+- No native Android wrapper added yet.
+- No secrets committed.
+
+Next:
+Production PWA QA, Lighthouse PWA check, and optional native Android wrapper planning.

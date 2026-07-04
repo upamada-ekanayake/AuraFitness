@@ -1,6 +1,7 @@
 import { PageHeader } from '../components/layout/PageHeader';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
+import { Button } from '../components/ui/Button';
 import { ProgressRing } from '../components/ui/ProgressRing';
 import AISuggestionList from '../components/cards/AISuggestionList';
 import WorkoutSummaryCard from '../components/cards/WorkoutSummaryCard';
@@ -28,6 +29,7 @@ import { calculateAllStreaks, calculateHabitScore } from '../utils/streaks';
 import type { WaterLog, CalorieLog, BodyWeightLog, FastingLog, FastingStatus } from '../types/app';
 import { Dumbbell, Heart } from 'lucide-react';
 import { useCloudSync } from '../hooks/useCloudSync';
+import { useInstallPrompt } from '../hooks/useInstallPrompt';
 
 export default function Dashboard() {
   const {
@@ -42,6 +44,7 @@ export default function Dashboard() {
 
   const { topSuggestions } = useAISuggestions();
   const { syncState } = useCloudSync();
+  const { canInstall, isInstalled, promptInstall } = useInstallPrompt();
 
   if (!isReady || !data || !profile) {
     return (
@@ -186,6 +189,22 @@ export default function Dashboard() {
           </div>
         }
       />
+
+      {canInstall && !isInstalled && (
+        <Card className="border-indigo-500/20 bg-indigo-500/5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-sm font-black text-slate-100 tracking-tight">Install AuraFitness</h2>
+              <p className="text-xs font-semibold text-slate-400 mt-1">
+                Install AuraFitness for a better mobile experience.
+              </p>
+            </div>
+            <Button type="button" variant="primary" size="sm" onClick={() => void promptInstall()} className="shrink-0">
+              Install app
+            </Button>
+          </div>
+        </Card>
+      )}
 
       {/* Habit Score & Weekly Goal Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -518,6 +518,40 @@
 - [x] Prompt history updated
 - [x] Prompt file saved
 
+## Phase 4 / Prompt 39: Installable PWA App Upgrade
+
+- [x] Initial git status checked
+- [x] Build passed before changes
+- [x] Lint passed before changes
+- [x] vite-plugin-pwa installed
+- [x] Manifest added
+- [x] Icons added
+- [x] Apple touch icon added
+- [x] index.html metadata added
+- [x] Service worker configured
+- [x] Offline fallback added
+- [x] Install prompt hook added
+- [x] InstallAppCard added
+- [x] Settings install section added
+- [x] Dashboard install hint added if available
+- [x] Mobile safe area checked
+- [x] Android emulator docs created
+- [x] Local emulator URL documented
+- [x] Production emulator URL documented
+- [x] Manifest verified in browser/preview
+- [x] Service worker verified in build output
+- [ ] Install behavior tested where supported
+- [x] Direct route refresh still works
+- [x] Auth still works
+- [x] Cloud sync still works
+- [x] Demo mode still works
+- [x] Offline fallback asset tested
+- [x] No `.env` secrets committed
+- [x] `npm run build` passes
+- [x] `npm run lint` passes
+- [x] Prompt history updated
+- [x] Prompt file saved
+
 ## Phase 1 / Prompt 22: Global UI/UX Design System
 
 - [x] Button component created
@@ -783,5 +817,3 @@
 - [x] `npm run build` passes
 - [x] Prompt history updated
 - [x] Prompt file saved
-
-
