@@ -32,6 +32,8 @@ import { useCloudSync } from '../hooks/useCloudSync';
 import { useInstallPrompt } from '../hooks/useInstallPrompt';
 import { getRuntimePlatform, isNativeAndroidApp } from '../utils/platform';
 import { Link } from 'react-router-dom';
+import { useActiveWorkoutSession } from '../hooks/useActiveWorkoutSession';
+import { getActiveSessionProgress } from '../services/activeWorkoutSessionService';
 
 type BadgeVariant = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 
@@ -49,6 +51,7 @@ export default function Dashboard() {
   const { topSuggestions } = useAISuggestions();
   const { syncState } = useCloudSync();
   const { canInstall, isInstalled, promptInstall } = useInstallPrompt();
+  const { session } = useActiveWorkoutSession();
   const isNative = isNativeAndroidApp();
 
   if (!isReady || !data || !profile) {
@@ -124,9 +127,19 @@ export default function Dashboard() {
   };
   const fastingProgress = calculateProgress(fastingLog.fastingHours, fastingLog.goalHours);
 
+  const activeProgress = session ? getActiveSessionProgress(session) : 0;
+
   // Compute completed workouts this week
   const completedWorkoutsCount = data.workoutLogs.filter((w) => w.status === 'completed').length;
-  const nextBestAction = isWorkoutDay
+  const nextBestAction = session
+    ? {
+        title: 'Resume active workout',
+        helper: `Active session of ${session.focus} is at ${activeProgress}% progress.`,
+        cta: 'Resume Workout',
+        to: '/session',
+        icon: Dumbbell,
+      }
+    : isWorkoutDay
     ? { title: 'Start today strong', helper: `${todayRoutine?.focus} is ready.`, cta: 'Start Workout', to: '/session', icon: Dumbbell }
     : waterProgress < 70
     ? { title: 'Hydration is the next win', helper: `Drink ${Math.max(waterGoalMl - waterVolumeMl, 0)} ml more today.`, cta: 'Log Water', to: '/', icon: Droplets }
@@ -238,6 +251,29 @@ export default function Dashboard() {
         </div>
       </section>
 
+      {session && (
+        <div className="relative overflow-hidden rounded-[2rem] border border-[#c6ff00]/25 bg-[#c6ff00]/8 p-5 sm:p-7 shadow-xl shadow-black/15 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#c6ff00]/10 blur-2xl" />
+          <div className="min-w-0 flex-1">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#c6ff00]/12 px-3 py-1 text-xs font-bold text-[#d9ff55] border border-[#c6ff00]/20 animate-pulse">
+              Active Workout Session
+            </span>
+            <h2 className="text-2xl font-black text-stone-100 mt-3 tracking-tight">{session.focus}</h2>
+            <p className="text-sm font-semibold text-stone-400 mt-1">
+              You are currently at exercise {session.currentExerciseIndex + 1} of {session.exercises.length} · {activeProgress}% complete
+            </p>
+            <div className="mt-3 max-w-xs h-1.5 rounded-full bg-black/40 overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-[#c6ff00] to-[#14b8a6]" style={{ width: `${activeProgress}%` }} />
+            </div>
+          </div>
+          <Link to="/session" className="shrink-0 z-10">
+            <Button variant="primary" className="shadow-lg shadow-[#c6ff00]/10 w-full sm:w-auto">
+              Resume Workout <ArrowRight className="w-4 h-4 ml-1" />
+            </Button>
+          </Link>
+        </div>
+      )}
+
       {canInstall && !isInstalled && !isNative && (
         <Card className="border-[#c6ff00]/20 bg-[#c6ff00]/6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -259,14 +295,16 @@ export default function Dashboard() {
           <div className="pointer-events-none absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-[#c6ff00]/8 to-transparent" />
           <div className="flex items-start justify-between gap-4">
             <div>
-              <Badge variant={isWorkoutDay ? 'success' : 'neutral'} className="mb-3">
-                Today plan
+              <Badge variant={session ? 'success' : isWorkoutDay ? 'success' : 'neutral'} className="mb-3">
+                {session ? 'Workout in progress' : 'Today plan'}
               </Badge>
               <h2 className="text-xl font-black text-stone-100 tracking-tight">
-                {todayRoutine?.focus ?? 'Plan your first routine'}
+                {session ? session.focus : todayRoutine?.focus ?? 'Plan your first routine'}
               </h2>
               <p className="text-sm text-stone-400 font-semibold mt-2">
-                {todayRoutine
+                {session
+                  ? `Active session: ${session.exercises.length} exercises · ${activeProgress}% complete`
+                  : todayRoutine
                   ? `${todayRoutine.exercises.length} exercises planned for ${todayName}.`
                   : 'Create a weekly split to unlock session tracking.'}
               </p>
@@ -276,9 +314,9 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="mt-5">
-            <Link to={isWorkoutDay ? '/session' : '/routine'}>
+            <Link to={session || isWorkoutDay ? '/session' : '/routine'}>
               <Button variant="primary" className="w-full sm:w-auto flex items-center gap-2">
-                {isWorkoutDay ? 'Start Workout' : 'Go Planner'} <ArrowRight className="w-4 h-4" />
+                {session ? 'Resume Workout' : isWorkoutDay ? 'Start Workout' : 'Go Planner'} <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           </div>

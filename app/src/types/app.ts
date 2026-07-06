@@ -14,6 +14,7 @@ export type WorkoutStatus = "planned" | "completed" | "skipped";
 export type FastingStatus = "not_started" | "active" | "completed";
 
 export type ActiveWorkoutStatus = "active" | "completed" | "cancelled";
+export type WorkoutSessionStatus = "active" | "completed" | "cancelled";
 
 export type ActiveWorkoutPhase = "set" | "rest";
 
@@ -116,7 +117,7 @@ export interface ActiveWorkoutSession {
   routineDayId: string;
   dayName: WorkoutDayName;
   focus: string;
-  status: ActiveWorkoutStatus;
+  status: WorkoutSessionStatus;
   phase: ActiveWorkoutPhase;
   currentExerciseIndex: number;
   currentSetIndex: number;

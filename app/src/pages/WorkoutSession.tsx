@@ -23,6 +23,7 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import SessionSummaryCard from '../components/cards/SessionSummaryCard';
+import { cn } from '../utils/cn';
 import { useAppData } from '../hooks/useAppData';
 import { useActiveWorkoutSession } from '../hooks/useActiveWorkoutSession';
 import { getTodayIsoDate, getTodayDayName } from '../utils/date';
@@ -120,6 +121,7 @@ function SortableExerciseRow({ id, name, detail, meta, isCurrent, isDone, onSele
           type="button"
           aria-label={`Reorder ${name}`}
           className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-400 focus-visible:ring-2 focus-visible:ring-[#c6ff00]"
+          style={{ touchAction: 'none' }}
           {...attributes}
           {...listeners}
         >
@@ -146,9 +148,10 @@ interface StepperProps {
   min?: number;
   suffix?: string;
   onChange: (value: number) => void;
+  quickAdjusts?: number[];
 }
 
-function Stepper({ label, value, step = 1, min = 0, suffix, onChange }: StepperProps) {
+function Stepper({ label, value, step = 1, min = 0, suffix, onChange, quickAdjusts }: StepperProps) {
   const update = (next: number) => onChange(Math.max(min, Number(next.toFixed(1))));
 
   return (
@@ -159,7 +162,7 @@ function Stepper({ label, value, step = 1, min = 0, suffix, onChange }: StepperP
           type="button"
           aria-label={`Decrease ${label}`}
           onClick={() => update(value - step)}
-          className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-[#c6ff00]"
+          className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-[#c6ff00] active:scale-95 transition-transform"
         >
           <ChevronDown className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -171,11 +174,26 @@ function Stepper({ label, value, step = 1, min = 0, suffix, onChange }: StepperP
           type="button"
           aria-label={`Increase ${label}`}
           onClick={() => update(value + step)}
-          className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-[#c6ff00]"
+          className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-[#c6ff00] active:scale-95 transition-transform"
         >
           <ChevronUp className="h-5 w-5" aria-hidden="true" />
         </button>
       </div>
+      {quickAdjusts && quickAdjusts.length > 0 && (
+        <div className="mt-4 flex flex-wrap justify-center gap-1.5 border-t border-white/5 pt-3">
+          {quickAdjusts.map((delta) => (
+            <button
+              key={delta}
+              type="button"
+              onClick={() => update(value + delta)}
+              className="px-2.5 py-1 text-[11px] font-black rounded-lg border border-white/8 bg-white/4 text-stone-300 hover:text-stone-100 hover:bg-white/8 active:scale-95 transition-all"
+            >
+              {delta > 0 ? `+${delta}` : delta}
+              {suffix === 'kg' ? 'kg' : ''}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -187,10 +205,12 @@ interface ActiveSetCardProps {
   progressPercent: number;
   onUpdateSet: (set: SessionSet) => void;
   onDoneSet: () => void;
+  onSelectSetIndex: (index: number) => void;
 }
 
-function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, onDoneSet }: ActiveSetCardProps) {
+function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, onDoneSet, onSelectSetIndex }: ActiveSetCardProps) {
   const isRepsMode = exercise.mode === 'reps';
+  const isCompleted = !!set.completedAt;
 
   return (
     <Card className="overflow-hidden border-[#c6ff00]/18 bg-[#10110d]/90 p-0">
@@ -213,6 +233,42 @@ function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, o
         <div className="mt-6 h-2 overflow-hidden rounded-full bg-black/35">
           <div className="h-full rounded-full bg-gradient-to-r from-[#c6ff00] to-[#14b8a6]" style={{ width: `${progressPercent}%` }} />
         </div>
+
+        {/* Sets indicators row */}
+        <div className="mt-6">
+          <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-500 mb-2.5">Exercise Sets</span>
+          <div className="flex flex-wrap gap-2">
+            {exercise.sets.map((s, idx) => {
+              const isActive = idx === session.currentSetIndex;
+              const isDone = !!s.completedAt;
+
+              let statusClass = "border-white/8 bg-white/4 text-stone-400 hover:border-white/12";
+              if (isActive) {
+                statusClass = "border-[#c6ff00]/40 bg-[#c6ff00]/12 text-[#d9ff55] ring-2 ring-[#c6ff00]/20";
+              } else if (isDone) {
+                statusClass = "border-emerald-500/30 bg-emerald-500/10 text-emerald-400";
+              }
+
+              return (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => onSelectSetIndex(idx)}
+                  className={cn(
+                    "flex-1 min-w-[70px] rounded-xl border p-2 text-center transition-all duration-150 active:scale-95",
+                    statusClass
+                  )}
+                >
+                  <span className="block text-[10px] font-extrabold leading-none">Set {idx + 1}</span>
+                  <span className="mt-1 block text-[11px] font-black tracking-tight leading-none">
+                    {s.weightKg !== undefined && s.weightKg > 0 ? `${s.weightKg}kg` : 'Body'}
+                    {s.reps !== undefined ? ` x ${s.reps}` : s.durationSeconds !== undefined ? ` x ${s.durationSeconds}s` : ''}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="space-y-5 p-5 sm:p-7">
@@ -221,6 +277,7 @@ function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, o
             label={isRepsMode ? 'Reps This Set' : 'Seconds This Set'}
             value={isRepsMode ? set.reps ?? exercise.plannedReps ?? 10 : set.durationSeconds ?? exercise.plannedDurationSeconds ?? 60}
             suffix={isRepsMode ? 'reps' : 'sec'}
+            quickAdjusts={isRepsMode ? [-5, -1, 1, 5] : [-15, -5, 5, 15]}
             onChange={(value) => onUpdateSet(isRepsMode ? { ...set, reps: value } : { ...set, durationSeconds: value })}
           />
           <Stepper
@@ -228,39 +285,64 @@ function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, o
             value={set.weightKg ?? exercise.defaultWeightKg ?? 0}
             step={2.5}
             suffix="kg"
+            quickAdjusts={[-5, -2.5, 2.5, 5]}
             onChange={(value) => onUpdateSet({ ...set, weightKg: value })}
           />
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <label className="rounded-2xl border border-white/10 bg-black/24 p-4">
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-500">Effort</span>
-            <select
-              value={set.rpe ?? 8}
-              onChange={(event) => onUpdateSet({ ...set, rpe: Number(event.target.value) })}
-              className="mt-3 w-full rounded-xl border border-white/10 bg-[#080907] px-3 py-3 text-sm font-bold text-stone-100 focus-visible:ring-2 focus-visible:ring-[#c6ff00]"
-            >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                <option key={num} value={num}>
-                  RPE {num}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="rounded-2xl border border-white/10 bg-black/24 p-4">
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-500">Effort (RPE)</span>
+            <div className="mt-3 flex flex-wrap gap-1">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+                const isSelected = (set.rpe ?? 8) === num;
+                let activeStyle = "border-white/10 bg-transparent text-stone-400 hover:text-stone-300";
+                if (isSelected) {
+                  if (num <= 5) {
+                    activeStyle = "border-emerald-500/40 bg-emerald-500/15 text-emerald-400 font-extrabold";
+                  } else if (num <= 7) {
+                    activeStyle = "border-amber-500/40 bg-amber-500/15 text-amber-400 font-extrabold";
+                  } else {
+                    activeStyle = "border-rose-500/40 bg-rose-500/15 text-rose-400 font-extrabold";
+                  }
+                }
+                return (
+                  <button
+                    key={num}
+                    type="button"
+                    onClick={() => onUpdateSet({ ...set, rpe: num })}
+                    className={cn(
+                      "flex-1 min-w-[34px] py-2 text-center text-xs font-bold rounded-lg border transition-all active:scale-90",
+                      activeStyle
+                    )}
+                  >
+                    {num}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          <label className="flex min-h-24 items-center gap-3 rounded-2xl border border-white/10 bg-black/24 p-4">
-            <input
-              type="checkbox"
-              checked={set.painReported ?? false}
-              onChange={(event) => onUpdateSet({ ...set, painReported: event.target.checked })}
-              className="h-5 w-5 rounded border-white/20 bg-[#080907] accent-[#ff4d6d]"
-            />
-            <span className="text-sm font-bold text-stone-200">Joint pain on this set</span>
-          </label>
+          <div className="rounded-2xl border border-white/10 bg-black/24 p-4 flex flex-col justify-between">
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-500">Joint State</span>
+            <button
+              type="button"
+              onClick={() => onUpdateSet({ ...set, painReported: !set.painReported })}
+              className={cn(
+                "mt-3 flex w-full items-center justify-center gap-2 rounded-xl border py-3 text-sm font-bold transition-all active:scale-98 min-h-12",
+                set.painReported
+                  ? "border-rose-500/40 bg-rose-500/12 text-rose-400"
+                  : "border-white/8 bg-white/4 text-stone-400 hover:text-stone-200"
+              )}
+            >
+              <Heart className={cn("h-4 w-4 transition-transform", set.painReported && "fill-current animate-pulse scale-110")} />
+              {set.painReported ? 'Joint Pain Reported' : 'No Joint Pain'}
+            </button>
+          </div>
         </div>
 
-        <Button type="button" variant="primary" size="lg" onClick={onDoneSet} className="min-h-14 w-full gap-2 text-base">
-          <Check className="h-5 w-5" aria-hidden="true" /> Done Set
+        <Button type="button" variant="primary" size="lg" onClick={onDoneSet} className="min-h-14 w-full gap-2 text-base shadow-lg shadow-[#c6ff00]/10">
+          <Check className="h-5 w-5" aria-hidden="true" /> {isCompleted ? 'Update Set logs' : 'Done Set'}
         </Button>
       </div>
     </Card>
@@ -303,17 +385,89 @@ function RestCard({ session, remainingSeconds, onAdjustRest, onSkipRest }: RestC
         {nextExercise ? `Next up: ${nextExercise.name}` : 'Final recovery before wrapping up.'}
       </p>
 
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <Button type="button" variant="secondary" onClick={() => onAdjustRest(-15)} className="gap-2">
-          -15 sec
+      <div className="mt-6 grid grid-cols-4 gap-2">
+        <Button type="button" variant="secondary" onClick={() => onAdjustRest(-30)} className="px-1.5 py-2 text-xs font-bold">
+          -30s
         </Button>
-        <Button type="button" variant="secondary" onClick={() => onAdjustRest(15)} className="gap-2">
-          +15 sec
+        <Button type="button" variant="secondary" onClick={() => onAdjustRest(-15)} className="px-1.5 py-2 text-xs font-bold">
+          -15s
+        </Button>
+        <Button type="button" variant="secondary" onClick={() => onAdjustRest(15)} className="px-1.5 py-2 text-xs font-bold">
+          +15s
+        </Button>
+        <Button type="button" variant="secondary" onClick={() => onAdjustRest(30)} className="px-1.5 py-2 text-xs font-bold">
+          +30s
         </Button>
       </div>
-      <Button type="button" variant="primary" size="lg" onClick={onSkipRest} className="mt-3 min-h-14 w-full gap-2">
+      <Button type="button" variant="primary" size="lg" onClick={onSkipRest} className="mt-4 min-h-14 w-full gap-2 shadow-lg shadow-[#14b8a6]/10">
         <TimerReset className="h-5 w-5" aria-hidden="true" /> Skip Rest
       </Button>
+    </Card>
+  );
+}
+
+interface FinishConfirmationCardProps {
+  session: ActiveWorkoutSession;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+function FinishConfirmationCard({ session, onConfirm, onCancel }: FinishConfirmationCardProps) {
+  const completedSets = session.completedSets.length;
+  const totalSets = session.exercises.reduce((total, ex) => total + ex.plannedSets, 0);
+  const elapsedMinutes = Math.max(Math.round((Date.now() - new Date(session.startedAt).getTime()) / 60000), 1);
+  
+  const avgRpe = session.completedSets.length > 0
+    ? (session.completedSets.reduce((sum, s) => sum + (s.rpe ?? 8), 0) / session.completedSets.length).toFixed(1)
+    : null;
+    
+  const painSets = session.completedSets.filter(s => s.painReported).length;
+
+  return (
+    <Card className="border-[#c6ff00]/20 bg-[#10110d]/90 p-6 text-center sm:p-8">
+      <Badge variant="success" className="mb-5 animate-bounce">
+        Workout Complete
+      </Badge>
+      <h2 className="text-3xl font-black text-stone-100 tracking-tight">Review & Save Session</h2>
+      <p className="mx-auto mt-2 max-w-sm text-sm font-semibold text-stone-400">
+        Confirm your session details below to save it to your training logs.
+      </p>
+
+      <div className="grid grid-cols-3 gap-3 my-8">
+        <div className="rounded-2xl border border-white/8 bg-black/24 p-3 text-center">
+          <span className="block text-[10px] font-bold uppercase text-stone-500">Duration</span>
+          <span className="text-xl font-black text-stone-100 mt-1 block">{elapsedMinutes} min</span>
+        </div>
+        <div className="rounded-2xl border border-white/8 bg-black/24 p-3 text-center">
+          <span className="block text-[10px] font-bold uppercase text-stone-500">Sets</span>
+          <span className="text-xl font-black text-[#d9ff55] mt-1 block">{completedSets} / {totalSets}</span>
+        </div>
+        <div className="rounded-2xl border border-white/8 bg-black/24 p-3 text-center">
+          <span className="block text-[10px] font-bold uppercase text-stone-500">Avg RPE</span>
+          <span className="text-xl font-black text-[#5eead4] mt-1 block">{avgRpe ?? 'N/A'}</span>
+        </div>
+      </div>
+
+      {painSets > 0 && (
+        <div className="mb-6 rounded-2xl border border-rose-500/20 bg-rose-500/5 p-4 text-left flex items-start gap-3">
+          <Heart className="h-5 w-5 text-rose-500 shrink-0 mt-0.5 fill-rose-500/20" />
+          <div>
+            <h4 className="text-xs font-black text-rose-400">Joint Pain Warning</h4>
+            <p className="text-[11px] font-semibold text-stone-400 mt-0.5">
+              You reported joint pain on {painSets} set{painSets > 1 ? 's' : ''}. Take time to rest, dynamic stretch, and recover properly.
+            </p>
+          </div>
+        </div>
+      )}
+
+      <div className="space-y-3">
+        <Button type="button" variant="primary" size="lg" onClick={onConfirm} className="min-h-14 w-full gap-2 text-base shadow-lg shadow-[#c6ff00]/10">
+          <Check className="h-5 w-5" aria-hidden="true" /> Save & Finish Workout
+        </Button>
+        <Button type="button" variant="secondary" size="lg" onClick={onCancel} className="min-h-14 w-full gap-2">
+          Back to Workout
+        </Button>
+      </div>
     </Card>
   );
 }
@@ -322,6 +476,7 @@ export default function WorkoutSession() {
   const { data, isReady, addWorkoutLog, updateRoutine } = useAppData();
   const { session, startSession, updateSession, clearSession } = useActiveWorkoutSession();
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [showFinishConfirm, setShowFinishConfirm] = useState(false);
   const [loggedSession, setLoggedSession] = useState<WorkoutSessionLog | null>(null);
   const [remainingRestSeconds, setRemainingRestSeconds] = useState(() => (session ? getRemainingRestSeconds(session) : 0));
 
@@ -408,6 +563,7 @@ export default function WorkoutSession() {
     if (!todayRoutine || todayRoutine.isRestDay || todayRoutine.exercises.length === 0) return;
     startSession(todayRoutine);
     setLoggedSession(null);
+    setShowFinishConfirm(false);
   };
 
   const handleRoutineDragEnd = (event: DragEndEvent) => {
@@ -468,20 +624,27 @@ export default function WorkoutSession() {
     addWorkoutLog(log);
     setLoggedSession(log);
     clearSession();
+    setShowFinishConfirm(false);
   };
 
   const handleDoneSet = () => {
     if (!session) return;
 
-    const nextSession = updateSession((current) => {
+    const currentExercise = session.exercises[session.currentExerciseIndex];
+    const currentSet = currentExercise.sets[session.currentSetIndex];
+    const wasAlreadyCompleted = !!currentSet.completedAt;
+
+    let isFinalSet = false;
+
+    updateSession((current) => {
       const exercise = current.exercises[current.currentExerciseIndex];
       const set = exercise.sets[current.currentSetIndex];
-      const completedAt = new Date().toISOString();
+      const completedAt = set.completedAt || new Date().toISOString();
       const completedSet = { ...set, completedAt };
       const alreadyLogged = current.completedSets.some(
         (log) => log.exerciseId === exercise.exerciseId && log.setIndex === current.currentSetIndex
       );
-      const isFinalSet = current.currentExerciseIndex === current.exercises.length - 1 && current.currentSetIndex === exercise.sets.length - 1;
+      isFinalSet = current.currentExerciseIndex === current.exercises.length - 1 && current.currentSetIndex === exercise.sets.length - 1;
 
       const updatedExercises = current.exercises.map((item, exerciseIndex) =>
         exerciseIndex === current.currentExerciseIndex
@@ -493,7 +656,18 @@ export default function WorkoutSession() {
       );
 
       const completedSets = alreadyLogged
-        ? current.completedSets
+        ? current.completedSets.map((log) =>
+            log.exerciseId === exercise.exerciseId && log.setIndex === current.currentSetIndex
+              ? {
+                  ...log,
+                  reps: completedSet.reps,
+                  durationSeconds: completedSet.durationSeconds,
+                  weightKg: completedSet.weightKg,
+                  rpe: completedSet.rpe,
+                  painReported: completedSet.painReported,
+                }
+              : log
+          )
         : [
             ...current.completedSets,
             {
@@ -509,14 +683,11 @@ export default function WorkoutSession() {
             },
           ];
 
-      if (isFinalSet) {
+      if (wasAlreadyCompleted || isFinalSet) {
         return {
           ...current,
           exercises: updatedExercises,
           completedSets,
-          status: 'completed',
-          phase: 'set',
-          restState: undefined,
         };
       }
 
@@ -539,8 +710,34 @@ export default function WorkoutSession() {
       };
     });
 
-    if (nextSession?.status === 'completed') {
-      finishWorkout(nextSession);
+    if (isFinalSet && !wasAlreadyCompleted) {
+      setShowFinishConfirm(true);
+    } else if (wasAlreadyCompleted) {
+      updateSession((current) => {
+        const currentEx = current.exercises[current.currentExerciseIndex];
+        const firstUncompletedSetIdx = currentEx.sets.findIndex((s) => !s.completedAt);
+        if (firstUncompletedSetIdx !== -1) {
+          return {
+            ...current,
+            currentSetIndex: firstUncompletedSetIdx,
+          };
+        }
+
+        for (let i = 0; i < current.exercises.length; i++) {
+          const ex = current.exercises[i];
+          const uncompletedIdx = ex.sets.findIndex((s) => !s.completedAt);
+          if (uncompletedIdx !== -1) {
+            return {
+              ...current,
+              currentExerciseIndex: i,
+              currentSetIndex: uncompletedIdx,
+            };
+          }
+        }
+
+        setShowFinishConfirm(true);
+        return current;
+      });
     }
   };
 
@@ -568,6 +765,7 @@ export default function WorkoutSession() {
   const cancelWorkout = () => {
     clearSession();
     setShowCancelConfirm(false);
+    setShowFinishConfirm(false);
   };
 
   if (loggedSession) {
@@ -594,7 +792,7 @@ export default function WorkoutSession() {
     return (
       <div className="mx-auto max-w-5xl space-y-7">
         <PageHeader
-          title={session.phase === 'rest' ? 'Rest Timer' : 'Workout Session'}
+          title={showFinishConfirm ? 'Finish Workout' : session.phase === 'rest' ? 'Rest Timer' : 'Workout Session'}
           subtitle={`${session.focus} · ${completedSets}/${plannedSets} sets complete`}
           actions={
             <div className="flex items-center gap-3">
@@ -608,7 +806,13 @@ export default function WorkoutSession() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
           <div>
-            {session.phase === 'rest' ? (
+            {showFinishConfirm ? (
+              <FinishConfirmationCard
+                session={session}
+                onConfirm={() => finishWorkout(session)}
+                onCancel={() => setShowFinishConfirm(false)}
+              />
+            ) : session.phase === 'rest' ? (
               <RestCard
                 session={session}
                 remainingSeconds={remainingRestSeconds}
@@ -623,6 +827,14 @@ export default function WorkoutSession() {
                 progressPercent={progressPercent}
                 onUpdateSet={updateCurrentSet}
                 onDoneSet={handleDoneSet}
+                onSelectSetIndex={(index) =>
+                  updateSession((current) => ({
+                    ...current,
+                    phase: 'set',
+                    currentSetIndex: clampIndex(index, current.exercises[current.currentExerciseIndex].sets.length - 1),
+                    restState: undefined,
+                  }))
+                }
               />
             ) : null}
           </div>
@@ -662,8 +874,21 @@ export default function WorkoutSession() {
                 </SortableContext>
               </DndContext>
 
-              <div className="mt-4 border-t border-white/8 pt-4">
-                <Button variant="danger" className="w-full gap-2" onClick={() => setShowCancelConfirm(true)}>
+              <div className="mt-4 border-t border-white/8 pt-4 flex flex-col gap-2">
+                <Button
+                  type="button"
+                  variant="primary"
+                  className="w-full gap-2 border border-[#c6ff00]/25 bg-[#c6ff00]/10 text-[#d9ff55] hover:bg-[#c6ff00]/15"
+                  onClick={() => setShowFinishConfirm(true)}
+                >
+                  <Check className="h-4 w-4" aria-hidden="true" /> Finish Workout
+                </Button>
+                <Button
+                  type="button"
+                  variant="danger"
+                  className="w-full gap-2 bg-transparent border border-white/10 hover:bg-[#ff4d6d]/10 hover:border-[#ff4d6d]/20 text-stone-400 hover:text-[#ff4d6d]"
+                  onClick={() => setShowCancelConfirm(true)}
+                >
                   <Trash2 className="h-4 w-4" aria-hidden="true" /> Cancel Session
                 </Button>
               </div>

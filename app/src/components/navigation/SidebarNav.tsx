@@ -2,9 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../../lib/navigation';
 import { cn } from '../../utils/cn';
 import UserMenu from '../auth/UserMenu';
+import { loadActiveWorkoutSession } from '../../services/activeWorkoutSessionService';
 
 export default function SidebarNav() {
   const location = useLocation();
+  const hasActiveSession = loadActiveWorkoutSession() !== null;
 
   return (
     <aside className="hidden md:flex flex-col w-64 bg-[#0b0c09]/78 backdrop-blur-xl border-r border-white/8 p-6 shrink-0 h-screen sticky top-0 z-20">
@@ -21,7 +23,7 @@ export default function SidebarNav() {
       <nav className="space-y-1.5 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = location.pathname === item.path;
+          const isActive = location.pathname === item.path || (item.path === '/workout' && location.pathname === '/session');
           return (
             <Link
               key={item.path}
@@ -33,12 +35,20 @@ export default function SidebarNav() {
                   : 'text-stone-400 hover:text-stone-200 hover:bg-white/6 border border-transparent'
               )}
             >
-              <Icon
-                className={cn(
-                  'w-5 h-5 transition-colors duration-200',
-                  isActive ? 'text-[#d9ff55]' : 'text-stone-500 group-hover:text-stone-400'
+              <div className="relative">
+                <Icon
+                  className={cn(
+                    'w-5 h-5 transition-colors duration-200',
+                    isActive ? 'text-[#d9ff55]' : 'text-stone-500 group-hover:text-stone-400'
+                  )}
+                />
+                {item.path === '/workout' && hasActiveSession && (
+                  <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c6ff00] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c6ff00]"></span>
+                  </span>
                 )}
-              />
+              </div>
               {item.label}
             </Link>
           );

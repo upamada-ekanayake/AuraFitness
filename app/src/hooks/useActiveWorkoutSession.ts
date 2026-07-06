@@ -50,6 +50,13 @@ export function useActiveWorkoutSession() {
     setSessionState(null);
   }, []);
 
+  const reloadSession = useCallback(() => {
+    const latest = loadActiveWorkoutSession();
+    setSessionState(latest);
+    sessionRef.current = latest;
+    return latest;
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
 
@@ -62,6 +69,8 @@ export function useActiveWorkoutSession() {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         flushSession();
+      } else if (document.visibilityState === 'visible') {
+        reloadSession();
       }
     };
 
@@ -73,6 +82,8 @@ export function useActiveWorkoutSession() {
     void CapacitorApp.addListener('appStateChange', ({ isActive }) => {
       if (!isActive) {
         flushSession();
+      } else {
+        reloadSession();
       }
     }).then((handle) => {
       removeCapacitorListener = () => {
@@ -88,12 +99,13 @@ export function useActiveWorkoutSession() {
       window.removeEventListener('beforeunload', flushSession);
       removeCapacitorListener?.();
     };
-  }, []);
+  }, [reloadSession]);
 
   return {
     session,
     startSession,
     updateSession,
     clearSession,
+    reloadSession,
   };
 }
