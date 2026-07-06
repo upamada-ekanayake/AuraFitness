@@ -223,6 +223,29 @@ export function createSeedAuraFitnessData(): AuraFitnessData {
     { date: today, calories: 850, goalCalories: 2200 },
   ];
 
+  const calorieEntries = [
+    {
+      id: 'meal-today-breakfast',
+      date: today,
+      mealName: 'Breakfast',
+      calories: 450,
+      proteinG: 32,
+      carbsG: 42,
+      fatG: 14,
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'meal-today-post-workout',
+      date: today,
+      mealName: 'Post-workout shake',
+      calories: 400,
+      proteinG: 35,
+      carbsG: 38,
+      fatG: 8,
+      createdAt: new Date().toISOString(),
+    },
+  ];
+
   const fastingLogs = [
     { date: threeDaysAgo, status: 'completed' as const, fastingHours: 16, goalHours: 16 },
     { date: twoDaysAgo, status: 'completed' as const, fastingHours: 15.5, goalHours: 16 },
@@ -252,6 +275,7 @@ export function createSeedAuraFitnessData(): AuraFitnessData {
     workoutLogs,
     waterLogs,
     calorieLogs,
+    calorieEntries,
     bodyWeightLogs,
     fastingLogs,
     createdAt: new Date().toISOString(),

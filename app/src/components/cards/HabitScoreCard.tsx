@@ -17,17 +17,17 @@ export default function HabitScoreCard({
 }: HabitScoreCardProps) {
   
   const textTones = {
-    success: 'text-[#d9ff55]',
+    success: 'text-violet-300',
     warning: 'text-[#ffc84a]',
-    info: 'text-[#5eead4]',
+    info: 'text-fuchsia-300',
     danger: 'text-[#ff8aa0]',
     neutral: 'text-stone-400',
   };
 
   const barTones = {
-    success: 'from-[#c6ff00] to-[#14b8a6]',
+    success: 'from-violet-500 to-fuchsia-500',
     warning: 'from-[#ffb000] to-[#ff6b35]',
-    info: 'from-[#14b8a6] to-[#7dd3fc]',
+    info: 'from-fuchsia-500 to-indigo-500',
     danger: 'from-[#ff4d6d] to-[#fb7185]',
     neutral: 'from-stone-600 to-stone-700',
   };

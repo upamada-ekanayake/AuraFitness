@@ -34,6 +34,7 @@ import { getRuntimePlatform, isNativeAndroidApp } from '../utils/platform';
 import { Link } from 'react-router-dom';
 import { useActiveWorkoutSession } from '../hooks/useActiveWorkoutSession';
 import { getActiveSessionProgress } from '../services/activeWorkoutSessionService';
+import auraLogo from '../assets/brand/aura-logo.png';
 
 type BadgeVariant = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 
@@ -209,53 +210,54 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#10110d]/88 p-5 sm:p-7 shadow-2xl shadow-black/25">
-        <div className="pointer-events-none absolute -right-10 -top-12 h-56 w-56 rounded-full bg-[#ff6b35]/18 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-16 left-8 h-48 w-48 rounded-full bg-[#c6ff00]/10 blur-3xl" />
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {modeBadges.map((badge) => (
-                <Badge key={badge.text} variant={badge.variant} className="text-xs px-3 py-1 font-bold">
-                  {badge.text}
+      <section className="relative overflow-hidden rounded-3xl border border-violet-300/12 bg-[#111014]/86 p-5 shadow-xl shadow-black/25 sm:p-6">
+        <div className="relative flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-center gap-4 max-w-3xl">
+            <img src={auraLogo} alt="AuraFitness Logo" className="h-14 w-14 rounded-2xl object-cover shadow-lg shadow-violet-950/40 shrink-0" />
+            <div>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {modeBadges.map((badge) => (
+                  <Badge key={badge.text} variant={badge.variant} className="text-xs px-3 py-1 font-bold">
+                    {badge.text}
+                  </Badge>
+                ))}
+                <Badge variant={isWorkoutDay ? 'success' : 'neutral'} className="text-xs px-3 py-1 font-bold">
+                  {isWorkoutDay ? 'Workout day' : 'Recovery day'}
                 </Badge>
-              ))}
-              <Badge variant={isWorkoutDay ? 'success' : 'neutral'} className="text-xs px-3 py-1 font-bold">
-                {isWorkoutDay ? 'Workout day' : 'Recovery day'}
-              </Badge>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-zinc-100 tracking-tight leading-tight text-pretty">
+                {isWorkoutDay ? todayRoutine?.focus : 'Recovery Day'}
+              </h1>
+              <p className="mt-2 text-sm text-zinc-400 font-medium max-w-2xl leading-relaxed">
+                {profile.name},{' '}
+                {isWorkoutDay
+                  ? `${todayName} is ready. Start the session or log today’s basics first.`
+                  : `${todayName} is lighter. Keep hydration, nutrition, and recovery steady.`}
+              </p>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-black text-stone-100 tracking-tight leading-[0.95]">
-              {isWorkoutDay ? 'Today has a clear lane.' : 'Recovery still counts.'}
-            </h1>
-            <p className="mt-4 text-sm sm:text-base text-stone-400 font-medium max-w-2xl leading-relaxed">
-              Welcome back, <span className="text-stone-100 font-bold">{profile.name}</span>.{' '}
-              {isWorkoutDay
-                ? `${todayName} is set for ${todayRoutine?.focus}.`
-                : `${todayName} is lighter today. Keep recovery, hydration, and nutrition steady.`}
-            </p>
           </div>
           <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:min-w-[340px]">
             <div className="rounded-2xl border border-white/10 bg-black/24 px-3 py-3">
-              <span className="block text-[10px] font-bold uppercase text-stone-500">Water</span>
-              <span className="text-lg font-black text-[#d9ff55]">{waterProgress}%</span>
+              <span className="block text-[10px] font-bold uppercase text-zinc-500">Water</span>
+              <span className="text-lg font-black text-violet-100">{waterProgress}%</span>
             </div>
             <div className="rounded-2xl border border-white/10 bg-black/24 px-3 py-3">
-              <span className="block text-[10px] font-bold uppercase text-stone-500">Fasting</span>
-              <span className="text-lg font-black text-stone-100">{fastingProgress}%</span>
+              <span className="block text-[10px] font-bold uppercase text-zinc-500">Fasting</span>
+              <span className="text-lg font-black text-zinc-100">{fastingProgress}%</span>
             </div>
             <div className="rounded-2xl border border-white/10 bg-black/24 px-3 py-3">
-              <span className="block text-[10px] font-bold uppercase text-stone-500">Week</span>
-              <span className="text-lg font-black text-[#5eead4]">{completedWorkoutsCount}/{profile.weeklyWorkoutGoal}</span>
+              <span className="block text-[10px] font-bold uppercase text-zinc-500">Week</span>
+              <span className="text-lg font-black text-fuchsia-100">{completedWorkoutsCount}/{profile.weeklyWorkoutGoal}</span>
             </div>
           </div>
         </div>
       </section>
 
       {session && (
-        <div className="relative overflow-hidden rounded-[2rem] border border-[#c6ff00]/25 bg-[#c6ff00]/8 p-5 sm:p-7 shadow-xl shadow-black/15 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#c6ff00]/10 blur-2xl" />
+        <div className="relative overflow-hidden rounded-[2rem] border border-violet-500/25 bg-violet-500/8 p-5 sm:p-7 shadow-xl shadow-black/15 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-violet-500/10 blur-2xl" />
           <div className="min-w-0 flex-1">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#c6ff00]/12 px-3 py-1 text-xs font-bold text-[#d9ff55] border border-[#c6ff00]/20 animate-pulse">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-violet-500/12 px-3 py-1 text-xs font-bold text-violet-300 border border-violet-500/20 animate-pulse">
               Active Workout Session
             </span>
             <h2 className="text-2xl font-black text-stone-100 mt-3 tracking-tight">{session.focus}</h2>
@@ -263,11 +265,11 @@ export default function Dashboard() {
               You are currently at exercise {session.currentExerciseIndex + 1} of {session.exercises.length} · {activeProgress}% complete
             </p>
             <div className="mt-3 max-w-xs h-1.5 rounded-full bg-black/40 overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-[#c6ff00] to-[#14b8a6]" style={{ width: `${activeProgress}%` }} />
+              <div className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500" style={{ width: `${activeProgress}%` }} />
             </div>
           </div>
           <Link to="/session" className="shrink-0 z-10">
-            <Button variant="primary" className="shadow-lg shadow-[#c6ff00]/10 w-full sm:w-auto">
+            <Button variant="primary" className="shadow-lg shadow-violet-950/30 w-full sm:w-auto">
               Resume Workout <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </Link>
@@ -275,7 +277,7 @@ export default function Dashboard() {
       )}
 
       {canInstall && !isInstalled && !isNative && (
-        <Card className="border-[#c6ff00]/20 bg-[#c6ff00]/6">
+        <Card className="border-violet-500/20 bg-violet-500/6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-sm font-black text-stone-100 tracking-tight">Install AuraFitness</h2>
@@ -291,8 +293,8 @@ export default function Dashboard() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="relative overflow-hidden border-[#c6ff00]/18 bg-[#c6ff00]/6">
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-[#c6ff00]/8 to-transparent" />
+        <Card className="relative overflow-hidden border-violet-500/18 bg-violet-500/6">
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-violet-500/8 to-transparent" />
           <div className="flex items-start justify-between gap-4">
             <div>
               <Badge variant={session ? 'success' : isWorkoutDay ? 'success' : 'neutral'} className="mb-3">
@@ -309,7 +311,7 @@ export default function Dashboard() {
                   : 'Create a weekly split to unlock session tracking.'}
               </p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-black/35 border border-white/10 flex items-center justify-center text-[#d9ff55] shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-black/35 border border-white/10 flex items-center justify-center text-violet-300 shrink-0">
               <Dumbbell className="w-6 h-6" />
             </div>
           </div>
@@ -322,9 +324,9 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        <Card className="border-[#14b8a6]/18 bg-[#14b8a6]/6">
+        <Card className="border-fuchsia-500/18 bg-fuchsia-500/6">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#14b8a6]/10 border border-[#14b8a6]/20 flex items-center justify-center text-[#5eead4] shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-300 shrink-0">
               <NextActionIcon className="w-6 h-6" />
             </div>
             <div className="min-w-0">
@@ -470,7 +472,7 @@ export default function Dashboard() {
 
         {/* AI Recommendations Column */}
         <div className="lg:col-span-2 space-y-6 flex flex-col justify-between">
-          <AISuggestionList title="AI Insights" suggestions={topSuggestions} />
+          <AISuggestionList title="Coach Insights" suggestions={topSuggestions} />
           <WorkoutSummaryCard className="mt-4 lg:mt-0" />
         </div>
 

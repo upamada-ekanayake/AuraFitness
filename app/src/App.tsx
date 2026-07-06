@@ -9,6 +9,9 @@ import WorkoutSession from './pages/WorkoutSession';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import AuthPage from './pages/AuthPage';
+import WaterIntake from './pages/WaterIntake';
+import Calories from './pages/Calories';
+import More from './pages/More';
 
 function protectedPage(page: ReactNode) {
   return (
@@ -40,8 +43,11 @@ export default function App() {
           <Route path="/routine" element={protectedPage(<RoutinePlanner />)} />
           <Route path="/session" element={protectedPage(<WorkoutSession />)} />
           <Route path="/workout" element={protectedPage(<WorkoutSession />)} />
+          <Route path="/water" element={protectedPage(<WaterIntake />)} />
+          <Route path="/calories" element={protectedPage(<Calories />)} />
           <Route path="/analytics" element={protectedPage(<Analytics />)} />
           <Route path="/settings" element={protectedPage(<Settings />)} />
+          <Route path="/more" element={protectedPage(<More />)} />
         </Routes>
       </Router>
     </AppErrorBoundary>

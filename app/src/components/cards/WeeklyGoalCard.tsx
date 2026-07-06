@@ -34,7 +34,7 @@ export default function WeeklyGoalCard({
         </div>
 
         <div className="flex items-baseline gap-1">
-          <span className="text-3xl font-black text-[#d9ff55] tracking-tight">
+          <span className="text-3xl font-black text-violet-300 tracking-tight">
             {percentage}%
           </span>
           <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">
@@ -47,7 +47,7 @@ export default function WeeklyGoalCard({
         {/* Progress Bar background track */}
         <div className="w-full h-1.5 rounded-full bg-black/35 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#c6ff00] to-[#14b8a6] rounded-full transition-all duration-500 ease-out"
+            className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full transition-all duration-500 ease-out"
             style={{ width: `${percentage}%` }}
           />
         </div>

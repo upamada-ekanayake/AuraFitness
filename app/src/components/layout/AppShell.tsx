@@ -9,10 +9,10 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#080907] text-stone-100 flex flex-col md:flex-row pb-[calc(5.75rem+env(safe-area-inset-bottom))] md:pb-0 relative">
-      <div className="pointer-events-none fixed inset-0 opacity-70">
-        <div className="aura-drift absolute -top-20 right-[-5rem] h-64 w-64 rounded-full bg-[#ff6b35]/12 blur-3xl" />
-        <div className="absolute bottom-20 left-[-7rem] h-72 w-72 rounded-full bg-[#14b8a6]/10 blur-3xl" />
+    <div className="min-h-screen overflow-x-hidden bg-[#08070b] text-zinc-100 flex flex-col md:flex-row pb-[calc(5.75rem+env(safe-area-inset-bottom))] md:pb-0 relative">
+      <div className="pointer-events-none fixed inset-0 opacity-60">
+        <div className="aura-drift absolute -top-24 right-[-6rem] h-72 w-72 rounded-full bg-violet-700/18 blur-3xl" />
+        <div className="absolute bottom-16 left-[-8rem] h-72 w-72 rounded-full bg-fuchsia-700/10 blur-3xl" />
       </div>
 
       <SidebarNav />

@@ -6,6 +6,7 @@ import type {
   WorkoutSessionLog,
   WaterLog,
   CalorieLog,
+  CalorieEntry,
   BodyWeightLog,
   FastingLog,
 } from '../types/app';
@@ -19,6 +20,8 @@ import {
   addWorkoutSessionLog,
   upsertWaterLog,
   upsertCalorieLog,
+  addCalorieEntry,
+  deleteCalorieEntry,
   upsertBodyWeightLog,
   upsertFastingLog,
 } from '../services/appDataService';
@@ -89,6 +92,16 @@ export function useAppData() {
     setData(updated);
   }, []);
 
+  const addMealEntry = useCallback((entry: CalorieEntry) => {
+    const updated = addCalorieEntry(entry);
+    setData(updated);
+  }, []);
+
+  const deleteMealEntry = useCallback((entryId: string) => {
+    const updated = deleteCalorieEntry(entryId);
+    setData(updated);
+  }, []);
+
   // Upsert a daily BodyWeightLog entry
   const upsertBodyWeight = useCallback((log: BodyWeightLog) => {
     const updated = upsertBodyWeightLog(log);
@@ -113,6 +126,8 @@ export function useAppData() {
     addWorkoutLog,
     upsertWater,
     upsertCalories,
+    addMealEntry,
+    deleteMealEntry,
     upsertBodyWeight,
     upsertFasting,
   };

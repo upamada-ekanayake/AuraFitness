@@ -76,7 +76,7 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
   const visibleError = localError ?? error;
 
   return (
-    <Card className="border-white/10 bg-[#10110d]/88 shadow-2xl shadow-black/25">
+    <Card className="border-violet-300/12 bg-[#111014]/88 shadow-2xl shadow-black/25">
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
           <Badge variant={isSupabaseReady ? 'success' : 'warning'}>
@@ -87,57 +87,61 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
               <Smartphone className="w-3 h-3 mr-1" /> Android
             </Badge>
           )}
-          <h2 className="text-2xl font-black text-stone-100 tracking-tight mt-3">{title}</h2>
-          <p className="text-sm text-stone-400 mt-1">
+          <h2 className="text-2xl font-black text-zinc-100 tracking-tight mt-3">{title}</h2>
+          <p className="text-sm text-zinc-400 mt-1">
             {isSignUp ? 'Create a profile you can sync to cloud.' : 'Sign in to restore or sync your fitness data.'}
           </p>
         </div>
-        <ShieldCheck className="w-7 h-7 text-[#d9ff55] shrink-0" />
+        <ShieldCheck className="w-7 h-7 text-violet-200 shrink-0" />
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
         <label className="flex flex-col gap-2">
-          <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Email</span>
-          <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 focus-within:border-[#c6ff00]/70">
-            <Mail className="w-4 h-4 text-stone-500" />
+          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Email</span>
+          <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 focus-within:border-violet-400/70">
+            <Mail className="w-4 h-4 text-zinc-500" aria-hidden="true" />
             <input
               type="email"
+              name="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="you@example.com"
+              placeholder="you@example.com…"
               autoComplete="email"
-              className="w-full bg-transparent text-sm text-stone-100 placeholder-stone-600 outline-none"
+              spellCheck={false}
+              className="w-full bg-transparent text-sm text-zinc-100 placeholder-zinc-600 outline-none"
             />
           </div>
         </label>
 
         <label className="flex flex-col gap-2">
-          <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Password</span>
-          <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 focus-within:border-[#c6ff00]/70">
-            <Lock className="w-4 h-4 text-stone-500" />
+          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Password</span>
+          <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 focus-within:border-violet-400/70">
+            <Lock className="w-4 h-4 text-zinc-500" aria-hidden="true" />
             <input
               type="password"
+              name="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Minimum 6 characters"
+              placeholder="Minimum 6 characters…"
               autoComplete={isSignUp ? 'new-password' : 'current-password'}
-              className="w-full bg-transparent text-sm text-stone-100 placeholder-stone-600 outline-none"
+              className="w-full bg-transparent text-sm text-zinc-100 placeholder-zinc-600 outline-none"
             />
           </div>
         </label>
 
         {isSignUp && (
           <label className="flex flex-col gap-2">
-            <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Confirm Password</span>
-            <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 focus-within:border-[#c6ff00]/70">
-              <Lock className="w-4 h-4 text-stone-500" />
+            <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Confirm Password</span>
+            <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 focus-within:border-violet-400/70">
+              <Lock className="w-4 h-4 text-zinc-500" aria-hidden="true" />
               <input
                 type="password"
+                name="confirmPassword"
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}
-                placeholder="Repeat password"
+                placeholder="Repeat password…"
                 autoComplete="new-password"
-                className="w-full bg-transparent text-sm text-stone-100 placeholder-stone-600 outline-none"
+                className="w-full bg-transparent text-sm text-zinc-100 placeholder-zinc-600 outline-none"
               />
             </div>
           </label>
@@ -156,13 +160,13 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
         )}
 
         <Button type="submit" variant="primary" size="lg" disabled={isLoading} className="w-full">
-          {isLoading ? 'Working...' : isSignUp ? 'Sign up' : 'Sign in'}
+          {isLoading ? 'Working…' : isSignUp ? 'Sign Up' : 'Sign In'}
         </Button>
       </form>
 
       <div className="mt-5 flex flex-col gap-3">
         <Button type="button" variant="secondary" onClick={onDemoMode} className="w-full">
-          Continue in demo mode
+          Continue In Demo Mode
         </Button>
         <button
           type="button"
@@ -171,13 +175,13 @@ export default function AuthForm({ onDemoMode, onAuthenticated }: AuthFormProps)
             setLocalError(null);
             setMessage(null);
           }}
-          className="text-xs text-stone-400 hover:text-[#d9ff55] font-semibold transition-colors"
+          className="text-xs text-zinc-400 hover:text-violet-200 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded-lg px-2 py-1"
         >
-          {isSignUp ? 'Already have an account? Sign in' : 'Need an account? Sign up'}
+          {isSignUp ? 'Already Have An Account? Sign In' : 'Need An Account? Sign Up'}
         </button>
       </div>
 
-      <p className="text-[11px] text-stone-500 leading-relaxed mt-5">
+      <p className="text-[11px] text-zinc-500 leading-relaxed mt-5">
         Demo mode stores data only on this device. Sign in when you want cloud backup and restore.
       </p>
     </Card>

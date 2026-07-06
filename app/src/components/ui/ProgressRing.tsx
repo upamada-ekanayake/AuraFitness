@@ -32,14 +32,14 @@ export const ProgressRing = React.forwardRef<HTMLDivElement, ProgressRingProps>(
             {/* Gradient definition */}
             <defs>
               <linearGradient id="auraGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#c6ff00" />
-                <stop offset="100%" stopColor="#14b8a6" />
+                <stop offset="0%" stopColor="#c084fc" />
+                <stop offset="100%" stopColor="#a855f7" />
               </linearGradient>
             </defs>
 
             {/* Background Trail Circle */}
             <circle
-              className="text-stone-800"
+              className="text-zinc-800"
               stroke="currentColor"
               fill="transparent"
               strokeWidth={strokeWidth}
@@ -64,9 +64,9 @@ export const ProgressRing = React.forwardRef<HTMLDivElement, ProgressRingProps>(
           </svg>
 
           {/* Centered label */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-stone-100">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-zinc-100">
             <span className="text-xl font-bold tracking-tight">{Math.round(percent)}%</span>
-            {label && <span className="text-[10px] text-stone-400 mt-0.5 tracking-wide uppercase font-semibold">{label}</span>}
+            {label && <span className="text-[10px] text-zinc-400 mt-0.5 tracking-wide uppercase font-semibold">{label}</span>}
           </div>
         </div>
       </div>

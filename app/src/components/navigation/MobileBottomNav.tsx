@@ -6,21 +6,25 @@ import { loadActiveWorkoutSession } from '../../services/activeWorkoutSessionSer
 export default function MobileBottomNav() {
   const location = useLocation();
   const hasActiveSession = loadActiveWorkoutSession() !== null;
+  const mobileItems = navItems.filter((item) => item.mobile);
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0b0c09]/92 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-[calc(74px+env(safe-area-inset-bottom))] pb-[calc(env(safe-area-inset-bottom)+0.25rem)] px-3 z-50 shadow-2xl shadow-black/45">
-      {navItems.map((item) => {
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#08070b]/94 backdrop-blur-2xl border-t border-violet-300/10 flex justify-around items-center h-[calc(74px+env(safe-area-inset-bottom))] pb-[calc(env(safe-area-inset-bottom)+0.25rem)] px-2 z-50 shadow-2xl shadow-black/45">
+      {mobileItems.map((item) => {
         const Icon = item.icon;
-        const isActive = location.pathname === item.path || (item.path === '/workout' && location.pathname === '/session');
+        const isActive =
+          location.pathname === item.path ||
+          (item.path === '/workout' && (location.pathname === '/session' || location.pathname === '/workout')) ||
+          (item.path === '/more' && ['/routine', '/analytics', '/settings', '/more'].includes(location.pathname));
         return (
           <Link
             key={item.path}
             to={item.path}
             className={cn(
-              'flex flex-col items-center justify-center w-13 h-13 rounded-2xl transition-all duration-200 active:scale-95',
+              'flex h-13 w-12 flex-col items-center justify-center rounded-2xl transition-colors duration-200 active:scale-95',
               isActive
-                ? 'bg-[#c6ff00]/12 text-[#d9ff55] font-semibold border border-[#c6ff00]/25 shadow-lg shadow-[#c6ff00]/10'
-                : 'text-stone-500 border border-transparent'
+                ? 'bg-violet-500/16 text-violet-100 font-semibold border border-violet-300/25 shadow-lg shadow-violet-950/30'
+                : 'text-zinc-500 border border-transparent hover:text-zinc-300'
             )}
             aria-label={item.label}
           >
@@ -28,8 +32,8 @@ export default function MobileBottomNav() {
               <Icon className={cn('w-5 h-5 transition-transform duration-200', isActive && 'scale-110')} />
               {item.path === '/workout' && hasActiveSession && (
                 <span className="absolute -top-1 -right-1 flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c6ff00] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c6ff00]"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-300 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-300"></span>
                 </span>
               )}
             </div>

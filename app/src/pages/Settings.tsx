@@ -384,43 +384,43 @@ export default function Settings() {
             </div>
           </Card>
 
-          <Card title="AI Status" subtitle="Check the status of loaded AI engine models">
+          <Card title="Coach Engine Status" subtitle="Check the status of the local coaching rule engine">
             <div className="space-y-4">
               
               {/* Core AI Parameters list */}
               <div className="bg-slate-950/40 p-4 border border-slate-900 rounded-2xl space-y-3">
                 <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
-                  <span className="text-slate-400 font-semibold">AI mode</span>
-                  <span className="text-indigo-400 font-bold">Rule-based MVP</span>
+                  <span className="text-slate-400 font-semibold">Engine mode</span>
+                  <span className="text-violet-400 font-bold">Rule-based Local Engine</span>
                 </div>
                 <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
-                  <span className="text-slate-400 font-semibold">ML enabled</span>
-                  <span className="text-slate-400 font-bold">No</span>
+                  <span className="text-slate-400 font-semibold">Offline ML module</span>
+                  <span className="text-slate-400 font-bold">No (Planned)</span>
                 </div>
                 <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-900">
-                  <span className="text-slate-400 font-semibold">LLM enabled</span>
+                  <span className="text-slate-400 font-semibold">Remote LLM module</span>
                   <span className="text-slate-400 font-bold">No</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-slate-400 font-semibold">Data source</span>
-                  <span className="text-slate-300 font-bold text-right truncate pl-4">Local app data + exported AI rules</span>
+                  <span className="text-slate-300 font-bold text-right truncate pl-4">Local logs + static rules</span>
                 </div>
               </div>
 
               <div className="p-4 bg-slate-950/40 rounded-xl border border-slate-900 flex justify-between items-center">
                 <div>
-                  <span className="text-xs font-bold text-slate-200 block">Rule Engine Model</span>
-                  <span className="text-[10px] text-slate-500 font-semibold mt-0.5 block">Status: Loaded (1730 exercises)</span>
+                  <span className="text-xs font-bold text-slate-200 block">Local Rule Library</span>
+                  <span className="text-[10px] text-slate-500 font-semibold mt-0.5 block">Status: Active (1730 exercises)</span>
                 </div>
-                <Badge variant="success">Online</Badge>
+                <Badge variant="success">Active</Badge>
               </div>
 
               <div className="p-4 bg-slate-950/20 border border-slate-900 rounded-xl flex items-start gap-2.5">
-                <Shield className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+                <Shield className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-bold text-slate-200">Local Privacy First</h4>
                   <p className="text-[11px] text-slate-400 leading-relaxed font-semibold mt-1">
-                    Your workout logs and biometrics remain local to this device. AuraFitness does not transmit fitness logs to remote servers.
+                    Your workout logs and biometrics remain local to this device. AuraFitness handles coaching logic on-device to respect your training privacy.
                   </p>
                 </div>
               </div>

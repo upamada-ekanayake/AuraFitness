@@ -110,9 +110,9 @@ function SortableExerciseRow({ id, name, detail, meta, isCurrent, isDone, onSele
       style={style}
       className={`rounded-2xl border p-3 touch-manipulation ${
         isDragging
-          ? 'border-[#c6ff00]/40 bg-[#c6ff00]/10 opacity-80'
+          ? 'border-violet-500/40 bg-violet-500/10 opacity-80'
           : isCurrent
-          ? 'border-[#c6ff00]/30 bg-[#c6ff00]/8'
+          ? 'border-violet-500/30 bg-violet-500/8'
           : 'border-white/8 bg-black/24'
       }`}
     >
@@ -120,14 +120,14 @@ function SortableExerciseRow({ id, name, detail, meta, isCurrent, isDone, onSele
         <button
           type="button"
           aria-label={`Reorder ${name}`}
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-400 focus-visible:ring-2 focus-visible:ring-[#c6ff00]"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-400 focus-visible:ring-2 focus-visible:ring-violet-500"
           style={{ touchAction: 'none' }}
           {...attributes}
           {...listeners}
         >
           <GripVertical className="h-5 w-5" aria-hidden="true" />
         </button>
-        <button type="button" onClick={onSelect} className="min-w-0 flex-1 text-left focus-visible:ring-2 focus-visible:ring-[#c6ff00] rounded-xl">
+        <button type="button" onClick={onSelect} className="min-w-0 flex-1 text-left focus-visible:ring-2 focus-visible:ring-violet-500 rounded-xl">
           <span className="block truncate text-sm font-black text-stone-100">{name}</span>
           <span className="mt-0.5 block truncate text-[11px] font-semibold text-stone-500">{detail}</span>
         </button>
@@ -162,7 +162,7 @@ function Stepper({ label, value, step = 1, min = 0, suffix, onChange, quickAdjus
           type="button"
           aria-label={`Decrease ${label}`}
           onClick={() => update(value - step)}
-          className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-[#c6ff00] active:scale-95 transition-transform"
+          className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-violet-500 active:scale-95 transition-transform"
         >
           <ChevronDown className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -174,7 +174,7 @@ function Stepper({ label, value, step = 1, min = 0, suffix, onChange, quickAdjus
           type="button"
           aria-label={`Increase ${label}`}
           onClick={() => update(value + step)}
-          className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-[#c6ff00] active:scale-95 transition-transform"
+          className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/5 text-stone-300 focus-visible:ring-2 focus-visible:ring-violet-500 active:scale-95 transition-transform"
         >
           <ChevronUp className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -213,8 +213,8 @@ function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, o
   const isCompleted = !!set.completedAt;
 
   return (
-    <Card className="overflow-hidden border-[#c6ff00]/18 bg-[#10110d]/90 p-0">
-      <div className="bg-gradient-to-br from-[#c6ff00]/12 via-transparent to-[#ff6b35]/10 p-5 sm:p-7">
+    <Card className="overflow-hidden border-violet-500/18 bg-[#10110d]/90 p-0">
+      <div className="bg-gradient-to-br from-violet-500/12 via-transparent to-fuchsia-500/10 p-5 sm:p-7">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <Badge variant="info" className="mb-3">
@@ -225,13 +225,13 @@ function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, o
               Set {session.currentSetIndex + 1} of {exercise.plannedSets} · {exercise.bodyPart || exercise.targetMuscle}
             </p>
           </div>
-          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-[#c6ff00]/20 bg-[#c6ff00]/10 text-[#d9ff55]">
+          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-violet-500/20 bg-violet-500/10 text-violet-300">
             <Dumbbell className="h-7 w-7" aria-hidden="true" />
           </div>
         </div>
 
         <div className="mt-6 h-2 overflow-hidden rounded-full bg-black/35">
-          <div className="h-full rounded-full bg-gradient-to-r from-[#c6ff00] to-[#14b8a6]" style={{ width: `${progressPercent}%` }} />
+          <div className="h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500" style={{ width: `${progressPercent}%` }} />
         </div>
 
         {/* Sets indicators row */}
@@ -244,7 +244,7 @@ function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, o
 
               let statusClass = "border-white/8 bg-white/4 text-stone-400 hover:border-white/12";
               if (isActive) {
-                statusClass = "border-[#c6ff00]/40 bg-[#c6ff00]/12 text-[#d9ff55] ring-2 ring-[#c6ff00]/20";
+                statusClass = "border-violet-500/40 bg-violet-500/12 text-violet-300 ring-2 ring-violet-500/20";
               } else if (isDone) {
                 statusClass = "border-emerald-500/30 bg-emerald-500/10 text-emerald-400";
               }
@@ -341,7 +341,7 @@ function ActiveSetCard({ session, exercise, set, progressPercent, onUpdateSet, o
           </div>
         </div>
 
-        <Button type="button" variant="primary" size="lg" onClick={onDoneSet} className="min-h-14 w-full gap-2 text-base shadow-lg shadow-[#c6ff00]/10">
+        <Button type="button" variant="primary" size="lg" onClick={onDoneSet} className="min-h-14 w-full gap-2 text-base shadow-lg shadow-violet-950/30">
           <Check className="h-5 w-5" aria-hidden="true" /> {isCompleted ? 'Update Set logs' : 'Done Set'}
         </Button>
       </div>
@@ -366,14 +366,14 @@ function RestCard({ session, remainingSeconds, onAdjustRest, onSkipRest }: RestC
     : null;
 
   return (
-    <Card className="border-[#14b8a6]/20 bg-[#10110d]/90 p-6 text-center sm:p-8">
+    <Card className="border-violet-500/20 bg-[#10110d]/90 p-6 text-center sm:p-8">
       <Badge variant="info" className="mb-5">
         Rest
       </Badge>
-      <div className="mx-auto grid h-48 w-48 place-items-center rounded-full border border-[#14b8a6]/20 bg-[#14b8a6]/8">
+      <div className="mx-auto grid h-48 w-48 place-items-center rounded-full border border-violet-500/20 bg-violet-500/8">
         <div
           className="grid h-40 w-40 place-items-center rounded-full"
-          style={{ background: `conic-gradient(#14b8a6 ${100 - percent}%, rgba(255,255,255,0.08) ${100 - percent}%)` }}
+          style={{ background: `conic-gradient(#8b5cf6 ${100 - percent}%, rgba(255,255,255,0.08) ${100 - percent}%)` }}
         >
           <div className="grid h-32 w-32 place-items-center rounded-full bg-[#080907]">
             <span className="text-5xl font-black tabular-nums text-stone-100">{formatTimer(remainingSeconds)}</span>
@@ -399,7 +399,7 @@ function RestCard({ session, remainingSeconds, onAdjustRest, onSkipRest }: RestC
           +30s
         </Button>
       </div>
-      <Button type="button" variant="primary" size="lg" onClick={onSkipRest} className="mt-4 min-h-14 w-full gap-2 shadow-lg shadow-[#14b8a6]/10">
+      <Button type="button" variant="primary" size="lg" onClick={onSkipRest} className="mt-4 min-h-14 w-full gap-2 shadow-lg shadow-violet-950/30">
         <TimerReset className="h-5 w-5" aria-hidden="true" /> Skip Rest
       </Button>
     </Card>
@@ -424,7 +424,7 @@ function FinishConfirmationCard({ session, onConfirm, onCancel }: FinishConfirma
   const painSets = session.completedSets.filter(s => s.painReported).length;
 
   return (
-    <Card className="border-[#c6ff00]/20 bg-[#10110d]/90 p-6 text-center sm:p-8">
+    <Card className="border-violet-500/20 bg-[#10110d]/90 p-6 text-center sm:p-8">
       <Badge variant="success" className="mb-5 animate-bounce">
         Workout Complete
       </Badge>
@@ -440,11 +440,11 @@ function FinishConfirmationCard({ session, onConfirm, onCancel }: FinishConfirma
         </div>
         <div className="rounded-2xl border border-white/8 bg-black/24 p-3 text-center">
           <span className="block text-[10px] font-bold uppercase text-stone-500">Sets</span>
-          <span className="text-xl font-black text-[#d9ff55] mt-1 block">{completedSets} / {totalSets}</span>
+          <span className="text-xl font-black text-violet-300 mt-1 block">{completedSets} / {totalSets}</span>
         </div>
         <div className="rounded-2xl border border-white/8 bg-black/24 p-3 text-center">
           <span className="block text-[10px] font-bold uppercase text-stone-500">Avg RPE</span>
-          <span className="text-xl font-black text-[#5eead4] mt-1 block">{avgRpe ?? 'N/A'}</span>
+          <span className="text-xl font-black text-fuchsia-300 mt-1 block">{avgRpe ?? 'N/A'}</span>
         </div>
       </div>
 
@@ -461,7 +461,7 @@ function FinishConfirmationCard({ session, onConfirm, onCancel }: FinishConfirma
       )}
 
       <div className="space-y-3">
-        <Button type="button" variant="primary" size="lg" onClick={onConfirm} className="min-h-14 w-full gap-2 text-base shadow-lg shadow-[#c6ff00]/10">
+        <Button type="button" variant="primary" size="lg" onClick={onConfirm} className="min-h-14 w-full gap-2 text-base shadow-lg shadow-violet-950/30">
           <Check className="h-5 w-5" aria-hidden="true" /> Save & Finish Workout
         </Button>
         <Button type="button" variant="secondary" size="lg" onClick={onCancel} className="min-h-14 w-full gap-2">
@@ -796,9 +796,9 @@ export default function WorkoutSession() {
           subtitle={`${session.focus} · ${completedSets}/${plannedSets} sets complete`}
           actions={
             <div className="flex items-center gap-3">
-              <span className="text-xs font-bold tracking-wider text-[#d9ff55]">{progressPercent}%</span>
+              <span className="text-xs font-bold tracking-wider text-violet-300">{progressPercent}%</span>
               <div className="h-2 w-28 rounded-full border border-white/10 bg-black/35">
-                <div className="h-full rounded-full bg-gradient-to-r from-[#c6ff00] to-[#14b8a6]" style={{ width: `${progressPercent}%` }} />
+                <div className="h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500" style={{ width: `${progressPercent}%` }} />
               </div>
             </div>
           }
@@ -878,7 +878,7 @@ export default function WorkoutSession() {
                 <Button
                   type="button"
                   variant="primary"
-                  className="w-full gap-2 border border-[#c6ff00]/25 bg-[#c6ff00]/10 text-[#d9ff55] hover:bg-[#c6ff00]/15"
+                  className="w-full gap-2 border border-violet-500/25 bg-violet-500/10 text-violet-300 hover:bg-violet-500/15"
                   onClick={() => setShowFinishConfirm(true)}
                 >
                   <Check className="h-4 w-4" aria-hidden="true" /> Finish Workout
@@ -962,7 +962,7 @@ export default function WorkoutSession() {
           </div>
         </Card>
       ) : (
-        <Card className="border-[#c6ff00]/18 bg-[#10110d]/82 p-6 sm:p-8">
+        <Card className="border-violet-500/18 bg-[#10110d]/82 p-6 sm:p-8">
           <div className="flex flex-col items-start justify-between gap-6 border-b border-white/8 pb-6 md:flex-row md:items-center">
             <div className="min-w-0">
               <Badge variant="info" className="mb-2.5">

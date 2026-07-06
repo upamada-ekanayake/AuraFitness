@@ -157,7 +157,7 @@ export default function Analytics() {
 
       {/* AI Insight Summary */}
       <AISuggestionList
-        title="High Priority AI Insights"
+        title="Coach Insights (High Priority)"
         suggestions={highPrioritySuggestions}
         emptyMessage="No high-priority insights active. Keep tracking your parameters to populate insights!"
       />

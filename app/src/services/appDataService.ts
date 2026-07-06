@@ -5,6 +5,7 @@ import type {
   WorkoutSessionLog,
   WaterLog,
   CalorieLog,
+  CalorieEntry,
   BodyWeightLog,
   FastingLog,
 } from '../types/app';
@@ -18,6 +19,13 @@ function notifyDataUpdated(): void {
   if (typeof window === 'undefined') return;
 
   window.dispatchEvent(new Event(AURA_DATA_UPDATED_EVENT));
+}
+
+function normalizeAuraFitnessData(data: AuraFitnessData): AuraFitnessData {
+  return {
+    ...data,
+    calorieEntries: Array.isArray(data.calorieEntries) ? data.calorieEntries : [],
+  };
 }
 
 /**
@@ -38,7 +46,11 @@ export function getTodayIsoDate(): string {
 export function getAuraFitnessData(): AuraFitnessData {
   const loaded = readStorage<AuraFitnessData>(AURA_STORAGE_KEY);
   if (loaded !== null) {
-    return loaded;
+    const normalized = normalizeAuraFitnessData(loaded);
+    if (!Array.isArray(loaded.calorieEntries)) {
+      return saveAuraFitnessData(normalized, { preserveUpdatedAt: true });
+    }
+    return normalized;
   }
   // Initialize with seed data if storage is blank
   return resetAuraFitnessData();
@@ -146,6 +158,55 @@ export function upsertCalorieLog(log: CalorieLog): AuraFitnessData {
     calorieLogs: [...filtered, log],
   };
   return saveAuraFitnessData(updatedData);
+}
+
+export function addCalorieEntry(entry: CalorieEntry): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const entries = [...currentData.calorieEntries, entry];
+  const caloriesForDate = entries
+    .filter((item) => item.date === entry.date)
+    .reduce((total, item) => total + item.calories, 0);
+  const currentLog = currentData.calorieLogs.find((log) => log.date === entry.date);
+  const filteredLogs = currentData.calorieLogs.filter((log) => log.date !== entry.date);
+
+  return saveAuraFitnessData({
+    ...currentData,
+    calorieEntries: entries,
+    calorieLogs: [
+      ...filteredLogs,
+      {
+        date: entry.date,
+        calories: caloriesForDate,
+        goalCalories: currentLog?.goalCalories ?? currentData.profile.calorieGoal,
+      },
+    ],
+  });
+}
+
+export function deleteCalorieEntry(entryId: string): AuraFitnessData {
+  const currentData = getAuraFitnessData();
+  const entry = currentData.calorieEntries.find((item) => item.id === entryId);
+  if (!entry) return currentData;
+
+  const entries = currentData.calorieEntries.filter((item) => item.id !== entryId);
+  const caloriesForDate = entries
+    .filter((item) => item.date === entry.date)
+    .reduce((total, item) => total + item.calories, 0);
+  const currentLog = currentData.calorieLogs.find((log) => log.date === entry.date);
+  const filteredLogs = currentData.calorieLogs.filter((log) => log.date !== entry.date);
+
+  return saveAuraFitnessData({
+    ...currentData,
+    calorieEntries: entries,
+    calorieLogs: [
+      ...filteredLogs,
+      {
+        date: entry.date,
+        calories: caloriesForDate,
+        goalCalories: currentLog?.goalCalories ?? currentData.profile.calorieGoal,
+      },
+    ],
+  });
 }
 
 /**

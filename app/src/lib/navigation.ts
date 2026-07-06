@@ -1,9 +1,9 @@
-import { LayoutDashboard, Calendar, Play, BarChart2, Settings } from 'lucide-react';
+import { LayoutDashboard, Play, Droplets, Flame, Menu } from 'lucide-react';
 
 export const navItems = [
-  { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/routine', label: 'Planner', icon: Calendar },
-  { path: '/workout', label: 'Workout', icon: Play },
-  { path: '/analytics', label: 'Analytics', icon: BarChart2 },
-  { path: '/settings', label: 'Settings', icon: Settings },
+  { path: '/', label: 'Dashboard', icon: LayoutDashboard, mobile: true },
+  { path: '/workout', label: 'Workout', icon: Play, mobile: true },
+  { path: '/water', label: 'Water', icon: Droplets, mobile: true },
+  { path: '/calories', label: 'Calories', icon: Flame, mobile: true },
+  { path: '/more', label: 'More', icon: Menu, mobile: true },
 ];

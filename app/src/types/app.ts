@@ -140,6 +140,17 @@ export interface CalorieLog {
   goalCalories: number;
 }
 
+export interface CalorieEntry {
+  id: string;
+  date: string;
+  mealName: string;
+  calories: number;
+  proteinG?: number;
+  carbsG?: number;
+  fatG?: number;
+  createdAt: string;
+}
+
 export interface BodyWeightLog {
   date: string;
   weightKg: number;
@@ -170,6 +181,7 @@ export interface AuraFitnessData {
   workoutLogs: WorkoutSessionLog[];
   waterLogs: WaterLog[];
   calorieLogs: CalorieLog[];
+  calorieEntries: CalorieEntry[];
   bodyWeightLogs: BodyWeightLog[];
   fastingLogs: FastingLog[];
   createdAt: string;

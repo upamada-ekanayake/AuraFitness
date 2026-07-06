@@ -68,9 +68,9 @@ export default function TrackerCard({
             <div
               className={`h-1 rounded-full transition-all duration-300 ${
                 tone === 'success'
-                  ? 'bg-[#c6ff00]'
+                  ? 'bg-violet-500'
                   : tone === 'info'
-                  ? 'bg-[#14b8a6]'
+                  ? 'bg-fuchsia-500'
                   : tone === 'warning'
                   ? 'bg-[#ffb000]'
                   : tone === 'danger'

@@ -16,10 +16,10 @@ export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(
         {...props}
       >
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
+          <h1 className="text-2xl font-extrabold text-zinc-100 tracking-tight text-pretty sm:text-3xl">
             {title}
           </h1>
-          {subtitle && <p className="mt-2 text-sm text-slate-400 font-medium">{subtitle}</p>}
+          {subtitle && <p className="mt-2 text-sm text-zinc-400 font-medium">{subtitle}</p>}
         </div>
         {actions && <div className="flex items-center gap-3 shrink-0">{actions}</div>}
       </div>
