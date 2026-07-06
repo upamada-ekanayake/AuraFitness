@@ -39,17 +39,17 @@ export default function TrackerCard({
   };
 
   return (
-    <Card title={title} subtitle={subtitle} className="border border-slate-900 bg-slate-900/10">
+    <Card title={title} subtitle={subtitle} className="border border-white/8 bg-[#10110d]/72">
       <div className="space-y-4">
         
         {/* Metric Details */}
         <div className="flex justify-between items-end">
-          <div>
-            <span className="text-2xl font-black text-slate-100 tracking-tight block">
+          <div className="min-w-0">
+            <span className="text-2xl font-black text-stone-100 tracking-tight block">
               {value}
             </span>
             {helper && (
-              <span className="text-xs text-slate-500 font-semibold mt-1 block">
+              <span className="text-xs text-stone-500 font-semibold mt-1 block">
                 {helper}
               </span>
             )}
@@ -64,18 +64,18 @@ export default function TrackerCard({
 
         {/* Progress bar indication */}
         {progress !== undefined && (
-          <div className="w-full bg-slate-950 rounded-full h-1.5 border border-slate-900">
+          <div className="w-full bg-black/35 rounded-full h-1.5 border border-white/8 overflow-hidden">
             <div
               className={`h-1 rounded-full transition-all duration-300 ${
                 tone === 'success'
-                  ? 'bg-emerald-500'
+                  ? 'bg-[#c6ff00]'
                   : tone === 'info'
-                  ? 'bg-indigo-500'
+                  ? 'bg-[#14b8a6]'
                   : tone === 'warning'
-                  ? 'bg-amber-500'
+                  ? 'bg-[#ffb000]'
                   : tone === 'danger'
-                  ? 'bg-rose-500'
-                  : 'bg-slate-700'
+                  ? 'bg-[#ff4d6d]'
+                  : 'bg-stone-700'
               }`}
               style={{ width: `${progress}%` }}
             />
@@ -84,7 +84,7 @@ export default function TrackerCard({
 
         {/* Children details (quick inputs or buttons) */}
         {children && (
-          <div className="pt-3 border-t border-slate-900/60 mt-2">
+          <div className="pt-3 border-t border-white/8 mt-2">
             {children}
           </div>
         )}

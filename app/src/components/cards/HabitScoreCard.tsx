@@ -17,26 +17,26 @@ export default function HabitScoreCard({
 }: HabitScoreCardProps) {
   
   const textTones = {
-    success: 'text-emerald-400',
-    warning: 'text-amber-400',
-    info: 'text-indigo-400',
-    danger: 'text-rose-400',
-    neutral: 'text-slate-400',
+    success: 'text-[#d9ff55]',
+    warning: 'text-[#ffc84a]',
+    info: 'text-[#5eead4]',
+    danger: 'text-[#ff8aa0]',
+    neutral: 'text-stone-400',
   };
 
   const barTones = {
-    success: 'from-emerald-500 to-teal-500',
-    warning: 'from-amber-500 to-orange-500',
-    info: 'from-indigo-500 to-purple-500',
-    danger: 'from-rose-500 to-pink-500',
-    neutral: 'from-slate-600 to-slate-700',
+    success: 'from-[#c6ff00] to-[#14b8a6]',
+    warning: 'from-[#ffb000] to-[#ff6b35]',
+    info: 'from-[#14b8a6] to-[#7dd3fc]',
+    danger: 'from-[#ff4d6d] to-[#fb7185]',
+    neutral: 'from-stone-600 to-stone-700',
   };
 
   return (
-    <Card className="border border-slate-900 bg-slate-950/20 p-5 flex flex-col justify-between">
+    <Card className="border border-white/8 bg-[#10110d]/72 p-5 flex flex-col justify-between">
       <div className="space-y-2">
         <div className="flex justify-between items-start">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
+          <span className="text-[10px] font-bold text-stone-500 uppercase tracking-widest block">
             Habit Consistency Score
           </span>
           <Badge variant={tone} className="text-[8px] py-0.5 px-1.5 uppercase font-bold shrink-0">
@@ -48,7 +48,7 @@ export default function HabitScoreCard({
           <span className={cn('text-3xl font-black tracking-tight', textTones[tone])}>
             {score}
           </span>
-          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+          <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">
             / 100 pts
           </span>
         </div>
@@ -56,14 +56,14 @@ export default function HabitScoreCard({
 
       <div className="mt-4 space-y-2.5">
         {/* Progress Bar background track */}
-        <div className="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+        <div className="w-full h-1.5 rounded-full bg-black/35 overflow-hidden">
           <div
             className={cn('h-full rounded-full bg-gradient-to-r transition-all duration-500 ease-out', barTones[tone])}
             style={{ width: `${score}%` }}
           />
         </div>
         
-        <p className="text-[10px] text-slate-500 font-semibold leading-relaxed">
+        <p className="text-[10px] text-stone-500 font-semibold leading-relaxed">
           {helper}
         </p>
       </div>

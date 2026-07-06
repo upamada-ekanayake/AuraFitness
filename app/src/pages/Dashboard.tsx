@@ -53,8 +53,8 @@ export default function Dashboard() {
 
   if (!isReady || !data || !profile) {
     return (
-      <div className="flex items-center justify-center min-h-screen text-slate-400 font-semibold">
-        Loading Athlete Dashboard...
+      <div className="flex items-center justify-center min-h-screen text-stone-400 font-semibold">
+        Loading training log...
       </div>
     );
   }
@@ -196,9 +196,11 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <section className="rounded-3xl border border-slate-800/70 bg-slate-900/45 p-5 sm:p-7 shadow-2xl shadow-black/20">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+      <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#10110d]/88 p-5 sm:p-7 shadow-2xl shadow-black/25">
+        <div className="pointer-events-none absolute -right-10 -top-12 h-56 w-56 rounded-full bg-[#ff6b35]/18 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-16 left-8 h-48 w-48 rounded-full bg-[#c6ff00]/10 blur-3xl" />
+        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
             <div className="flex flex-wrap gap-2 mb-4">
               {modeBadges.map((badge) => (
                 <Badge key={badge.text} variant={badge.variant} className="text-xs px-3 py-1 font-bold">
@@ -209,34 +211,39 @@ export default function Dashboard() {
                 {isWorkoutDay ? 'Workout day' : 'Recovery day'}
               </Badge>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight">
-              Welcome back, {profile.name}
+            <h1 className="text-4xl sm:text-5xl font-black text-stone-100 tracking-tight leading-[0.95]">
+              {isWorkoutDay ? 'Today has a clear lane.' : 'Recovery still counts.'}
             </h1>
-            <p className="mt-2 text-sm text-slate-400 font-medium max-w-2xl">
+            <p className="mt-4 text-sm sm:text-base text-stone-400 font-medium max-w-2xl leading-relaxed">
+              Welcome back, <span className="text-stone-100 font-bold">{profile.name}</span>.{' '}
               {isWorkoutDay
                 ? `${todayName} is set for ${todayRoutine?.focus}.`
                 : `${todayName} is lighter today. Keep recovery, hydration, and nutrition steady.`}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center">
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <span className="block text-[10px] font-bold uppercase text-slate-500">Water</span>
-              <span className="text-lg font-black text-slate-100">{waterProgress}%</span>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:min-w-[340px]">
+            <div className="rounded-2xl border border-white/10 bg-black/24 px-3 py-3">
+              <span className="block text-[10px] font-bold uppercase text-stone-500">Water</span>
+              <span className="text-lg font-black text-[#d9ff55]">{waterProgress}%</span>
             </div>
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <span className="block text-[10px] font-bold uppercase text-slate-500">Fasting</span>
-              <span className="text-lg font-black text-slate-100">{fastingProgress}%</span>
+            <div className="rounded-2xl border border-white/10 bg-black/24 px-3 py-3">
+              <span className="block text-[10px] font-bold uppercase text-stone-500">Fasting</span>
+              <span className="text-lg font-black text-stone-100">{fastingProgress}%</span>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/24 px-3 py-3">
+              <span className="block text-[10px] font-bold uppercase text-stone-500">Week</span>
+              <span className="text-lg font-black text-[#5eead4]">{completedWorkoutsCount}/{profile.weeklyWorkoutGoal}</span>
             </div>
           </div>
         </div>
       </section>
 
       {canInstall && !isInstalled && !isNative && (
-        <Card className="border-indigo-500/20 bg-indigo-500/5">
+        <Card className="border-[#c6ff00]/20 bg-[#c6ff00]/6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-sm font-black text-slate-100 tracking-tight">Install AuraFitness</h2>
-              <p className="text-xs font-semibold text-slate-400 mt-1">
+              <h2 className="text-sm font-black text-stone-100 tracking-tight">Install AuraFitness</h2>
+              <p className="text-xs font-semibold text-stone-400 mt-1">
                 Install AuraFitness for a better mobile experience.
               </p>
             </div>
@@ -248,22 +255,23 @@ export default function Dashboard() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="border-indigo-500/20 bg-indigo-500/5">
+        <Card className="relative overflow-hidden border-[#c6ff00]/18 bg-[#c6ff00]/6">
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-[#c6ff00]/8 to-transparent" />
           <div className="flex items-start justify-between gap-4">
             <div>
               <Badge variant={isWorkoutDay ? 'success' : 'neutral'} className="mb-3">
-                Today Plan
+                Today plan
               </Badge>
-              <h2 className="text-xl font-black text-slate-100 tracking-tight">
+              <h2 className="text-xl font-black text-stone-100 tracking-tight">
                 {todayRoutine?.focus ?? 'Plan your first routine'}
               </h2>
-              <p className="text-sm text-slate-400 font-semibold mt-2">
+              <p className="text-sm text-stone-400 font-semibold mt-2">
                 {todayRoutine
                   ? `${todayRoutine.exercises.length} exercises planned for ${todayName}.`
                   : 'Create a weekly split to unlock session tracking.'}
               </p>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-slate-950/70 border border-slate-800 flex items-center justify-center text-indigo-300 shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-black/35 border border-white/10 flex items-center justify-center text-[#d9ff55] shrink-0">
               <Dumbbell className="w-6 h-6" />
             </div>
           </div>
@@ -276,15 +284,15 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        <Card className="border-emerald-500/15 bg-slate-900/45">
+        <Card className="border-[#14b8a6]/18 bg-[#14b8a6]/6">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-300 shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-[#14b8a6]/10 border border-[#14b8a6]/20 flex items-center justify-center text-[#5eead4] shrink-0">
               <NextActionIcon className="w-6 h-6" />
             </div>
             <div className="min-w-0">
               <Badge variant="info" className="mb-3">Next best action</Badge>
-              <h2 className="text-xl font-black text-slate-100 tracking-tight">{nextBestAction.title}</h2>
-              <p className="text-sm text-slate-400 font-semibold mt-2">{nextBestAction.helper}</p>
+              <h2 className="text-xl font-black text-stone-100 tracking-tight">{nextBestAction.title}</h2>
+              <p className="text-sm text-stone-400 font-semibold mt-2">{nextBestAction.helper}</p>
             </div>
           </div>
           <div className="mt-5">
@@ -312,7 +320,7 @@ export default function Dashboard() {
       </div>
 
       {/* 4 Tracker Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
         {/* Hydration Tracker */}
         <TrackerCard
@@ -403,20 +411,20 @@ export default function Dashboard() {
               <ProgressRing value={calorieLog.calories} max={calorieLog.goalCalories} label="calories" size={100} />
             </div>
 
-            <div className="border-t border-slate-800/80 pt-4 mt-2 space-y-2">
+            <div className="border-t border-white/8 pt-4 mt-2 space-y-2">
               <div className="flex justify-between items-center text-xs">
                 <div className="flex items-center gap-1.5">
-                  <Dumbbell className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="text-slate-400 font-semibold">Workouts This Week</span>
+                  <Dumbbell className="w-3.5 h-3.5 text-stone-500" />
+                  <span className="text-stone-400 font-semibold">Workouts This Week</span>
                 </div>
-                <span className="text-slate-200 font-bold">{completedWorkoutsCount} / {profile.weeklyWorkoutGoal}</span>
+                <span className="text-stone-200 font-bold">{completedWorkoutsCount} / {profile.weeklyWorkoutGoal}</span>
               </div>
               <div className="flex justify-between items-center text-xs">
                 <div className="flex items-center gap-1.5">
-                  <Heart className="w-3.5 h-3.5 text-rose-500" />
-                  <span className="text-slate-400 font-semibold">Today's Fasting Progress</span>
+                  <Heart className="w-3.5 h-3.5 text-[#ff4d6d]" />
+                  <span className="text-stone-400 font-semibold">Today's Fasting Progress</span>
                 </div>
-                <span className="text-slate-200 font-bold">{fastingLog.fastingHours} / {fastingLog.goalHours} hrs</span>
+                <span className="text-stone-200 font-bold">{fastingLog.fastingHours} / {fastingLog.goalHours} hrs</span>
               </div>
             </div>
           </Card>
@@ -432,8 +440,8 @@ export default function Dashboard() {
 
       {/* Active Streak Grid */}
       <div className="space-y-4">
-        <h3 className="text-lg font-bold text-slate-100 tracking-tight">Active Habit Streaks</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <h3 className="text-lg font-bold text-stone-100 tracking-tight">Active habit streaks</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {streaks.map((str) => (
             <StreakCard key={str.kind} metric={str} />
           ))}

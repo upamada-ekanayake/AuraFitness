@@ -6,7 +6,7 @@ export default function MobileBottomNav() {
   const location = useLocation();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/80 flex justify-around items-center h-[calc(72px+env(safe-area-inset-bottom))] pb-[calc(env(safe-area-inset-bottom)+0.25rem)] px-3 z-50 shadow-2xl shadow-black/40">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0b0c09]/92 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-[calc(74px+env(safe-area-inset-bottom))] pb-[calc(env(safe-area-inset-bottom)+0.25rem)] px-3 z-50 shadow-2xl shadow-black/45">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.path;
@@ -17,8 +17,8 @@ export default function MobileBottomNav() {
             className={cn(
               'flex flex-col items-center justify-center w-13 h-13 rounded-2xl transition-all duration-200 active:scale-95',
               isActive
-                ? 'bg-indigo-500/12 text-indigo-300 font-semibold border border-indigo-500/20 shadow-lg shadow-indigo-950/30'
-                : 'text-slate-500 border border-transparent'
+                ? 'bg-[#c6ff00]/12 text-[#d9ff55] font-semibold border border-[#c6ff00]/25 shadow-lg shadow-[#c6ff00]/10'
+                : 'text-stone-500 border border-transparent'
             )}
             aria-label={item.label}
           >

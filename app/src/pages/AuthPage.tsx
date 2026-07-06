@@ -28,22 +28,26 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 overflow-hidden relative">
-      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
+    <div className="min-h-screen bg-[#080907] text-stone-100 overflow-hidden relative">
+      <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ff6b35]/15 blur-3xl pointer-events-none" />
+      <div className="absolute -left-24 bottom-8 h-72 w-72 rounded-full bg-[#14b8a6]/10 blur-3xl pointer-events-none" />
       <main className="relative z-10 min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-8 max-w-6xl mx-auto px-5 py-8 pt-[calc(2rem+env(safe-area-inset-top))] lg:py-14 items-center">
         <section className="max-w-2xl">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black shadow-lg shadow-indigo-500/20">
+            <div className="w-12 h-12 rounded-2xl bg-[#c6ff00] flex items-center justify-center text-[#11130b] font-black shadow-lg shadow-[#c6ff00]/15">
               A
             </div>
             <div>
               <h1 className="text-3xl md:text-5xl font-black tracking-tight">AuraFitness</h1>
-              <p className="text-xs text-indigo-300 font-bold uppercase tracking-wider mt-1">Native-ready fitness tracker</p>
+              <p className="text-xs text-[#ffb000] font-bold uppercase tracking-wider mt-1">Native-ready training log</p>
             </div>
           </div>
 
-          <p className="text-lg md:text-xl text-slate-300 font-semibold leading-relaxed mt-7">
-            Track routines, workouts, hydration, calories, fasting, and progress from one focused mobile workspace.
+          <p className="text-4xl md:text-6xl text-stone-100 font-black leading-[0.95] tracking-tight mt-8">
+            Every rep, meal, sip, and streak in one calm place.
+          </p>
+          <p className="text-base md:text-lg text-stone-400 font-semibold leading-relaxed mt-5 max-w-xl">
+            Track routines, workouts, hydration, calories, fasting, and progress without turning your phone into a spreadsheet.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
@@ -51,9 +55,9 @@ export default function AuthPage() {
               const Icon = item.icon;
 
               return (
-                <div key={item.label} className="rounded-2xl border border-slate-800 bg-slate-900/30 p-4 flex items-center gap-3">
-                  <Icon className="w-5 h-5 text-indigo-400" />
-                  <span className="text-sm font-bold text-slate-200">{item.label}</span>
+                <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center gap-3">
+                  <Icon className="w-5 h-5 text-[#d9ff55]" />
+                  <span className="text-sm font-bold text-stone-200">{item.label}</span>
                 </div>
               );
             })}
