@@ -1,6 +1,17 @@
 -- AuraFitness Supabase Migration Schema
 -- Generated: 2026-07-07
 
+-- Clean Reset Option: Drop all existing tables first
+drop table if exists public.user_app_data cascade;
+drop table if exists public.ai_insights cascade;
+drop table if exists public.calorie_entries cascade;
+drop table if exists public.water_logs cascade;
+drop table if exists public.workout_sets cascade;
+drop table if exists public.workout_sessions cascade;
+drop table if exists public.routine_exercises cascade;
+drop table if exists public.routines cascade;
+drop table if exists public.profiles cascade;
+
 -- Create Profiles Table
 create table if not exists public.profiles (
   user_id uuid primary key references auth.users(id) on delete cascade,
