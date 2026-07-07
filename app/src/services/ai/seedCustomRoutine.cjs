@@ -280,7 +280,7 @@ async function seed() {
       bodyWeightLogs: [{ date: new Date().toISOString().split('T')[0], weightKg: 95.0 }],
       fastingLogs: [],
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: '2099-01-01T00:00:00.000Z'
     };
 
     const { error: appDataError } = await supabase
@@ -288,7 +288,7 @@ async function seed() {
       .upsert({
         user_id: userId,
         data: appData,
-        updated_at: new Date().toISOString()
+        updated_at: '2099-01-01T00:00:00.000Z'
       }, { onConflict: 'user_id' });
 
     if (appDataError) throw appDataError;
